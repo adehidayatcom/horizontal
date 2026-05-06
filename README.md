@@ -32,10 +32,10 @@ Yang masih berupa target baseline repo:
 Mulai dari dokumen ini:
 
 - index docs: [docs/README.md](docs/README.md)
-- arah produk: [docs/prd.md](docs/prd.md)
-- keputusan penting: [docs/support/decision_log.md](docs/support/decision_log.md)
-- pertanyaan terbuka: [docs/support/open_questions_register.md](docs/support/open_questions_register.md)
-- peta sistem: [docs/support/system_maps.md](docs/support/system_maps.md)
+- arah produk: [docs/product/prd.md](docs/product/prd.md)
+- keputusan penting: [docs/truth/01-decision_log.md](docs/truth/01-decision_log.md)
+- pertanyaan terbuka: [docs/truth/03-open_questions_register.md](docs/truth/03-open_questions_register.md)
+- peta sistem: [docs/truth/system_maps.md](docs/truth/system_maps.md)
 
 ## Setup Dasar
 
@@ -61,14 +61,14 @@ pnpm run build
 
 Catatan:
 
-- setup Supabase lokal/cloud dijelaskan di [docs/setup_development_environment.md](/D:/WEBAPP/horizontal/docs/setup_development_environment.md:1)
-- standar environment dijelaskan di [docs/environment.md](/D:/WEBAPP/horizontal/docs/environment.md:1)
-- strategi testing dijelaskan di [docs/testing_strategy.md](/D:/WEBAPP/horizontal/docs/testing_strategy.md:1)
+- setup Supabase lokal/cloud dijelaskan di [docs/setup/setup_development_environment.md](/D:/WEBAPP/horizontal/docs/setup/setup_development_environment.md:1)
+- standar environment dijelaskan di [docs/setup/environment.md](/D:/WEBAPP/horizontal/docs/setup/environment.md:1)
+- strategi testing dijelaskan di [docs/quality/testing_strategy.md](/D:/WEBAPP/horizontal/docs/quality/testing_strategy.md:1)
 
 ## Struktur Dokumen yang Penting
 
-- product truth dan domain: `docs/prd.md`, `docs/business_contracts.md`, `docs/schema_mapping.md`, `docs/query_contracts.md`
-- build contract: `docs/frontend_architecture.md`, `docs/execution/backend_plan.md`, `docs/integration_contract_pack.md`
+- product truth dan domain: `docs/product/prd.md`, `docs/contracts/business_contracts.md`, `docs/contracts/schema_mapping.md`, `docs/contracts/query_contracts.md`
+- build contract: `docs/frontend/frontend_architecture.md`, `docs/execution/backend_plan.md`, `docs/contracts/integration_contract_pack.md`
 - blueprint modul: `docs/modules/*.md`
 
 ## Catatan Repo

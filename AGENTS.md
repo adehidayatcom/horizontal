@@ -17,12 +17,12 @@ Instruksi teknis boleh memakai istilah Inggris jika istilah tersebut lebih umum 
 Jangan mulai coding sebelum audit dokumentasi selesai.
 
 ## Hierarki sumber kebenaran
-1. `docs/truth/01-decision-log.md`
-2. `docs/truth/02-canonical-system-brief.md`
+1. `docs/truth/01-decision_log.md`
+2. `docs/truth/02-canonical_system_brief.md`
 3. `docs/product/prd.md`
-4. `docs/product/data-flow.md`
-5. `docs/contracts/schema-mapping.md`
-6. `docs/contracts/business-contracts.md`
+4. `docs/product/data_flow.md`
+5. `docs/contracts/schema_mapping.md`
+6. `docs/contracts/business_contracts.md`
 7. Dokumen modul terkait di `docs/modules/`
 
 ## Jika ada konflik
