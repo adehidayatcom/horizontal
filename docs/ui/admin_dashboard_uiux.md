@@ -31,7 +31,7 @@ Dashboard bersifat read-only. Aksi cepat hanya membawa admin ke halaman transaks
 
 1. Desktop-first untuk admin pusat.
 2. Padat tetapi tetap mudah discan.
-3. Semua angka berasal dari view/RPC di `docs/query_contracts.md`.
+3. Semua angka berasal dari view/RPC di `docs/contracts/query_contracts.md`.
 4. Tidak ada kalkulasi bisnis kompleks di frontend.
 5. Semua data wajib berada dalam scope `periode_id`.
 6. Dashboard tidak memakai kartu dekoratif yang tidak membawa keputusan operasional.
@@ -240,15 +240,52 @@ Sort default:
 2. `saldo_belum_disetor DESC`
 3. `nama_reseller ASC`
 
+Tampilan:
+
+- Gunakan card horizontal berisi icon, label, angka, dan tombol teks pendek.
+- Warna hanya sebagai sinyal: amber untuk perlu perhatian, rose untuk blocker, emerald untuk aman.
+- Jika semua aman, tampilkan state ringkas: `Operasional periode ini terkendali`.
+
+---
+
+## 9. Progres Setoran Reseller
+
+Section ini menjawab pertanyaan: uang sudah sampai mana?
+
+Komponen:
+
+- Progress bar total: `total_disetor_pusat / total_nilai_paket`.
+- Sub progress: `total_dikumpulkan / total_nilai_paket`.
+- Tabel top reseller yang perlu ditindaklanjuti.
+
+Kolom tabel:
+
+| Kolom | Sumber |
+|---|---|
+| Reseller | `nama_reseller`, `no_reseller` |
+| Konsumen | `jumlah_konsumen` |
+| Nilai Paket | `nilai_akhir_paket` |
+| Dikumpulkan | `total_dikumpulkan` |
+| Disetor | `total_disetor_pusat` |
+| Belum Disetor | `saldo_belum_disetor` |
+| Sisa Pusat | `sisa_setor_pusat` |
+| Status | `status_lunas_reseller` |
+
+Sort default:
+
+1. `sisa_setor_pusat DESC`
+2. `saldo_belum_disetor DESC`
+3. `nama_reseller ASC`
+
 Klik baris membuka detail reseller.
 
 ---
 
 ## 10. Gudang dan Pengiriman
 
-Section ini dibagi 2 panel.
+Di Dashboard, section ini dibagi 2 panel ringkasan. Namun ketika diklik, halaman detail operasional Gudang wajib menggunakan **Kanban Board** (papan *drag-and-drop*).
 
-### Panel Stok Barang
+### Panel Stok Barang (Dashboard)
 
 Sumber: `v_stok_barang`.
 
@@ -262,7 +299,7 @@ Kolom ringkas:
 
 Tampilkan maksimal 5 barang paling kritis berdasarkan `harus_belanja DESC`.
 
-### Panel Paket Jadi
+### Panel Paket Jadi (Dashboard)
 
 Sumber: `v_stok_paket_jadi`.
 
@@ -275,6 +312,12 @@ Kolom ringkas:
 - Harus packing
 
 Tampilkan maksimal 5 paket dengan `harus_packing > 0`.
+
+### Tampilan Detail Gudang & Logistik (Halaman Penuh)
+
+Menggunakan komponen `KanbanBoard` bergaya Trello.
+- **Kolom Kanban**: `Belum Di-packing` -> `Sedang Di-packing` -> `Siap Bagikan` -> `Selesai`
+- Admin gudang bisa memindahkan status paket/pesanan cukup dengan menarik kartu (Drag-and-Drop).
 
 ---
 
@@ -333,6 +376,17 @@ Catatan:
 
 - Jangan render semua 200 reseller sekaligus jika query sudah mendukung pagination.
 - Tabel ini tidak menghitung formula sendiri.
+
+---
+
+## 12A. Approval Reseller (Split-Pane Review)
+
+Jika ada reseller dengan status `PENDING`, UI approval tidak boleh menggunakan tabel konvensional yang memaksa admin bolak-balik halaman.
+
+Menggunakan komponen `SplitPaneReview`:
+- **Panel Kiri**: Daftar list reseller pending.
+- **Panel Kanan**: Detail form, foto KTP, dan tombol besar `Approve` / `Reject`.
+- Begitu admin klik `Approve`, state mengadopsi *optimistic update* dan seleksi di panel kiri langsung lompat ke antrean berikutnya.
 
 ---
 
@@ -567,12 +621,12 @@ Dashboard Admin dianggap siap direview jika:
 
 Sebelum membuat halaman Dashboard Admin, AI Coder wajib membaca:
 
-- `docs/prd.md`
+- `docs/product/prd.md`
 - `docs/implementation_guardrails.md`
 - `docs/frontend_architecture.md`
 - `docs/frontend_component_contracts.md`
-- `docs/query_contracts.md`
-- `docs/schema_mapping.md`
+- `docs/contracts/query_contracts.md`
+- `docs/contracts/schema_mapping.md`
 - `docs/ui/admin_dashboard_uiux.md`
 
 Dashboard boleh dibangun setelah query `get_dashboard_admin` dan view pendukung tersedia. Jika view pendukung belum siap, tampilkan state kosong yang jujur, bukan data dummy yang terlihat seperti data produksi.

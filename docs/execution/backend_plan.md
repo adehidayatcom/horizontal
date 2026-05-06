@@ -18,7 +18,7 @@ Dokumen ini tidak menjadi tempat untuk detail UI.
 
 Kontrak lintas layer yang wajib dijaga selama implementasi plan ini:
 
-- `docs/integration_contract_pack.md`
+- `docs/contracts/integration_contract_pack.md`
 
 ---
 
@@ -203,7 +203,7 @@ src/
 | `002_rls_policies.sql` | Mengaktifkan dan mengatur RLS |
 | `003_seed_reference_data.sql` | Seed reference data minimum |
 | `004_views_ringkasan.sql` | Membuat read model/view inti |
-| `005_functions_periode.sql` | Boundary periode |
+| `005_functions_periode.sql` | Boundary periode (termasuk RPC `clone_paket_periode_lalu` & `mass_replace_item_paket`) |
 | `006_functions_reseller.sql` | Boundary reseller |
 | `007_functions_pesanan.sql` | Boundary pesanan dan detail pesanan |
 | `008_functions_setoran.sql` | Boundary setoran |
@@ -217,8 +217,8 @@ src/
 | File | Fungsi |
 |---|---|
 | `auth.service.ts` | Wrapper auth session, profile, dan approval state |
-| `master-periodik.service.ts` | Wrapper master lintas periode dan per-periode |
-| `periode.service.ts` | Wrapper logic periode |
+| `master-periodik.service.ts` | Wrapper master lintas periode dan per-periode (termasuk `massReplacePaketItem`) |
+| `periode.service.ts` | Wrapper logic periode (termasuk `clonePaketPeriodeLalu`) |
 | `reseller.service.ts` | Wrapper logic reseller |
 | `pesanan.service.ts` | Wrapper logic header pesanan konsumen |
 | `detail-pesanan.service.ts` | Wrapper logic detail item pesanan |
@@ -277,6 +277,8 @@ src/
 | `admin/master/barang-periode/route.ts` | Endpoint admin barang per periode |
 | `admin/master/komisi/route.ts` | Endpoint admin komisi periodik |
 | `admin/master/paket/route.ts` | Endpoint admin paket dan BOM |
+| `admin/master/paket/clone/route.ts` | Endpoint kloning masal paket dari periode lalu |
+| `admin/master/paket/mass-replace/route.ts` | Endpoint mass replace komponen paket |
 | `admin/reseller-periode/route.ts` | Endpoint admin assignment reseller periode |
 | `admin/pesanan/route.ts` | Endpoint admin pesanan |
 | `admin/setoran/route.ts` | Endpoint admin setoran |
@@ -446,6 +448,8 @@ Contoh endpoint:
 POST /api/admin/periode
 PATCH /api/admin/periode
 GET /api/admin/periode
+POST /api/admin/master/paket/clone
+POST /api/admin/master/paket/mass-replace
 
 GET /api/admin/pesanan
 POST /api/admin/gudang
@@ -569,7 +573,7 @@ Setoran Konsumen
 3. Definisikan tabel transaksi.
 4. Tambahkan FK dan constraint.
 5. Tambahkan index minimum.
-**Dependency:** `docs/schema_mapping.md`  
+**Dependency:** `docs/contracts/schema_mapping.md`  
 **Output yang diharapkan:** schema inti siap di-migrate  
 **Acceptance criteria:**
 - migration dapat dibaca dan ditelusuri jelas
@@ -588,7 +592,7 @@ Setoran Konsumen
 2. Buat policy admin.
 3. Buat policy reseller.
 4. Pastikan access scope reseller aman.
-**Dependency:** schema inti + `docs/rls_matrix.md`  
+**Dependency:** schema inti + `docs/contracts/rls_matrix.md`  
 **Output yang diharapkan:** policy siap ditinjau  
 **Acceptance criteria:**
 - policy ada untuk tabel penting
@@ -881,7 +885,7 @@ Setoran Konsumen
 1. Buat file skeleton untuk `period-check` dan `watchlist-refresh`.
 2. Buat sebagai abstraction/placeholder saja tanpa mengimplementasikan full cron scheduler, karena keputusan fase awal sudah mengunci watchlist dan summary dihitung on-demand.
 3. Hubungkan logika abstraction ke service layer yang relevan jika nanti dipanggil.
-**Dependency:** service layer stabil, `DL-019` di `docs/support/decision_log.md`  
+**Dependency:** service layer stabil, `DL-019` di `docs/truth/01-decision_log.md`  
 **Output yang diharapkan:** Abstraction jalur ekstensi proses terjadwal tersedia tanpa over-engineering scheduler di wave pertama.  
 **Acceptance criteria:**
 - background concerns tidak bercampur dengan route

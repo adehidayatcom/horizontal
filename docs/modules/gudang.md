@@ -10,18 +10,18 @@ Dokumen ini memecah implementasi modul gudang ke dua area yang terkoordinasi:
 
 Dokumen ini mengacu pada:
 
-- `docs/prd.md`
-- `docs/product_truth_audit.md`
-- `docs/data_flow.md`
-- `docs/business_contracts.md`
-- `docs/schema_mapping.md`
-- `docs/query_contracts.md`
-- `docs/edge_cases.md`
-- `docs/support/system_maps.md`
+- `docs/product/prd.md`
+- `docs/audit/product_truth_audit.md`
+- `docs/product/data_flow.md`
+- `docs/contracts/business_contracts.md`
+- `docs/contracts/schema_mapping.md`
+- `docs/contracts/query_contracts.md`
+- `docs/product/edge_cases.md`
+- `docs/truth/system_maps.md`
 - `docs/execution/task_kit_standard.md`
 - `docs/modules/program_order.md`
 - `docs/modules/setoran.md`
-- `docs/integration_contract_pack.md`
+- `docs/contracts/integration_contract_pack.md`
 - `docs/execution/frontend_plan.md`
 - `docs/execution/backend_plan.md`
 - `docs/ui/admin_dashboard_uiux.md`
@@ -977,5 +977,5 @@ return summary batch terbaru
 
 ## Catatan Keputusan Terkunci
 
-- status `SELESAI` pada pembagian tetap aksi manual admin sesuai `BQ-004` / `docs/support/decision_log.md`
+- status `SELESAI` pada pembagian tetap aksi manual admin sesuai `BQ-004` / `docs/truth/01-decision_log.md`
 - pengiriman massal per reseller tetap ditunda; first slice memakai alur satu per satu

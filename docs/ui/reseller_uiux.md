@@ -146,41 +146,42 @@ Aturan:
 +--------------------------------+
 ```
 
-### Form Setoran
+### Form Setoran (Ledger Payment Grid)
 
 ```txt
 +--------------------------------+
-| < Ani                           |
-| Target Rp 1.000.000             |
-| Dibayar Rp 700.000              |
-| Sisa Rp 300.000                 |
+| Catat Setoran Hari Ini          |
+|--------------------------------|
+| Ani     (Sisa: Rp 300k)        |
+| Rp [   50.000 ]                |
+|--------------------------------|
+| Budi    (Sisa: Rp 100k)        |
+| Rp [          ]                |
+|--------------------------------|
+| Citra   (Sisa: Rp 500k)        |
+| Rp [  100.000 ]                |
 +--------------------------------+
-| Nominal                         |
-| Rp [                         ]  |
-| [10.000] [20.000] [50.000]     |
-| Metode: [Cash v]                |
-| Tanggal: Hari ini               |
-| Catatan opsional                |
-+--------------------------------+
-| [Simpan Setoran]                |
+| [Simpan 2 Setoran (Rp 150k)]    |
 +--------------------------------+
 ```
 
-### Setor Pusat
+### Setor Pusat (FinTech Wallet UI)
 
 ```txt
 +--------------------------------+
-| Setor ke Pusat                  |
-| Dikumpulkan Rp 5.000.000        |
-| Disetor Rp 3.000.000            |
-| Saldo belum disetor Rp 2.000.000|
+| UANG DI TANGAN ANDA            |
+| Rp 2.000.000                   |
+| [||||||||||||||||      ] 80%   |
+| (Batas aman: Rp 2.500.000)     |
 +--------------------------------+
-| Nominal                         |
-| Akun Kas Tujuan                 |
-| Metode                          |
-| Tanggal                         |
+| Mau setor berapa?              |
+| [Semua] [500rb] [1 Juta]       |
+| Rp [ 2.000.000               ] |
+|--------------------------------|
+| Ke rekening: [ BCA Pusat v]    |
+| Upload Bukti: [ + Foto ]       |
 +--------------------------------+
-| [Simpan Setor Pusat]            |
+| [Kirim Setoran]                 |
 +--------------------------------+
 ```
 
@@ -266,28 +267,21 @@ Aturan:
 - Jika data lokal tersedia, boleh tampilkan hasil cache dulu lalu refetch.
 - Empty state: `Konsumen tidak ditemukan`.
 
-### Form Setoran
+### Form Setoran (Ledger Payment Grid)
 
-Field:
+Menggunakan komponen `LedgerPaymentGrid`. Reseller menagih layaknya mengisi spreadsheet di mobile.
 
-| Field | Aturan UI |
-|---|---|
-| Nominal | Wajib, format rupiah, autofocus |
-| Metode | Default `CASH`, opsi `CASH` / `TRANSFER` |
-| Tanggal | Default hari ini |
-| Keterangan | Opsional, tersembunyi di section lanjutan |
-
-Informasi wajib terlihat:
-
-- Target tagihan.
-- Total bayar saat ini.
-- Sisa bayar.
+Aturan UI:
+- Menampilkan daftar nama konsumen yang belum lunas sebagai baris tabel/list.
+- Sel input nominal langsung terbuka untuk setiap konsumen.
+- Reseller mengetik nominal, menekan `Enter` di keyboard HP, fokus berpindah ke baris di bawahnya secara mulus.
+- Jika ada 5 input yang terisi, *Floating Action Button* di bawah akan berkata: `Simpan 5 Setoran (Total Rp xxx.xxx)`.
+- Mengeliminasi form per-konsumen yang memakan waktu.
 
 Tombol simpan:
-
-- Sticky di bawah.
-- Disabled saat nominal kosong atau submit berjalan.
-- Saat loading teks menjadi `Menyimpan...`.
+- Sticky di bawah (Floating).
+- Disabled saat tidak ada sel nominal yang terisi.
+- Saat loading teks menjadi `Menyimpan 5 Data...`.
 
 Setelah sukses:
 
@@ -366,15 +360,16 @@ Pesanan bisa dibuat dari:
 - Tab Pesanan.
 - Quick action Beranda.
 
-Field utama:
+Menggunakan komponen `PosCartLayout` (*Point of Sale*).
+
+Field utama di area "Keranjang" (Kanan/Bottom Sheet):
 
 | Field | Aturan UI |
 |---|---|
 | Konsumen | Wajib, search konsumen |
-| Paket | Wajib, search paket aktif |
-| Qty | Wajib, default `1` |
-| Motif/Warna | Opsional |
-| Kelompok | Opsional |
+| Daftar Paket | Ditambahkan dengan sekali tap dari Katalog di sebelah kiri/atas |
+| Qty | Penyesuaian instan dengan tombol `+` / `-` tanpa modal |
+| Total Tagihan | Real-time kalkulasi sebelum submit |
 
 Daftar paket harus mudah dicari karena jumlah paket bisa 500+ per periode.
 
@@ -391,7 +386,7 @@ acuan target tagihan konsumen.
 
 Setelah pesanan sukses dibuat atau diperbarui:
 
-- Toast sesuai `docs/business_contracts.md`.
+- Toast sesuai `docs/contracts/business_contracts.md`.
 - Arahkan ke detail konsumen atau detail pesanan.
 
 Jika total target hasil perubahan lebih kecil dari setoran yang sudah masuk, tampilkan:
@@ -509,7 +504,7 @@ Aturan:
 - Pagination atau infinite scroll.
 - Tampilkan status sinkronisasi jika data dari cache.
 
-Jika kontrak query riwayat belum dibuat, AI Coder wajib menambahkannya ke `docs/query_contracts.md`
+Jika kontrak query riwayat belum dibuat, AI Coder wajib menambahkannya ke `docs/contracts/query_contracts.md`
 sebelum implementasi halaman riwayat.
 
 ---
@@ -693,8 +688,8 @@ Area Reseller dianggap siap direview jika:
 - UI membedakan pesanan `Belum Final` dan `Sudah Final`.
 - Setor pusat menampilkan total dikumpulkan, total disetor, saldo belum disetor, dan sisa setor
   pusat.
-- Semua submit transaksi memanggil RPC dari `docs/business_contracts.md`.
-- Semua ringkasan memakai view/RPC dari `docs/query_contracts.md`.
+- Semua submit transaksi memanggil RPC dari `docs/contracts/business_contracts.md`.
+- Semua ringkasan memakai view/RPC dari `docs/contracts/query_contracts.md`.
 - Error bisnis tampil dalam Bahasa Indonesia.
 - Beranda fase awal tidak bergantung pada unified history feed reseller.
 - Tidak ada browser alert.
@@ -709,14 +704,14 @@ Area Reseller dianggap siap direview jika:
 
 Sebelum membuat area Reseller, AI Coder wajib membaca:
 
-- `docs/prd.md`
+- `docs/product/prd.md`
 - `docs/implementation_guardrails.md`
 - `docs/frontend_architecture.md`
 - `docs/frontend_component_contracts.md`
-- `docs/business_contracts.md`
-- `docs/query_contracts.md`
-- `docs/schema_mapping.md`
+- `docs/contracts/business_contracts.md`
+- `docs/contracts/query_contracts.md`
+- `docs/contracts/schema_mapping.md`
 - `docs/ui/reseller_uiux.md`
 
 Jika kebutuhan UI menemukan query yang belum ada, AI Coder wajib memperbarui
-`docs/query_contracts.md` terlebih dahulu sebelum implementasi.
+`docs/contracts/query_contracts.md` terlebih dahulu sebelum implementasi.

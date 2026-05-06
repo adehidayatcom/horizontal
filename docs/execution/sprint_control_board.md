@@ -35,7 +35,7 @@ Codex buat task packet
 | Orchestrator | Codex |
 | Builder default | Gemini |
 | Auditor modul kritis | Claude |
-| Source of truth | `docs/prd.md`, `docs/business_contracts.md`, `docs/schema_mapping.md`, `docs/query_contracts.md`, `docs/support/decision_log.md` |
+| Source of truth | `docs/product/prd.md`, `docs/contracts/business_contracts.md`, `docs/contracts/schema_mapping.md`, `docs/contracts/query_contracts.md`, `docs/truth/01-decision_log.md` |
 | Larangan utama | dua agen menulis file yang sama dalam packet aktif |
 | Jalur keputusan merge | hanya Codex |
 | Audit wajib | hanya pada modul kritis atau packet yang ditandai `AUDIT_REQUIRED` |
@@ -85,7 +85,7 @@ Codex buat task packet
 |---|---|---|---|
 | Codex | control tower, prompter, integrator | task packet, review, merge decision, cross-doc consistency, final integration | jangan membiarkan dua agen overlap file |
 | Gemini | builder utama | frontend screens, hooks, dummy layer, route/service scaffolding, repetitive implementation | jangan menebak contract atau memperluas scope |
-| Claude | auditor modul kritis | SQL/RLS/business rule audit, edge case review, refactor risky logic, final correctness check | jangan dipakai untuk bulk scaffolding |
+| Claude | auditor modul kritis | SQL/RLS/business rule audit, edge case review, refactor risky logic, final correctness check | jangan dipakai untuk bulk scaffolding (kecuali ditunjuk khusus sebagai Builder komponen UI kompleks tinggi seperti Spreadsheet DataGrid, Kloning, POS Cart, Ledger Grid, FinTech UI, Split-Pane, dan Kanban) |
 
 ---
 
@@ -95,6 +95,7 @@ Codex buat task packet
 |---|---|---|---|---|---|---|
 | `S0` | Foundation Lock | kunci docs, task packet, workflow agen, branch discipline | Codex | - | `PLANNED` | semua aturan eksekusi terkunci |
 | `S1` | Frontend Shell Foundation | shell admin/reseller, shared UI, context mock, dummy API skeleton | Gemini | Codex review only | `PLANNED` | shell dan shared layer stabil |
+| `S1.5` | Periode & Katalog Paket | setup periode, wizard kloning, master paket (Spreadsheet Mode) | Claude / Gemini | Codex / Claude | `PLANNED` | kloning dan data grid ratusan paket berjalan |
 | `S2` | Pesanan Core | `konsumen`, `pesanan_konsumen`, `detail_pesanan_konsumen`, finalisasi pesanan | Gemini | Claude | `PLANNED` | flow pesanan valid end-to-end |
 | `S3` | Setoran Core | `setoran_konsumen`, `setoran`, monitoring setoran | Gemini | Claude | `PLANNED` | status lunas dan saldo konsisten |
 | `S4` | Gudang | belanja, packing, pengiriman, pembagian | Gemini | Claude | `PLANNED` | flow gudang valid dan dapat diaudit |
@@ -124,6 +125,14 @@ Codex buat task packet
 | `S1-T03` | Shared UI primitives | badge, state, header, input rupiah | Gemini | Codex | `src/app/components/shared/**` | shared UI reusable |
 | `S1-T04` | Mock contexts | auth, period, UI, mock API context | Gemini | Codex | `src/app/context/**` | context mock siap |
 | `S1-T05` | Dummy API skeleton | fetcher, handlers, endpoints | Gemini | Codex | `src/lib/dummy-api/**` | placeholder API konsisten |
+
+### `S1.5` Periode & Katalog Paket
+
+| Packet ID | Nama | Scope | Builder | Audit | Write Scope | Exit Criteria |
+|---|---|---|---|---|---|---|
+| `S1.5-T01` | Periode Backend & Mock | API, RPC kloning, mock list periode | Gemini | Claude | `src/app/api/admin/periode/**`, `src/lib/server/**` | RPC kloning masal siap dipanggil UI |
+| `S1.5-T02` | Wizard Setup Periode | UI create & wizard kloning periode | Gemini | Claude | `src/app/(DashboardLayout)/admin/periode/**` | flow wizard kloning paket bisa didemokan |
+| `S1.5-T03` | Katalog Paket (Spreadsheet) | UI data grid massal, mass replace, tree-view | Claude | Codex | `src/app/(DashboardLayout)/admin/master/paket/**` | inline-editing ratusan baris stabil tanpa lag |
 
 ### `S2` Pesanan Core
 
@@ -206,7 +215,8 @@ Jika sprint aktif pindah, blok ini wajib diperbarui.
 |---|---|---|---|---|---|---|---|
 | `S0` | Foundation Lock | `DONE` | - | Codex | - | source of truth, board sprint, prompt template, dan guardrail eksekusi sudah terkunci | siapkan packet `S1-T01` |
 | `S1` | Frontend Shell Foundation | `PLANNED` | - | Gemini | Codex | belum mulai | bekukan packet `S1-T01` lalu buka thread eksekusi |
-| `S2` | Pesanan Core | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S1 selesai |
+| `S1.5` | Periode & Katalog Paket | `PLANNED` | - | Claude / Gemini | Codex / Claude | belum mulai | tunggu S1 selesai |
+| `S2` | Pesanan Core | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S1.5 stabil |
 | `S3` | Setoran Core | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S2 stabil |
 | `S4` | Gudang | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S3 stabil |
 | `S5` | Keuangan | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S4 dependency siap |
@@ -280,10 +290,10 @@ NEXT ACTION  : <stage | commit | hold>
 | Sprint | Dokumen Minimum |
 |---|---|
 | `S1` | `docs/frontend_architecture.md`, `docs/frontend_component_contracts.md`, `docs/execution/frontend_plan.md` |
-| `S2` | `docs/prd.md`, `docs/program_workflow.md`, `docs/business_contracts.md`, `docs/schema_mapping.md`, `docs/query_contracts.md`, `docs/modules/program_order.md` |
-| `S3` | `docs/business_contracts.md`, `docs/query_contracts.md`, `docs/modules/setoran.md` |
-| `S4` | `docs/schema_mapping.md`, `docs/business_contracts.md`, `docs/modules/gudang.md` |
-| `S5` | `docs/schema_mapping.md`, `docs/business_contracts.md`, `docs/modules/keuangan.md` |
-| `S6` | `docs/query_contracts.md`, `docs/integration_read_model_matrix.md`, `docs/modules/dashboard_laporan.md` |
-| `S7` | semua dokumen modul aktif + `docs/support/decision_log.md` |
+| `S2` | `docs/product/prd.md`, `docs/product/program_workflow.md`, `docs/contracts/business_contracts.md`, `docs/contracts/schema_mapping.md`, `docs/contracts/query_contracts.md`, `docs/modules/program_order.md` |
+| `S3` | `docs/contracts/business_contracts.md`, `docs/contracts/query_contracts.md`, `docs/modules/setoran.md` |
+| `S4` | `docs/contracts/schema_mapping.md`, `docs/contracts/business_contracts.md`, `docs/modules/gudang.md` |
+| `S5` | `docs/contracts/schema_mapping.md`, `docs/contracts/business_contracts.md`, `docs/modules/keuangan.md` |
+| `S6` | `docs/contracts/query_contracts.md`, `docs/contracts/integration_read_model_matrix.md`, `docs/modules/dashboard_laporan.md` |
+| `S7` | semua dokumen modul aktif + `docs/truth/01-decision_log.md` |
 | `S8` | `docs/testing_strategy.md`, `docs/definition_of_done.md`, `docs/environment.md` |

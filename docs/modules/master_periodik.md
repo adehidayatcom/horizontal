@@ -10,13 +10,13 @@ Dokumen ini memecah implementasi area master data lintas dan per-periode ke dua 
 
 Dokumen ini mengacu pada:
 
-- `docs/prd.md`
-- `docs/schema_mapping.md`
-- `docs/business_contracts.md`
-- `docs/query_contracts.md`
-- `docs/period_workflow.md`
+- `docs/product/prd.md`
+- `docs/contracts/schema_mapping.md`
+- `docs/contracts/business_contracts.md`
+- `docs/contracts/query_contracts.md`
+- `docs/product/period_workflow.md`
 - `docs/navigation_and_period_setup_ui.md`
-- `docs/integration_contract_pack.md`
+- `docs/contracts/integration_contract_pack.md`
 - `docs/frontend_architecture.md`
 - `docs/execution/backend_plan.md`
 
@@ -463,5 +463,5 @@ Slice pertama modul ini:
 
 ## Catatan Keputusan Terkunci
 
-- warning perubahan akun kas saat periode `AKTIF` tetap diperlukan sesuai `BQ-007` / `docs/support/decision_log.md`
-- `barang_periode` tetap wajib memuat `budget_belanja` pada fase awal sesuai `BQ-008` / `docs/support/decision_log.md`
+- warning perubahan akun kas saat periode `AKTIF` tetap diperlukan sesuai `BQ-007` / `docs/truth/01-decision_log.md`
+- `barang_periode` tetap wajib memuat `budget_belanja` pada fase awal sesuai `BQ-008` / `docs/truth/01-decision_log.md`

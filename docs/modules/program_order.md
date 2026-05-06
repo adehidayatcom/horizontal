@@ -22,15 +22,15 @@ Dokumen ini memecah implementasi modul ke dua area yang terkoordinasi:
 
 Dokumen ini mengacu pada:
 
-- `docs/prd.md`
-- `docs/product_truth_audit.md`
-- `docs/program_workflow.md`
-- `docs/business_contracts.md`
-- `docs/schema_mapping.md`
-- `docs/query_contracts.md`
-- `docs/support/system_maps.md`
+- `docs/product/prd.md`
+- `docs/audit/product_truth_audit.md`
+- `docs/product/program_workflow.md`
+- `docs/contracts/business_contracts.md`
+- `docs/contracts/schema_mapping.md`
+- `docs/contracts/query_contracts.md`
+- `docs/truth/system_maps.md`
 - `docs/execution/task_kit_standard.md`
-- `docs/integration_contract_pack.md`
+- `docs/contracts/integration_contract_pack.md`
 - `docs/execution/frontend_plan.md`
 - `docs/execution/backend_plan.md`
 - `docs/ui/reseller_uiux.md`
@@ -410,7 +410,7 @@ Tanggung jawab:
 **Nama task:** Define Pesanan and Detail Types  
 **Tujuan:** Menetapkan type pesanan, summary pesanan, dan summary detail lintas layer.  
 **File yang dibuat/diubah:**  
-- `docs/integration_contract_pack.md`
+- `docs/contracts/integration_contract_pack.md`
 - `src/types/models.ts`
 - `src/types/api.ts`
 **Lokasi file:** docs + types  

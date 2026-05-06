@@ -10,12 +10,12 @@ Dokumen ini memecah implementasi modul dashboard dan laporan ke dua area yang te
 
 Dokumen ini mengacu pada:
 
-- `docs/prd.md`
-- `docs/product_truth_audit.md`
-- `docs/query_contracts.md`
-- `docs/integration_contract_pack.md`
-- `docs/integration_read_model_matrix.md`
-- `docs/support/system_maps.md`
+- `docs/product/prd.md`
+- `docs/audit/product_truth_audit.md`
+- `docs/contracts/query_contracts.md`
+- `docs/contracts/integration_contract_pack.md`
+- `docs/contracts/integration_read_model_matrix.md`
+- `docs/truth/system_maps.md`
 - `docs/execution/task_kit_standard.md`
 - `docs/modules/periode.md`
 - `docs/modules/reseller.md`

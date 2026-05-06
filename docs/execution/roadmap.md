@@ -7,7 +7,7 @@ Dokumen ini adalah panduan urutan kerja. Ia bukan kontrak produk atau arsitektur
 
 Untuk peta hubungan visual lintas dokumen dan modul, lihat:
 
-- `docs/support/system_maps.md`
+- `docs/truth/system_maps.md`
 - `docs/execution/sprint_control_board.md`
 - `docs/execution/agent_prompt_templates.md`
 
@@ -20,9 +20,9 @@ Untuk peta hubungan visual lintas dokumen dan modul, lihat:
 - jaga kontrak data tetap konsisten
 - prioritaskan alur operasional inti lebih dulu
 - hindari pekerjaan besar yang belum siap dependensinya
-- gunakan `docs/integration_contract_pack.md` sebagai pagar kontrak lintas layer
-- gunakan `docs/support/decision_log.md` untuk keputusan yang sudah dikunci
-- gunakan `docs/support/open_questions_register.md` untuk pertanyaan yang masih terbuka
+- gunakan `docs/contracts/integration_contract_pack.md` sebagai pagar kontrak lintas layer
+- gunakan `docs/truth/01-decision_log.md` untuk keputusan yang sudah dikunci
+- gunakan `docs/truth/03-open_questions_register.md` untuk pertanyaan yang masih terbuka
 - gunakan `docs/testing_strategy.md` untuk target verifikasi minimum
 - gunakan `docs/execution/sprint_control_board.md` sebagai papan kontrol sprint, packet, dan owner agen
 - gunakan `docs/execution/agent_prompt_templates.md` sebagai template prompt resmi untuk Gemini dan Claude

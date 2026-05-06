@@ -5,8 +5,8 @@ Dokumen ini adalah ringkasan cepat tentang kesiapan eksekusi proyek.
 
 Fungsinya sebagai snapshot pendukung, bukan sumber kebenaran utama. Untuk keputusan final, tetap utamakan:
 
-- `support/decision_log.md`
-- `support/open_questions_register.md`
+- `truth/01-decision_log.md`
+- `truth/03-open_questions_register.md`
 - `testing_strategy.md`
 - `execution/roadmap.md`
 
@@ -62,7 +62,7 @@ Pendekatan yang paling sehat:
 
 - pakai dokumen ini untuk orientasi cepat
 - jangan pakai dokumen ini untuk mengalahkan kontrak domain atau kontrak build
-- jika butuh keputusan yang mengikat, cek `support/decision_log.md`
+- jika butuh keputusan yang mengikat, cek `truth/01-decision_log.md`
 - jika butuh daftar risiko terbuka, cek `execution/risk_register.md`
 
 ---

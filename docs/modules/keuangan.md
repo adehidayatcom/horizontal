@@ -10,18 +10,18 @@ Dokumen ini memecah implementasi modul keuangan ke dua area yang terkoordinasi:
 
 Dokumen ini mengacu pada:
 
-- `docs/prd.md`
-- `docs/product_truth_audit.md`
-- `docs/data_flow.md`
-- `docs/business_contracts.md`
-- `docs/schema_mapping.md`
-- `docs/query_contracts.md`
-- `docs/edge_cases.md`
-- `docs/support/system_maps.md`
+- `docs/product/prd.md`
+- `docs/audit/product_truth_audit.md`
+- `docs/product/data_flow.md`
+- `docs/contracts/business_contracts.md`
+- `docs/contracts/schema_mapping.md`
+- `docs/contracts/query_contracts.md`
+- `docs/product/edge_cases.md`
+- `docs/truth/system_maps.md`
 - `docs/execution/task_kit_standard.md`
 - `docs/modules/setoran.md`
 - `docs/modules/gudang.md`
-- `docs/integration_contract_pack.md`
+- `docs/contracts/integration_contract_pack.md`
 - `docs/execution/frontend_plan.md`
 - `docs/execution/backend_plan.md`
 - `docs/ui/admin_dashboard_uiux.md`
@@ -781,5 +781,5 @@ return pencairan + saldo terbaru + sisa dana terbaru
 
 ## Catatan Keputusan Terkunci
 
-- pencairan `TABUNGAN` dan `KOMISI` tetap dipisah per jenis transaksi sesuai `BQ-005` / `docs/support/decision_log.md`
-- mutasi kas lintas periode dilarang sesuai `BQ-006` / `docs/support/decision_log.md`
+- pencairan `TABUNGAN` dan `KOMISI` tetap dipisah per jenis transaksi sesuai `BQ-005` / `docs/truth/01-decision_log.md`
+- mutasi kas lintas periode dilarang sesuai `BQ-006` / `docs/truth/01-decision_log.md`

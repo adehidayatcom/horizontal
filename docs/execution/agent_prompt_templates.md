@@ -9,7 +9,7 @@ Dokumen ini menjadi template prompt operasional tetap untuk:
 Dokumen ini harus dipakai bersama:
 
 - `docs/execution/sprint_control_board.md`
-- `docs/support/decision_log.md`
+- `docs/truth/01-decision_log.md`
 - source of truth modul yang relevan
 
 Dokumen ini tidak menetapkan scope baru. Dokumen ini hanya menstandarkan cara Codex mengirim packet ke agen lain.
@@ -100,8 +100,8 @@ DO NOT TOUCH:
 - <folder/file yang dilarang>
 
 READ SCOPE:
-- docs/prd.md
-- docs/support/decision_log.md
+- docs/product/prd.md
+- docs/truth/01-decision_log.md
 - docs/execution/sprint_control_board.md
 - <dokumen modul/contract yang relevan>
 
@@ -204,8 +204,8 @@ AUDIT SCOPE:
 - <file hasil implementasi 2>
 
 READ SCOPE:
-- docs/prd.md
-- docs/support/decision_log.md
+- docs/product/prd.md
+- docs/truth/01-decision_log.md
 - docs/execution/sprint_control_board.md
 - <dokumen modul/contract yang relevan>
 

@@ -10,10 +10,10 @@ Dokumen ini memecah implementasi autentikasi dan otorisasi ke dua area yang terk
 
 Dokumen ini mengacu pada:
 
-- `docs/prd.md`
-- `docs/schema_mapping.md`
-- `docs/rls_matrix.md`
-- `docs/integration_contract_pack.md`
+- `docs/product/prd.md`
+- `docs/contracts/schema_mapping.md`
+- `docs/contracts/rls_matrix.md`
+- `docs/contracts/integration_contract_pack.md`
 - `docs/frontend_architecture.md`
 - `docs/execution/backend_plan.md`
 - `docs/implementation_guardrails.md`
@@ -452,5 +452,5 @@ Slice ini cukup untuk membuka modul role-aware berikutnya tanpa menunggu semua p
 
 ## Catatan Keputusan Terkunci
 
-- registrasi reseller fase awal memakai dua jalur: form publik `self-register` ke status `PENDING`, dan create oleh admin sesuai `PQ-006` / `docs/support/decision_log.md`
+- registrasi reseller fase awal memakai dua jalur: form publik `self-register` ke status `PENDING`, dan create oleh admin sesuai `PQ-006` / `docs/truth/01-decision_log.md`
 - apakah admin dan reseller memakai halaman login yang sama

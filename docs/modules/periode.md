@@ -10,17 +10,17 @@ Dokumen ini memecah implementasi modul periode ke dua area yang terkoordinasi:
 
 Dokumen ini mengacu pada:
 
-- `docs/prd.md`
-- `docs/product_truth_audit.md`
-- `docs/business_contracts.md`
-- `docs/schema_mapping.md`
-- `docs/query_contracts.md`
-- `docs/support/system_maps.md`
+- `docs/product/prd.md`
+- `docs/audit/product_truth_audit.md`
+- `docs/contracts/business_contracts.md`
+- `docs/contracts/schema_mapping.md`
+- `docs/contracts/query_contracts.md`
+- `docs/truth/system_maps.md`
 - `docs/execution/task_kit_standard.md`
 - `docs/frontend_architecture.md`
 - `docs/frontend_component_contracts.md`
 - `docs/navigation_and_period_setup_ui.md`
-- `docs/integration_contract_pack.md`
+- `docs/contracts/integration_contract_pack.md`
 - `docs/execution/frontend_plan.md`
 - `docs/execution/backend_plan.md`
 
@@ -356,7 +356,7 @@ Functions:
 **Nama task:** Define Periode Types and Contracts  
 **Tujuan:** Menetapkan type dan contract modul periode untuk frontend dan backend.  
 **File yang dibuat/diubah:**  
-- `docs/integration_contract_pack.md`
+- `docs/contracts/integration_contract_pack.md`
 - `src/types/models.ts`
 - `src/types/api.ts`
 **Lokasi file:** docs + types  
