@@ -21,8 +21,7 @@ Untuk peta hubungan visual lintas dokumen dan modul, lihat:
 - prioritaskan alur operasional inti lebih dulu
 - hindari pekerjaan besar yang belum siap dependensinya
 - gunakan `docs/contracts/integration_contract_pack.md` sebagai pagar kontrak lintas layer
-- gunakan `docs/truth/01-decision_log.md` untuk keputusan yang sudah dikunci
-- gunakan `docs/truth/03-open_questions_register.md` untuk pertanyaan yang masih terbuka
+- gunakan `docs/truth/01-decision_log.md` untuk keputusan yang sudah dikunci maupun gap yang sedang dibahas
 - gunakan `docs/quality/testing_strategy.md` untuk target verifikasi minimum
 - gunakan `docs/execution/sprint_control_board.md` sebagai papan kontrol sprint, packet, dan owner agen
 - gunakan `docs/execution/agent_prompt_templates.md` sebagai template prompt resmi untuk Gemini dan Claude

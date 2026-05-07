@@ -20,7 +20,7 @@ Dokumen ini bukan kontrak arsitektur utama. Fungsinya adalah checklist operasion
 
 - [ ] frontend mengikuti `Next.js 16 App Router`
 - [ ] shell UI resmi adalah `Modernize`
-- [ ] `ui/modernize_shell_guide.md` menjadi acuan integrasi shell
+- [ ] integrasi shell mengikuti `frontend/frontend_architecture.md` dan `frontend/navigation_and_period_setup_ui.md`
 - [ ] UI library utama adalah `Material-UI v7 + Emotion`
 - [ ] data fetching frontend memakai `SWR`
 - [ ] form handling memakai `Formik + Yup`
@@ -77,7 +77,7 @@ Dokumen ini bukan kontrak arsitektur utama. Fungsinya adalah checklist operasion
 ## 8. Decision and Question Control
 
 - [ ] keputusan lintas-dokumen penting tercatat di `truth/01-decision_log.md`
-- [ ] pertanyaan terbuka utama tercatat di `truth/03-open_questions_register.md`
+- [ ] tidak ada gap penting yang hanya hidup di catatan sementara
 - [ ] modul yang belum diimplementasikan diberi status jelas
 
 ---
@@ -90,6 +90,6 @@ Ringkasan status saat checklist ini diperbarui:
 - Priority 1 document blockers sudah ditutup
 - Priority 2 document cleanup sudah ditutup
 - strategi testing sekarang sudah punya dokumen khusus
-- register keputusan dan pertanyaan terbuka sudah terpusat
+- keputusan penting sudah terpusat di `truth/01-decision_log.md`
 - final docs polish untuk Priority 1 dan Priority 2 sudah selesai: terminology konsisten, boundary frontend/backend jelas, artefak teks dibersihkan
 - bootstrap Supabase, generated types, dan script test masih belum tersedia di repo fisik saat ini (pekerjaan fase coding)

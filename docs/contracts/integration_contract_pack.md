@@ -603,6 +603,6 @@ const response: ApiResponse<PesananSummaryItem[]> = {
 - semua route internal menggunakan envelope `ApiResponse<T>`
 - `no_reseller` tetap menjadi identifier bisnis utama di semua modul yang melibatkan reseller
 
-### Pertanyaan yang Masih Terbuka
+### Catatan Keputusan
 
-- apakah direct Supabase browser client boleh dipakai untuk read sederhana tertentu atau semua read wajib lewat internal route (catat di `truth/03-open_questions_register.md` jika perlu formal decision)
+- direct Supabase browser client untuk read sederhana mengikuti keputusan di `truth/01-decision_log.md` dan boundary di `docs/contracts/api_integration.md`

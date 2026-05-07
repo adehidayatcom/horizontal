@@ -162,12 +162,10 @@ Constraint:
 
 ---
 
-## 9. Open Questions dan Decision Tracking
+## 9. Decision Tracking
 
-Pertanyaan yang masih valid dan keputusan lintas dokumen tidak disimpan di PRD ini. Gunakan:
-
-- `../truth/03-open_questions_register.md`
-- `../truth/01-decision_log.md`
+Keputusan lintas dokumen dan gap yang sedang dibahas dicatat di `../truth/01-decision_log.md`.
+Jika ada konflik yang belum final, catat langsung di decision log sampai masuk ke dokumen domain yang tepat.
 
 ---
 

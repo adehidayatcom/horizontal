@@ -18,7 +18,6 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 - rujukan:
   - ../frontend/frontend_architecture.md
   - ../frontend/frontend_component_contracts.md
-  - ../ui/modernize_shell_guide.md
 
 ## DL-002 - Route Strategy Resmi
 
@@ -398,7 +397,6 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
   - teks workflow periode dapat menulis cloning sebagai langkah aktif, bukan asumsi kondisional
 - rujukan:
   - ../product/period_workflow.md
-  - ../truth/03-open_questions_register.md
 
 ## DL-036 - Otoritas Aksi Periode dan Program Periode
 
@@ -411,7 +409,6 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 - rujukan:
   - ../product/period_workflow.md
   - ../product/program_workflow.md
-  - ../truth/03-open_questions_register.md
 
 ## DL-037 - Istilah Resmi Pesanan Konsumen
 

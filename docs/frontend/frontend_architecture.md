@@ -456,7 +456,6 @@ Dokumen ini dipakai bersama:
 - `docs/frontend/navigation_and_period_setup_ui.md`
 - `docs/ui/admin_dashboard_uiux.md`
 - `docs/ui/reseller_uiux.md`
-- `docs/ui/modernize_shell_guide.md`
 - `docs/quality/definition_of_done.md`
 
 Jika ada konflik, urutan prioritasnya:

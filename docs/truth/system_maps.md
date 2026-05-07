@@ -17,7 +17,6 @@ Dokumen acuan utama:
 - `../product/prd.md`
 - `../truth/02-canonical_system_brief.md`
 - `../truth/01-decision_log.md`
-- `../truth/03-open_questions_register.md`
 - `../product/program_workflow.md`
 - `../product/period_workflow.md`
 - `../contracts/schema_mapping.md`
@@ -37,11 +36,10 @@ Urutan bacaan yang disarankan untuk AI coding agent:
 1. baca `../product/prd.md` untuk arah produk
 2. baca `../truth/02-canonical_system_brief.md` untuk ringkasan sistem final
 3. baca `../truth/01-decision_log.md` untuk keputusan aman
-4. baca `../truth/03-open_questions_register.md` untuk gap aktif
-5. lihat peta dokumen pada dokumen ini
-6. lihat peta modul bisnis pada dokumen ini
-7. lihat peta entitas data pada dokumen ini
-8. baru masuk ke execution blueprint atau blueprint modul
+4. lihat peta dokumen pada dokumen ini
+5. lihat peta modul bisnis pada dokumen ini
+6. lihat peta entitas data pada dokumen ini
+7. baru masuk ke execution blueprint atau blueprint modul
 
 ---
 
@@ -81,8 +79,7 @@ flowchart TD
 
 - `../product/prd.md` tetap menjadi pintu masuk produk
 - `../truth/02-canonical_system_brief.md` adalah ringkasan cepat sistem yang stabil
-- `../truth/01-decision_log.md` adalah keputusan lintas-dokumen yang sudah dikunci
-- `../truth/03-open_questions_register.md` adalah gap aktif yang belum boleh ditebak
+- `../truth/01-decision_log.md` adalah keputusan lintas-dokumen yang sudah dikunci dan tempat mencatat gap yang sedang dibahas
 - `../contracts/schema_mapping.md`, `../contracts/business_contracts.md`, dan `../contracts/query_contracts.md` adalah trio inti domain build
 - `../contracts/integration_contract_pack.md` adalah pagar teknis sebelum frontend dan backend berjalan paralel
 - dokumen di `modules/*.md` tidak boleh membuat keputusan domain baru yang melawan dokumen di atasnya
@@ -95,16 +92,14 @@ flowchart TD
 |---|---|---|
 | `../product/prd.md` | arah produk dan ruang lingkup | semua agent |
 | `../truth/02-canonical_system_brief.md` | ringkasan final sistem | semua agent |
-| `../truth/01-decision_log.md` | keputusan lintas-dokumen yang sudah dikunci | semua agent |
-| `../truth/03-open_questions_register.md` | pertanyaan terbuka yang masih perlu keputusan | semua agent |
+| `../truth/01-decision_log.md` | keputusan lintas-dokumen yang sudah dikunci dan gap yang sedang dibahas | semua agent |
 | `../product/program_workflow.md` | lifecycle `pesanan_konsumen`, `detail_pesanan_konsumen`, dan finalisasi pesanan | frontend, backend |
 | `../product/period_workflow.md` | lifecycle periode aktif dan penutupan | frontend, backend |
 | `../contracts/schema_mapping.md` | tabel, relasi, formula, constraint | backend, reviewer data |
 | `../contracts/business_contracts.md` | kontrak RPC/action write | backend, integrator |
 | `../contracts/query_contracts.md` | kontrak view/read model | frontend, backend |
 | `../contracts/integration_contract_pack.md` | shape payload, enum, envelope, error code | frontend, backend |
-| `./01-decision_log.md` | keputusan lintas-dokumen yang sudah dikunci | orchestrator, implementer |
-| `./03-open_questions_register.md` | pertanyaan terbuka yang tidak boleh ditebak diam-diam | orchestrator, implementer |
+| `./01-decision_log.md` | keputusan lintas-dokumen yang sudah dikunci dan gap yang sedang dibahas | orchestrator, implementer |
 | `../quality/testing_strategy.md` | pagar verifikasi per modul dan per layer | implementer, reviewer |
 | `execution/frontend_plan.md` | blueprint UI mockup | frontend agent |
 | `execution/backend_plan.md` | blueprint engine/core logic | backend agent |
@@ -298,6 +293,7 @@ Dokumen ini menetapkan:
 - `./system_maps.md` menjadi index visual utama untuk hubungan antar dokumen, modul, dan entitas
 - `../product/data_flow.md` tetap fokus ke alur operasional bisnis
 - semua blueprint modul berikutnya sebaiknya menaut ke dokumen ini agar agent baru cepat orientasi
+- tidak ada register pertanyaan terpisah pada release state; gap yang masih dibahas dicatat di `../truth/01-decision_log.md`
 
 ---
 

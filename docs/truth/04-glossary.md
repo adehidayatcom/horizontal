@@ -34,7 +34,6 @@ Dokumen ini menjadi glosarium istilah resmi proyek agar truth dan product layer 
 - `docs/product/data_flow.md`
 - `docs/product/edge_cases.md`
 - `docs/truth/01-decision_log.md`
-- `docs/truth/03-open_questions_register.md`
 
 ---
 

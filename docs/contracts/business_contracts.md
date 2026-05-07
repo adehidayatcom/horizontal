@@ -70,7 +70,7 @@ Setiap RPC harus jelas dalam hal:
 - test case wajib
 
 Jika ada edge case yang belum memiliki keputusan owner, implementasi wajib berhenti dan mencatat
-kebutuhan keputusan di `docs/product/edge_cases.md` atau `docs/truth/03-open_questions_register.md`.
+kebutuhan keputusan di `docs/product/edge_cases.md` atau `docs/truth/01-decision_log.md`.
 
 ---
 
