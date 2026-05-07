@@ -29,7 +29,7 @@ Makna baru:
 - `detail_pesanan_konsumen` menjadi sumber target tagihan.
 - `setoran_konsumen` masuk ke `pesanan_konsumen`.
 - `tanggal_final` menandai pesanan siap dipakai operasional gudang.
-- penyesuaian budget dilakukan dengan mengubah detail pesanan, bukan membuat layer program terpisah.
+- penyesuaian budget dilakukan dengan mengubah detail pesanan, bukan membuat layer Program Periode terpisah.
 
 ---
 

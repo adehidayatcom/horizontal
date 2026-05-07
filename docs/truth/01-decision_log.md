@@ -69,7 +69,7 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 ## DL-006 - Auth Real Tetap Masuk Fase Coding Awal
 
 - status: accepted
-- keputusan: `auth real` tetap dianggap bagian fase coding awal, bukan deferred total
+- keputusan: `auth real` tetap dianggap bagian fase coding awal, bukan ditunda seluruhnya
 - alasan: role guard dan approval state memengaruhi banyak flow admin/reseller
 - implikasi:
   - gunakan `modules/auth.md` sebagai blueprint resmi
@@ -81,7 +81,7 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 
 - status: accepted
 - keputusan: master data lintas periode dan per-periode diperlakukan sebagai modul khusus `master_periodik`
-- alasan: area ini menjadi dependency periode, program/order, gudang, dan keuangan
+- alasan: area ini menjadi dependency periode, Program Periode/pesanan konsumen, gudang, dan keuangan
 - implikasi:
   - jangan menyebarkan implementasi master periodik sebagai task sampingan tanpa plan modul
 - rujukan:
@@ -120,7 +120,7 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 - keputusan: periode `SELESAI` bersifat read-only historis; hanya koreksi administratif non-finansial yang boleh dilakukan langsung
 - alasan: mencegah perubahan historis diam-diam pada uang, stok, status, dan hak reseller
 - implikasi:
-  - koreksi transaksi uang, stok, order, dan pencairan tidak boleh mengubah row historis secara langsung
+  - koreksi transaksi uang, stok, pesanan konsumen, dan pencairan tidak boleh mengubah row historis secara langsung
   - kebutuhan koreksi material harus lewat jalur adjustment/audit yang eksplisit
 - rujukan:
   - ../product/period_workflow.md
@@ -176,7 +176,7 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 - rujukan:
   - ../contracts/schema_mapping.md
   - ../contracts/query_contracts.md
-  - ../audit/product_truth_audit.md
+  - ../truth/02-canonical_system_brief.md
 
 ## DL-015 - Batch Pembagian Campuran Ditolak
 
@@ -223,7 +223,7 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 - alasan: fokus fase awal reseller adalah follow-up cepat, bukan pusat histori lintas domain
 - implikasi:
   - beranda reseller tidak bergantung pada unified history feed
-  - jika riwayat dibangun, ia memakai query per modul seperti setoran atau order
+  - jika riwayat dibangun, ia memakai query per modul seperti setoran atau pesanan konsumen
 - rujukan:
   - ../ui/reseller_uiux.md
   - ../modules/setoran.md
@@ -387,3 +387,69 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 - rujukan:
   - ../modules/setoran.md
   - ../ui/reseller_uiux.md
+
+## DL-032 - Cloning Periode Baru
+
+- status: accepted
+- keputusan: cloning massal paket dan BOM dari periode sebelumnya masuk scope implementasi awal dan menjadi bagian setup periode
+- alasan: execution plan periode dan wizard setup memang membutuhkan jalur cloning yang seragam supaya setup periode tidak terpecah ke dua pola
+- implikasi:
+  - setup periode, master periodik, dan wizard aktivasi boleh mengasumsikan cloning tersedia
+  - teks workflow periode dapat menulis cloning sebagai langkah aktif, bukan asumsi kondisional
+- rujukan:
+  - ../product/period_workflow.md
+  - ../truth/03-open_questions_register.md
+
+## DL-036 - Otoritas Aksi Periode dan Program Periode
+
+- status: accepted
+- keputusan: pada fase awal, hanya admin yang berwenang mengaktifkan, menutup, mengunci, membuka, membatalkan, atau mengubah periode/Program Periode
+- alasan: ownership aksi harus tegas supaya boundary role, approval, dan guard implementasi tidak ambigu
+- implikasi:
+  - UI dan backend dapat menulis guard admin-only secara eksplisit
+  - reseller tidak memiliki jalur langsung untuk mengubah status periode/Program Periode
+- rujukan:
+  - ../product/period_workflow.md
+  - ../product/program_workflow.md
+  - ../truth/03-open_questions_register.md
+
+## DL-037 - Istilah Resmi Pesanan Konsumen
+
+- status: accepted
+- keputusan: istilah resmi dokumen/UI untuk entitas transaksi utama adalah `Pesanan Konsumen`; istilah teknisnya `pesanan_konsumen`; istilah lama `order` hanya boleh dipakai saat menjelaskan mapping teknis atau istilah historis
+- alasan: penamaan terbaru sudah dipakai sebagai arah final agar konsisten lintas dokumen dan UI
+- implikasi:
+  - istilah `order` tidak boleh diperlakukan sebagai source of truth
+  - dokumen product dan turunan nanti harus dinormalisasi ke `Pesanan Konsumen` / `pesanan_konsumen`
+- rujukan:
+  - ../product/prd.md
+  - ../product/program_workflow.md
+  - ../product/data_flow.md
+  - ../truth/04-glossary.md
+
+## DL-038 - Istilah Program
+
+- status: accepted
+- keputusan: istilah `program` tidak dipakai sebagai sinonim longgar; jika merujuk ke template/master gunakan `Master Program`, jika merujuk ke program yang aktif dalam periode tertentu gunakan `Program Periode`, dan jika konteks umum produk dipakai harus ada definisi yang jelas
+- alasan: penamaan ini sudah menutup ambiguitas istilah program tanpa mengubah business rule
+- implikasi:
+  - dokumen yang memakai `program` harus menjelaskan konteksnya
+  - istilah `program` tanpa definisi tidak boleh menjadi source of truth
+- rujukan:
+  - ../product/prd.md
+  - ../product/program_workflow.md
+  - ../product/edge_cases.md
+  - ../truth/04-glossary.md
+
+## DL-039 - Status Kunci Resmi
+
+- status: accepted
+- keputusan: istilah UI resmi untuk status kunci adalah `Belum Dikunci` dan `Dikunci`; istilah teknis resmi adalah `belum_dikunci` dan `dikunci`; format lama `DIKUNCI` tidak dipakai sebagai enum teknis
+- alasan: penamaan terbaru sudah dianggap keputusan yang diterima agar status lifecycle dan UI konsisten
+- implikasi:
+  - dokumen yang masih memakai format lama perlu dinormalisasi istilahnya
+  - `DIKUNCI` hanya boleh muncul sebagai referensi historis atau catatan normalisasi istilah
+- rujukan:
+  - ../product/program_workflow.md
+  - ../product/edge_cases.md
+  - ../truth/04-glossary.md

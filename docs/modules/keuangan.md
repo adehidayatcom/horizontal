@@ -11,7 +11,7 @@ Dokumen ini memecah implementasi modul keuangan ke dua area yang terkoordinasi:
 Dokumen ini mengacu pada:
 
 - `docs/product/prd.md`
-- `docs/audit/product_truth_audit.md`
+- `docs/truth/01-decision_log.md`
 - `docs/product/data_flow.md`
 - `docs/contracts/business_contracts.md`
 - `docs/contracts/schema_mapping.md`

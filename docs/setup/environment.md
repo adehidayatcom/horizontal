@@ -209,7 +209,7 @@ Seed lokal harus mampu mewakili skenario berikut:
 - kas masuk dari luar setoran reseller
 - koreksi setoran
 - pembagian paket ke reseller
-- audit log untuk revisi atau koreksi transaksi
+- audit log untuk penyesuaian atau koreksi transaksi
 
 ---
 
@@ -239,5 +239,5 @@ Aturan:
 Dokumen terkait:
 
 - `docs/setup_development_environment.md`
-- `docs/testing_strategy.md`
+- `docs/quality/testing_strategy.md`
 - `docs/support/checklist.md`

@@ -20,7 +20,7 @@ Status yang dipakai:
 | `PQ-001` | Kapan tepatnya `pesanan_konsumen` berubah ke status `SELESAI` saat periode ditutup? | resolved | dipakai untuk workflow closing dan laporan historis | `program_workflow.md`, `period_workflow.md`, `schema_mapping.md`, `truth/01-decision_log.md` |
 | `PQ-002` | Koreksi apa saja yang masih boleh dilakukan pada periode `SELESAI`? | resolved | dipakai untuk rule historis dan audit | `edge_cases.md`, `business_contracts.md`, `period_workflow.md`, `truth/01-decision_log.md` |
 | `PQ-003` | Apakah semua laporan P1 wajib hadir di fase coding pertama atau boleh bertahap? | resolved | dipakai untuk sequencing dashboard/laporan | `prd.md`, `modules/dashboard_laporan.md`, `truth/01-decision_log.md` |
-| `PQ-004` | Apakah duplikasi data dari periode sebelumnya termasuk scope modul periode awal, atau ditunda ke modul turunan? | deferred | memengaruhi helper setup periode dan scope first wave | `modules/periode.md`, `period_workflow.md` |
+| `PQ-004` | Apakah duplikasi data dari periode sebelumnya menjadi bagian scope modul periode awal? | resolved | memengaruhi helper setup periode dan scope first wave | `modules/periode.md`, `period_workflow.md`, `truth/01-decision_log.md` |
 | `PQ-005` | Apakah create pesanan awal hanya dilakukan reseller, atau admin juga aktif memakainya sejak fase pertama? | resolved | memengaruhi boundary create pesanan dan CTA admin | `modules/program_order.md`, `ui/reseller_uiux.md`, `truth/01-decision_log.md` |
 | `PQ-006` | Apakah create reseller dilakukan oleh admin, self-register, atau keduanya sejak fase awal? | resolved | memengaruhi auth flow, admin flow, dan onboarding reseller | `modules/auth.md`, `modules/reseller.md`, `execution/frontend_plan.md`, `truth/01-decision_log.md` |
 
@@ -32,7 +32,7 @@ Status yang dipakai:
 |---|---|---|---|---|
 | `UX-001` | Apakah audit/koreksi admin lebih baik satu halaman dengan tab atau dua screen terpisah? | resolved | dipakai untuk route audit admin dan komposisi tab laporan | `ui/admin_dashboard_uiux.md`, `modules/dashboard_laporan.md`, `truth/01-decision_log.md` |
 | `UX-002` | Apakah halaman reseller butuh riwayat transaksi gabungan pada fase awal atau cukup status ringkas? | resolved | dipakai untuk menjaga beranda reseller tetap ringan dan tidak bergantung pada histori gabungan | `ui/reseller_uiux.md`, `integration_read_model_matrix.md`, `truth/01-decision_log.md` |
-| `UX-003` | Apakah laporan reseller versi admin butuh drill-down langsung ke detail konsumen dari tabel rekap? | deferred | memengaruhi CTA dan navigasi laporan admin | `modules/dashboard_laporan.md` |
+| `UX-003` | Apakah laporan reseller versi admin perlu drill-down langsung ke detail konsumen dari tabel rekap pada first wave? | resolved | memengaruhi CTA dan navigasi laporan admin | `modules/dashboard_laporan.md`, `ui/admin_dashboard_uiux.md`, `truth/01-decision_log.md` |
 | `UX-004` | Apakah UI perlu menyimpan draft pilihan paket sementara sebelum lock, atau cukup selection ephemeral? | resolved | memengaruhi kompleksitas UI edit pesanan reseller | `modules/program_order.md`, `truth/01-decision_log.md` |
 | `UX-005` | Apakah watchlist `PERLU_PERHATIAN` pada fase awal perlu aksi admin lengkap, atau cukup visual kandidat? | resolved | memengaruhi action set admin pada watchlist pesanan | `modules/program_order.md`, `ui/admin_dashboard_uiux.md`, `truth/01-decision_log.md` |
 | `UX-006` | Apakah riwayat setoran awal perlu dipisah menjadi tab `setoran konsumen` dan `setor pusat`, atau cukup satu daftar campuran berlabel? | resolved | memengaruhi layout halaman riwayat reseller | `modules/setoran.md`, `ui/reseller_uiux.md`, `truth/01-decision_log.md` |
@@ -67,7 +67,7 @@ Status yang dipakai:
 
 | ID | Pertanyaan | Status | Dampak | Dokumen Terkait |
 |---|---|---|---|---|
-| `DQ-001` | Bagaimana menjaga read model historis agar tidak berubah karena join ke master yang diedit? | resolved | dipakai untuk desain snapshot dan audit | `schema_mapping.md`, `query_contracts.md`, `product_truth_audit.md`, `truth/01-decision_log.md` |
+| `DQ-001` | Bagaimana menjaga read model historis agar tidak berubah karena join ke master yang diedit? | resolved | dipakai untuk desain snapshot dan audit | `schema_mapping.md`, `query_contracts.md`, `truth/02-canonical_system_brief.md`, `truth/01-decision_log.md` |
 | `DQ-002` | Apakah batch pembagian boleh mencampur item dengan status stok `SIAP` dan `KURANG` dalam satu submit? | resolved | dipakai untuk validation gudang | `business_contracts.md`, `modules/gudang.md`, `truth/01-decision_log.md` |
 
 ---
@@ -81,7 +81,20 @@ Status yang dipakai:
 
 ---
 
-## 7. Rule untuk AI Coding Agent
+## 7. Audit Follow-up Questions
+
+| ID | Pertanyaan | Status | Dampak | Dokumen Terkait |
+|---|---|---|---|---|
+| `AQF-001` | Apakah cloning massal paket dan BOM dari periode sebelumnya masuk scope implementasi awal? | resolved | memengaruhi setup periode, master periodik, dan wizard aktivasi | `period_workflow.md`, `truth/01-decision_log.md` |
+| `AQF-002` | Apakah `period_workflow.md` perlu menulis cloning massal sebagai langkah aktif pada `PERSIAPAN`? | resolved | memengaruhi narasi setup periode dan urutan bacaan implementasi | `period_workflow.md`, `truth/01-decision_log.md` |
+| `AQF-003` | Istilah resmi sistem untuk entitas transaksi utama adalah `Pesanan Konsumen` atau `pesanan_konsumen`? | resolved | memengaruhi copy produk, workflow, dan penamaan aksi/RPC | `prd.md`, `program_workflow.md`, `data_flow.md`, `truth/01-decision_log.md` |
+| `AQF-004` | Istilah resmi untuk `Program Periode` di domain ini apa: master program, periode program, atau campaign operasional? | resolved | memengaruhi konsistensi istilah lintas dokumen truth dan product | `prd.md`, `program_workflow.md`, `edge_cases.md`, `truth/01-decision_log.md` |
+| `AQF-005` | Status `Dikunci` / `Belum Dikunci` masih dipakai sebagai status resmi, atau harus diganti dengan lifecycle baru yang lebih final? | resolved | memengaruhi status pesanan, UI label, dan finalisasi operasional | `program_workflow.md`, `edge_cases.md`, `truth/01-decision_log.md` |
+| `AQF-006` | Apakah aksi yang mengubah periode/Program Periode pada fase awal hanya boleh dilakukan admin? | resolved | memengaruhi role ownership aksi, boundary UI, dan guard backend | `period_workflow.md`, `program_workflow.md`, `navigation_and_period_setup_ui.md`, `truth/01-decision_log.md` |
+
+---
+
+## 8. Rule untuk AI Coding Agent
 
 - jika sebuah task menyentuh keputusan yang belum tertulis di register ini, agent wajib melaporkannya sebelum memutuskan implementasi final
 - jika task tetap harus berjalan meski keputusan detailnya belum tertulis, agent harus memilih jalur paling konservatif dan menandainya sebagai asumsi

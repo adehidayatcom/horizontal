@@ -15,15 +15,15 @@ Dokumen ini bukan kontrak bisnis baru. Semua keputusan domain tetap tunduk pada 
 Dokumen acuan utama:
 
 - `../product/prd.md`
-- `../audit/product_truth_audit.md`
+- `../truth/02-canonical_system_brief.md`
+- `../truth/01-decision_log.md`
+- `../truth/03-open_questions_register.md`
 - `../product/program_workflow.md`
 - `../product/period_workflow.md`
 - `../contracts/schema_mapping.md`
 - `../contracts/business_contracts.md`
 - `../contracts/query_contracts.md`
 - `../contracts/integration_contract_pack.md`
-- `./01-decision_log.md`
-- `./03-open_questions_register.md`
 - `../quality/testing_strategy.md`
 - `../execution/frontend_plan.md`
 - `../execution/backend_plan.md`
@@ -35,11 +35,13 @@ Dokumen acuan utama:
 Urutan bacaan yang disarankan untuk AI coding agent:
 
 1. baca `../product/prd.md` untuk arah produk
-2. baca `../audit/product_truth_audit.md` untuk keputusan aman dan gap aktif
-3. lihat peta dokumen pada dokumen ini
-4. lihat peta modul bisnis pada dokumen ini
-5. lihat peta entitas data pada dokumen ini
-6. baru masuk ke execution blueprint atau blueprint modul
+2. baca `../truth/02-canonical_system_brief.md` untuk ringkasan sistem final
+3. baca `../truth/01-decision_log.md` untuk keputusan aman
+4. baca `../truth/03-open_questions_register.md` untuk gap aktif
+5. lihat peta dokumen pada dokumen ini
+6. lihat peta modul bisnis pada dokumen ini
+7. lihat peta entitas data pada dokumen ini
+8. baru masuk ke execution blueprint atau blueprint modul
 
 ---
 
@@ -47,16 +49,16 @@ Urutan bacaan yang disarankan untuk AI coding agent:
 
 ```mermaid
 flowchart TD
-    PRD["prd.md<br/>arah produk"] --> AUDIT["product_truth_audit.md<br/>hasil audit product truth"]
-    PRD --> PROGRAM["program_workflow.md<br/>lifecycle program"]
+    PRD["prd.md<br/>arah produk"] --> BRIEF["02-canonical_system_brief.md<br/>ringkasan sistem final"]
+    PRD --> PESANAN["program_workflow.md<br/>lifecycle pesanan_konsumen"]
     PRD --> PERIODE["period_workflow.md<br/>lifecycle periode"]
     PRD --> SCHEMA["schema_mapping.md<br/>struktur data dan formula"]
     PRD --> BUSINESS["business_contracts.md<br/>aksi write / RPC"]
     PRD --> QUERY["query_contracts.md<br/>read model"]
 
-    AUDIT --> INTEGRATION["integration_contract_pack.md<br/>boundary lintas layer"]
-    PROGRAM --> BUSINESS
-    PROGRAM --> QUERY
+    BRIEF --> INTEGRATION["integration_contract_pack.md<br/>boundary lintas layer"]
+    PESANAN --> BUSINESS
+    PESANAN --> QUERY
     PERIODE --> BUSINESS
     PERIODE --> QUERY
     SCHEMA --> BUSINESS
@@ -68,7 +70,7 @@ flowchart TD
 
     INTEGRATION --> FRONTEND["execution/frontend_plan.md"]
     QUERY --> FRONTEND
-    PROGRAM --> FRONTEND
+    PESANAN --> FRONTEND
     PERIODE --> FRONTEND
 
     FRONTEND --> MODULES["modules/*.md"]
@@ -78,7 +80,9 @@ flowchart TD
 ### Ringkasan Makna
 
 - `../product/prd.md` tetap menjadi pintu masuk produk
-- `../audit/product_truth_audit.md` adalah filter aman sebelum agent menafsirkan kontrak lain
+- `../truth/02-canonical_system_brief.md` adalah ringkasan cepat sistem yang stabil
+- `../truth/01-decision_log.md` adalah keputusan lintas-dokumen yang sudah dikunci
+- `../truth/03-open_questions_register.md` adalah gap aktif yang belum boleh ditebak
 - `../contracts/schema_mapping.md`, `../contracts/business_contracts.md`, dan `../contracts/query_contracts.md` adalah trio inti domain build
 - `../contracts/integration_contract_pack.md` adalah pagar teknis sebelum frontend dan backend berjalan paralel
 - dokumen di `modules/*.md` tidak boleh membuat keputusan domain baru yang melawan dokumen di atasnya
@@ -90,7 +94,9 @@ flowchart TD
 | Dokumen | Peran utama | Dipakai oleh |
 |---|---|---|
 | `../product/prd.md` | arah produk dan ruang lingkup | semua agent |
-| `../audit/product_truth_audit.md` | audit, gap, risiko salah tafsir | semua agent |
+| `../truth/02-canonical_system_brief.md` | ringkasan final sistem | semua agent |
+| `../truth/01-decision_log.md` | keputusan lintas-dokumen yang sudah dikunci | semua agent |
+| `../truth/03-open_questions_register.md` | pertanyaan terbuka yang masih perlu keputusan | semua agent |
 | `../product/program_workflow.md` | lifecycle `pesanan_konsumen`, `detail_pesanan_konsumen`, dan finalisasi pesanan | frontend, backend |
 | `../product/period_workflow.md` | lifecycle periode aktif dan penutupan | frontend, backend |
 | `../contracts/schema_mapping.md` | tabel, relasi, formula, constraint | backend, reviewer data |
@@ -114,23 +120,23 @@ flowchart LR
     PER["Periode"] --> RES["Reseller"]
     PER --> MASTER["Master Periodik<br/>paket barang komisi akun kas"]
     RES --> KON["Konsumen"]
-    PER --> PROG["Pesanan Konsumen"]
-    KON --> PROG
-    RES --> PROG
-    MASTER --> ORDER["Detail Pesanan / Finalisasi"]
-    PROG --> ORDER
-    ORDER --> SETK["Setoran Konsumen"]
-    PROG --> SETK
+    PER --> PESANAN["Pesanan Konsumen"]
+    KON --> PESANAN
+    RES --> PESANAN
+    MASTER --> DETAIL["Detail Pesanan / Finalisasi"]
+    PESANAN --> DETAIL
+    DETAIL --> SETK["Setoran Konsumen"]
+    PESANAN --> SETK
     SETK --> SETP["Setoran Pusat"]
     RES --> SETP
     MASTER --> GUD["Gudang<br/>belanja packing pembagian pengiriman"]
-    ORDER --> GUD
+    DETAIL --> GUD
     SETP --> KEU["Keuangan<br/>kas mutasi pencairan"]
     GUD --> KEU
     KEU --> LAP["Dashboard / Laporan"]
     SETK --> LAP
     SETP --> LAP
-    ORDER --> LAP
+    DETAIL --> LAP
 ```
 
 ### Urutan Ketergantungan Nyata
@@ -140,7 +146,7 @@ flowchart LR
 3. `pesanan konsumen` adalah titik masuk operasional reseller
 4. detail pesanan dan finalisasi tidak berdiri sendiri; keduanya bergantung pada pesanan konsumen dan master periode
 5. `setoran konsumen` dan `setoran pusat` membentuk dua layer pelunasan
-6. `gudang` bergantung pada order aktif dan master barang/paket
+6. `gudang` bergantung pada pesanan aktif dan master barang/paket
 7. `keuangan` bergantung pada setoran, kas, gudang, dan pencairan
 8. `dashboard/laporan` datang paling akhir karena bergantung pada semua read model inti
 

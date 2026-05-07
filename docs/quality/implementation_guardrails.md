@@ -17,12 +17,12 @@ Jika ada konflik, gunakan urutan berikut:
 4. `docs/contracts/query_contracts.md`
 5. `docs/contracts/rls_matrix.md`
 6. `docs/product/edge_cases.md`
-7. `docs/frontend_architecture.md`
-8. `docs/frontend_component_contracts.md`
-9. `docs/navigation_and_period_setup_ui.md`
+7. `docs/frontend/frontend_architecture.md`
+8. `docs/frontend/frontend_component_contracts.md`
+9. `docs/frontend/navigation_and_period_setup_ui.md`
 10. `docs/ui/admin_dashboard_uiux.md` dan `docs/ui/reseller_uiux.md`
-11. `docs/component_patterns.md`
-12. `docs/definition_of_done.md`
+11. `docs/frontend/component_patterns.md`
+12. `docs/quality/definition_of_done.md`
 
 Jika konflik tetap tidak bisa diselesaikan, pekerjaan harus dihentikan sampai ada keputusan owner.
 
@@ -38,7 +38,7 @@ Jika konflik tetap tidak bisa diselesaikan, pekerjaan harus dihentikan sampai ad
 | Target tagihan | Snapshot total item pesanan yang masih dihitung di `pesanan_konsumen.target_tagihan_snapshot` |
 | Detail pesanan aktif | `status_item != 'BATAL'` |
 | Koreksi | Transaksi pembalik atau penyesuaian melalui mekanisme resmi, bukan edit row bebas |
-| Audit | Catatan wajib untuk aksi penting, koreksi, dan revisi |
+| Audit | Catatan wajib untuk aksi penting, koreksi, dan penyesuaian |
 
 ---
 

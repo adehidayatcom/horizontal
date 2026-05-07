@@ -11,9 +11,9 @@ Fokus dokumen ini:
 
 Dokumen ini melengkapi:
 
-- `docs/frontend_architecture.md`
-- `docs/component_patterns.md`
-- `docs/navigation_and_period_setup_ui.md`
+- `docs/frontend/frontend_architecture.md`
+- `docs/frontend/component_patterns.md`
+- `docs/frontend/navigation_and_period_setup_ui.md`
 - `docs/ui/admin_dashboard_uiux.md`
 - `docs/ui/reseller_uiux.md`
 
@@ -142,7 +142,7 @@ Props minimum:
 ```ts
 type StatusBadgeProps = {
   status: string;
-  variant?: 'periode' | 'lunas' | 'kirim' | 'program' | 'reseller' | 'order';
+  variant?: 'periode' | 'lunas' | 'kirim' | 'program_periode' | 'reseller' | 'pesanan';
 }
 ```
 
@@ -307,7 +307,7 @@ Catatan:
 
 Tujuan:
 
-- mencari dan memilih konsumen atau program dengan cepat
+- mencari dan memilih konsumen atau pesanan dengan cepat
 
 Props minimum:
 
@@ -315,7 +315,7 @@ Props minimum:
 type KonsumenSearchListProps = {
   periodeId: number;
   defaultFilter?: 'belum_lunas' | 'semua' | 'lunas';
-  onSelectKonsumen: (programKonsumenId: number) => void;
+  onSelectKonsumen: (pesananKonsumenId: number) => void;
 }
 ```
 

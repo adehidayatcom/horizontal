@@ -94,7 +94,7 @@ Contoh target:
 - login -> route guard -> dashboard sesuai role
 - admin buat periode -> checklist -> aktifkan periode
 - reseller setor ke konsumen
-- admin kirim order
+- admin kirim pesanan
 - admin proses pencairan
 
 ---
@@ -109,7 +109,7 @@ Contoh target:
 | `reseller` | sedang | wajib | wajib | sedang | approval dan onboarding konsumen penting |
 | `program_order` | sedang | wajib | wajib | sedang | transisi status harus stabil |
 | `setoran` | sedang | wajib | wajib | wajib | menyentuh uang dan pelunasan |
-| `gudang` | sedang | wajib | wajib | sedang | stok dan eligibility order wajib aman |
+| `gudang` | sedang | wajib | wajib | sedang | stok dan eligibility pesanan wajib aman |
 | `keuangan` | sedang | wajib | wajib | wajib | saldo kas dan pencairan berisiko tinggi |
 | `dashboard_laporan` | ringan | sedang | wajib | sedang | angka utama tidak boleh dihitung liar di frontend |
 
@@ -182,7 +182,7 @@ Karena repo saat ini belum punya script `test` dan `e2e`, strategi fase awal dib
 - jangan menutup task backend uang/stok/status tanpa rencana verifikasi route atau contract
 - jika menambah route baru, sebutkan minimal satu skenario sukses dan satu skenario gagal
 - jika menambah validator, sertakan skenario invalid input yang harus ditolak
-- jika modul masih frontend mockup saja, jelaskan mana yang diverifikasi manual dan mana yang masih deferred
+- jika modul masih frontend mockup saja, jelaskan mana yang diverifikasi manual dan mana yang masih menunggu implementasi backend
 - jangan mengklaim `tested` bila hanya membuka halaman tanpa memverifikasi state kritis
 
 ---
@@ -205,8 +205,8 @@ Artinya:
 
 ## 9. Dokumen Rujukan
 
-- `docs/definition_of_done.md`
-- `docs/environment.md`
+- `docs/quality/definition_of_done.md`
+- `docs/setup/environment.md`
 - `docs/contracts/integration_contract_pack.md`
 - `docs/contracts/query_contracts.md`
 - `docs/contracts/business_contracts.md`

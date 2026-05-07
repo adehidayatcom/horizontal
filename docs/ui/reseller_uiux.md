@@ -5,7 +5,7 @@ Dokumen ini menjadi acuan desain area Reseller mobile/PWA. Fokusnya adalah alur 
 reseller di HP: kelola konsumen, kelola `pesanan_konsumen`, catat `setoran_konsumen`, setor ke
 pusat, dan pantau progres item pesanan.
 
-Route dan state periode global wajib mengikuti `docs/navigation_and_period_setup_ui.md`.
+Route dan state periode global wajib mengikuti `docs/frontend/navigation_and_period_setup_ui.md`.
 
 Dokumen ini bukan instruksi implementasi kode.
 
@@ -585,9 +585,9 @@ Gunakan `Material-UI v7` dan wrapper internal proyek sebagai base.
 
 Ikuti kontrak aktif berikut:
 
-- `docs/frontend_architecture.md`
-- `docs/frontend_component_contracts.md`
-- `docs/component_patterns.md`
+- `docs/frontend/frontend_architecture.md`
+- `docs/frontend/frontend_component_contracts.md`
+- `docs/frontend/component_patterns.md`
 
 | Komponen | Pemakaian |
 |---|---|
@@ -705,9 +705,9 @@ Area Reseller dianggap siap direview jika:
 Sebelum membuat area Reseller, AI Coder wajib membaca:
 
 - `docs/product/prd.md`
-- `docs/implementation_guardrails.md`
-- `docs/frontend_architecture.md`
-- `docs/frontend_component_contracts.md`
+- `docs/quality/implementation_guardrails.md`
+- `docs/frontend/frontend_architecture.md`
+- `docs/frontend/frontend_component_contracts.md`
 - `docs/contracts/business_contracts.md`
 - `docs/contracts/query_contracts.md`
 - `docs/contracts/schema_mapping.md`

@@ -78,7 +78,7 @@ Dokumen ini bukan kontrak arsitektur utama. Fungsinya adalah checklist operasion
 
 - [ ] keputusan lintas-dokumen penting tercatat di `truth/01-decision_log.md`
 - [ ] pertanyaan terbuka utama tercatat di `truth/03-open_questions_register.md`
-- [ ] modul yang masih deferred diberi status jelas
+- [ ] modul yang belum diimplementasikan diberi status jelas
 
 ---
 

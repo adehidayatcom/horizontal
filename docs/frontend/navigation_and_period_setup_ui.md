@@ -29,6 +29,8 @@ Makna UI:
 
 Dashboard, menu, tombol, dan form harus selalu sadar status periode.
 
+Aksi yang mengubah status periode hanya tersedia di boundary admin.
+
 AI Coder dilarang membuat halaman transaksi yang tetap aktif ketika:
 
 - belum ada periode aktif;

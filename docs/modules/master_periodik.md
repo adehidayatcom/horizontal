@@ -15,9 +15,9 @@ Dokumen ini mengacu pada:
 - `docs/contracts/business_contracts.md`
 - `docs/contracts/query_contracts.md`
 - `docs/product/period_workflow.md`
-- `docs/navigation_and_period_setup_ui.md`
+- `docs/frontend/navigation_and_period_setup_ui.md`
 - `docs/contracts/integration_contract_pack.md`
-- `docs/frontend_architecture.md`
+- `docs/frontend/frontend_architecture.md`
 - `docs/execution/backend_plan.md`
 
 ---
@@ -354,7 +354,7 @@ src/app/api/admin/reseller-periode/
 
 - tujuan: memastikan master data benar-benar cukup sebelum coding program/order/setoran
 - file yang dibuat/diubah: dokumentasi check atau spec yang tersedia
-- lokasi file: mengikuti tool test yang dipilih di `docs/testing_strategy.md`
+- lokasi file: mengikuti tool test yang dipilih di `docs/quality/testing_strategy.md`
 - dependency: semua task modul ini
 - output yang diharapkan: modul siap jadi fondasi transaksi
 - acceptance criteria:

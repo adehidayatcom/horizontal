@@ -10,7 +10,7 @@ Dokumen ini menjadi acuan desain tampilan Dashboard Admin. Fokusnya adalah ranca
 Dashboard Admin adalah pusat pantau operasional periode berjalan.
 
 Navigasi, route, dan perilaku saat belum ada periode aktif wajib mengikuti
-`docs/navigation_and_period_setup_ui.md`.
+`docs/frontend/navigation_and_period_setup_ui.md`.
 
 Admin harus bisa melihat dalam 1 layar:
 
@@ -148,7 +148,7 @@ KPI utama harus muncul langsung setelah header.
 
 | Kartu | Sumber Data | Catatan Tampilan |
 |---|---|---|
-| Nilai Paket | `total_nilai_paket` | Total nilai order aktif exclude BATAL |
+| Nilai Paket | `total_nilai_paket` | Total nilai pesanan aktif tanpa BATAL |
 | Dikumpulkan | `total_dikumpulkan` | Setoran konsumen yang sudah masuk ke reseller |
 | Disetor Pusat | `total_disetor_pusat` | Uang reseller yang sudah masuk kas pusat |
 | Belum Disetor | `total_saldo_belum_disetor` | Selisih dikumpulkan vs disetor pusat |
@@ -246,41 +246,6 @@ Tampilan:
 - Warna hanya sebagai sinyal: amber untuk perlu perhatian, rose untuk blocker, emerald untuk aman.
 - Jika semua aman, tampilkan state ringkas: `Operasional periode ini terkendali`.
 
----
-
-## 9. Progres Setoran Reseller
-
-Section ini menjawab pertanyaan: uang sudah sampai mana?
-
-Komponen:
-
-- Progress bar total: `total_disetor_pusat / total_nilai_paket`.
-- Sub progress: `total_dikumpulkan / total_nilai_paket`.
-- Tabel top reseller yang perlu ditindaklanjuti.
-
-Kolom tabel:
-
-| Kolom | Sumber |
-|---|---|
-| Reseller | `nama_reseller`, `no_reseller` |
-| Konsumen | `jumlah_konsumen` |
-| Nilai Paket | `nilai_akhir_paket` |
-| Dikumpulkan | `total_dikumpulkan` |
-| Disetor | `total_disetor_pusat` |
-| Belum Disetor | `saldo_belum_disetor` |
-| Sisa Pusat | `sisa_setor_pusat` |
-| Status | `status_lunas_reseller` |
-
-Sort default:
-
-1. `sisa_setor_pusat DESC`
-2. `saldo_belum_disetor DESC`
-3. `nama_reseller ASC`
-
-Klik baris membuka detail reseller.
-
----
-
 ## 10. Gudang dan Pengiriman
 
 Di Dashboard, section ini dibagi 2 panel ringkasan. Namun ketika diklik, halaman detail operasional Gudang wajib menggunakan **Kanban Board** (papan *drag-and-drop*).
@@ -360,6 +325,7 @@ Fitur:
 - Filter status lunas: Semua, Belum, Lunas.
 - Pagination server-side.
 - Link ke halaman detail reseller.
+- Detail konsumen dibuka dari halaman reseller, bukan drill-down langsung dari tabel rekap.
 
 Kolom minimum:
 
@@ -410,7 +376,7 @@ Format item:
 
 ```txt
 10:42 - Setoran pusat - RSL-023 - Rp 2.500.000
-10:15 - Pengiriman - 18 order - Paket Sembako A
+10:15 - Pengiriman - 18 pesanan - Paket Sembako A
 09:58 - Kas masuk - Modal owner - Rp 20.000.000
 ```
 
@@ -519,9 +485,9 @@ Gunakan `Material-UI v7` dan wrapper internal proyek sebagai base.
 
 Ikuti kontrak aktif berikut:
 
-- `docs/frontend_architecture.md`
-- `docs/frontend_component_contracts.md`
-- `docs/component_patterns.md`
+- `docs/frontend/frontend_architecture.md`
+- `docs/frontend/frontend_component_contracts.md`
+- `docs/frontend/component_patterns.md`
 
 | Komponen | Pemakaian |
 |---|---|
@@ -622,9 +588,9 @@ Dashboard Admin dianggap siap direview jika:
 Sebelum membuat halaman Dashboard Admin, AI Coder wajib membaca:
 
 - `docs/product/prd.md`
-- `docs/implementation_guardrails.md`
-- `docs/frontend_architecture.md`
-- `docs/frontend_component_contracts.md`
+- `docs/quality/implementation_guardrails.md`
+- `docs/frontend/frontend_architecture.md`
+- `docs/frontend/frontend_component_contracts.md`
 - `docs/contracts/query_contracts.md`
 - `docs/contracts/schema_mapping.md`
 - `docs/ui/admin_dashboard_uiux.md`

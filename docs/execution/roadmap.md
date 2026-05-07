@@ -23,7 +23,7 @@ Untuk peta hubungan visual lintas dokumen dan modul, lihat:
 - gunakan `docs/contracts/integration_contract_pack.md` sebagai pagar kontrak lintas layer
 - gunakan `docs/truth/01-decision_log.md` untuk keputusan yang sudah dikunci
 - gunakan `docs/truth/03-open_questions_register.md` untuk pertanyaan yang masih terbuka
-- gunakan `docs/testing_strategy.md` untuk target verifikasi minimum
+- gunakan `docs/quality/testing_strategy.md` untuk target verifikasi minimum
 - gunakan `docs/execution/sprint_control_board.md` sebagai papan kontrol sprint, packet, dan owner agen
 - gunakan `docs/execution/agent_prompt_templates.md` sebagai template prompt resmi untuk Gemini dan Claude
 

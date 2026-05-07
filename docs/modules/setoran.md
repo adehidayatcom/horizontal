@@ -11,7 +11,7 @@ Dokumen ini memecah implementasi modul setoran ke dua area yang terkoordinasi:
 Dokumen ini mengacu pada:
 
 - `docs/product/prd.md`
-- `docs/audit/product_truth_audit.md`
+- `docs/truth/01-decision_log.md`
 - `docs/product/program_workflow.md`
 - `docs/contracts/business_contracts.md`
 - `docs/contracts/schema_mapping.md`
@@ -757,5 +757,5 @@ Definisi selesai slice pertama:
 ### Catatan Keputusan Fase Awal
 
 - riwayat setoran awal cukup satu daftar campuran berlabel
-- admin pada fase awal cukup monitoring setoran; input koreksi setoran tetap deferred sampai jalur koreksi final dibuka
+- admin pada fase awal cukup monitoring setoran; input koreksi setoran belum tersedia pada fase awal
 - metode pembayaran awal cukup `CASH` dan `TRANSFER`

@@ -4,7 +4,7 @@
 Dokumen ini menjadi kontrak konsep untuk semua fitur yang terikat periode.
 Tujuannya agar frontend, database, read model, dan RPC memakai pemahaman yang sama tentang periode aktif, filter periode, persiapan periode, dan penutupan periode.
 
-Untuk navigasi, route, menu, dan wizard setup periode, lihat `docs/navigation_and_period_setup_ui.md`.
+Untuk navigasi, route, menu, dan wizard setup periode, lihat `docs/frontend/navigation_and_period_setup_ui.md`.
 
 ---
 
@@ -70,16 +70,16 @@ Adaptasi untuk proyek ini:
 Periode sedang disiapkan oleh admin.
 
 Karakter:
-- belum boleh dipakai untuk program, order, atau setoran operasional reseller;
+- belum boleh dipakai untuk Program Periode, pesanan konsumen, atau setoran operasional reseller;
 - master periodik boleh disiapkan;
-- admin menyiapkan komisi, barang periode, dan melakukan **kloning masal paket dan BOM** dari periode lalu;
+- admin menyiapkan komisi, barang periode, serta kloning massal paket dan BOM sebagai bagian dari setup periode;
 - periode boleh diedit selama belum melanggar aturan tanggal dan urutan;
 - periode boleh diaktifkan hanya jika checklist persiapan minimum terpenuhi.
 
 Contoh aktivitas:
 - mengisi `barang_periode`;
 - mengisi `komisi_config`;
-- melakukan **kloning masal paket dan BOM** dari periode sebelumnya;
+- menyiapkan paket dan BOM hasil kloning massal;
 
 - menyiapkan `reseller_periode`.
 
@@ -89,10 +89,10 @@ Periode sedang berjalan dan menjadi konteks kerja utama sistem.
 
 Karakter:
 - hanya boleh ada satu periode `AKTIF`;
-- menjadi default untuk dashboard, master periodik, order, setoran, gudang, dan keuangan;
+- menjadi default untuk dashboard, master periodik, pesanan konsumen, setoran, gudang, dan keuangan;
 - reseller aktif boleh bekerja pada periode ini;
 - konsumen dapat dibuatkan pesanan berbasis paket dan menerima setoran sebelum pesanan difinalkan;
-- perubahan master periodik hanya boleh melalui aksi admin terkontrol; khusus harga paket adalah revisi darurat yang wajib alasan dan audit;
+- perubahan master periodik hanya boleh melalui aksi admin terkontrol; khusus harga paket adalah penyesuaian darurat yang wajib alasan dan audit;
 - UI wajib memberi peringatan jika perubahan master memengaruhi target, stok, komisi, atau laporan periode berjalan.
 
 Contoh aktivitas:
@@ -111,7 +111,7 @@ Karakter:
 - perubahan master/transaksi periode selesai harus dibatasi;
 - data tetap bisa dibaca untuk laporan;
 - hanya koreksi administratif non-finansial yang boleh dilakukan langsung;
-- koreksi transaksi uang, stok, order, dan pencairan harus melalui mekanisme khusus yang eksplisit dan terekam.
+- koreksi transaksi uang, stok, pesanan konsumen, dan pencairan harus melalui mekanisme khusus yang eksplisit dan terekam.
 
 Catatan:
 Untuk implementasi awal, `SELESAI` diperlakukan sebagai arsip read-only historis. Koreksi material tidak dilakukan lewat CRUD biasa.
@@ -131,6 +131,7 @@ Aturan:
 - `AKTIF` tidak boleh kembali menjadi `PERSIAPAN`.
 - `SELESAI` tidak boleh kembali menjadi `AKTIF` atau `PERSIAPAN`.
 - Periode baru harus dibuat dengan status awal `PERSIAPAN`.
+- seluruh aksi yang mengubah status periode pada fase awal hanya boleh dilakukan admin.
 - Status tidak boleh diubah langsung dari frontend jika nantinya sudah ada RPC bisnis. Frontend harus memanggil aksi/RPC yang memvalidasi prasyarat.
 
 Pesan UI:
@@ -188,7 +189,7 @@ Dipakai sebagai default untuk:
 - dashboard awal;
 - header admin/reseller;
 - halaman master periodik;
-- order;
+- pesanan konsumen;
 - setoran;
 - gudang;
 - kas;
@@ -267,8 +268,8 @@ Aturan UI:
 
 Aturan perubahan pada periode `AKTIF`:
 - perubahan hanya boleh melalui aksi/RPC admin terkontrol;
-- harga paket dianggap tetap sejak awal periode dan hanya direvisi sebagai kondisi darurat;
-- alasan dan audit log wajib untuk revisi harga/paket terkunci;
+- harga paket dianggap tetap sejak awal periode dan hanya disesuaikan sebagai kondisi darurat;
+- alasan dan audit log wajib untuk penyesuaian harga/paket terkunci;
 - UI wajib memberi peringatan bahwa perubahan memengaruhi hitungan periode berjalan.
 
 Pesan peringatan:
@@ -335,7 +336,7 @@ Validasi wajib:
 Database write:
 - update `periode.status = 'AKTIF'`;
 - catat `updated_at`;
-- jika nanti ada audit log, catat user admin dan waktu aktivasi.
+- catat user admin dan waktu aktivasi.
 
 Pesan gagal:
 - `Periode lain masih aktif. Selesaikan terlebih dahulu.`
@@ -360,7 +361,7 @@ Validasi wajib:
 Database write:
 - update `periode.status = 'SELESAI'`;
 - catat `updated_at`;
-- jika nanti ada audit log, catat user admin dan waktu penutupan.
+- catat user admin dan waktu penutupan.
 
 Pesan gagal:
 - `Masih ada reseller yang belum lunas.`
@@ -421,7 +422,7 @@ Aturan:
 - jangan menghitung lintas periode kecuali view memang dirancang lintas periode;
 - dashboard default memakai periode aktif;
 - dashboard historis memakai filter periode;
-- view stok, saldo, order, komisi, dan target wajib filter `periode_id`;
+- view stok, saldo, pesanan konsumen, komisi, dan target wajib filter `periode_id`;
 - transaksi `BATAL` dikeluarkan dari hitungan sesuai kontrak query.
 
 Jika tidak ada periode aktif:
@@ -489,6 +490,6 @@ Sebuah fitur yang terkait periode baru dianggap selesai jika:
 - perubahan pada periode aktif memberi peringatan jika memengaruhi hitungan live;
 - periode selesai tidak menerima input operasional baru;
 - pesanan konsumen pada periode selesai tidak menerima setoran baru;
-- order/pembagian baru tidak boleh dibuat pada periode selesai;
+- pesanan konsumen dan pembagian baru tidak boleh dibuat pada periode selesai;
 - hasil smoke test membuktikan data berubah saat periode filter diganti.
 

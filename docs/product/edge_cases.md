@@ -3,7 +3,7 @@
 
 Dokumen ini berisi keputusan owner untuk kasus bisnis abu-abu.
 
-Karakter bisnis utama: sistem ini adalah **tabungan target paket**, bukan order e-commerce yang kaku. Konsumen/reseller menabung menuju pilihan paket. Harga paket, BOM, dan komisi bersifat live dalam periode. Jika ada perubahan nilai atau kondisi tidak tuntas, penyesuaian dilakukan manual melalui status TERHENTI, pencairan, atau rekonsiliasi admin.
+Karakter bisnis utama: sistem ini adalah **tabungan target paket**, bukan pesanan e-commerce yang kaku. Konsumen/reseller menabung menuju pilihan paket. Harga paket, BOM, dan komisi bersifat live dalam periode. Jika ada perubahan nilai atau kondisi tidak tuntas, penyesuaian dilakukan manual melalui status TERHENTI, pencairan, atau rekonsiliasi admin.
 
 Referensi umum model pasar: program tabungan/paket Lebaran biasanya berupa setoran rutin/berjangka untuk mendapatkan paket kebutuhan Lebaran di akhir periode. Lihat contoh konsep publik seperti [Tabungan Arisan Paket Lebaran Bank CIJ](https://bankcij.co.id/produk/tabungan/tabungan-arisan-paket-lebaran/) dan [Program Tabungan Paket Lebaran Bank Subang](https://bprsubang.com/program-tabungan-paket-lebaran/).
 
@@ -13,8 +13,8 @@ Referensi umum model pasar: program tabungan/paket Lebaran biasanya berupa setor
 
 1. Tidak ada snapshot harga di `detail_pesanan_konsumen`.
 2. Konsumen mulai menabung melalui `pesanan_konsumen`; `detail_pesanan_konsumen` menjadi sumber target sejak awal.
-3. Harga paket dianggap tetap sejak awal periode; revisi saat AKTIF adalah aksi darurat admin.
-4. Perubahan harga paket/BOM/komisi boleh mengubah nilai akhir paket secara live jika direvisi secara sah.
+3. Harga paket dianggap tetap sejak awal periode; penyesuaian saat AKTIF adalah aksi darurat admin.
+4. Perubahan harga paket/BOM/komisi boleh mengubah nilai akhir paket secara live jika disesuaikan secara sah.
 5. Tidak ada konsep uang lebih permanen; jika ada selisih, admin menyesuaikan manual lewat koreksi.
 6. Order yang sudah punya pembayaran tidak dibatalkan, melainkan dialihkan ke TERHENTI.
 7. Order yang sudah dikirim/dibagikan tidak dibatalkan.
@@ -30,42 +30,42 @@ Referensi umum model pasar: program tabungan/paket Lebaran biasanya berupa setor
 Item pesanan konsumen yang sudah terkait setoran tidak dibatalkan bebas. Item tersebut diubah
 menjadi `status_item = 'TERHENTI'`.
 
-`uang_terhenti` diisi sesuai nilai setoran yang masuk untuk penyesuaian order tersebut.
+`uang_terhenti` diisi sesuai nilai setoran yang masuk untuk penyesuaian pesanan tersebut.
 
 ### Dampak Database
 
 - `status_kirim` tetap bukan `BATAL`.
 - `status_item` menjadi `TERHENTI`.
 - `uang_terhenti` wajib > 0.
-- Nilai order memakai `uang_terhenti`, bukan `paket.nilai_paket`.
+- Nilai pesanan memakai `uang_terhenti`, bukan `paket.nilai_paket`.
 - Komisi memakai `persen_terhenti × uang_terhenti`.
 - Poin = 0.
 - Tidak menyumbang `nilai_tabungan`.
 
 ### Dampak UI
 
-Jika admin mencoba membatalkan order yang sudah punya setoran, UI harus mengarahkan ke aksi "Tandai Terhenti", bukan "Batal".
+Jika admin mencoba membatalkan pesanan yang sudah punya setoran, UI harus mengarahkan ke aksi "Tandai Terhenti", bukan "Batal".
 
 ### Pesan User
 
-`Order yang sudah memiliki setoran harus ditandai terhenti`
+`Pesanan yang sudah memiliki setoran harus ditandai terhenti`
 
 ### Test Case Wajib
 
-- Order konsumen dengan setoran tidak bisa diubah ke `BATAL`.
-- Order konsumen dengan setoran bisa diubah ke `TERHENTI` dengan `uang_terhenti`.
+- Pesanan konsumen dengan setoran tidak bisa diubah ke `BATAL`.
+- Pesanan konsumen dengan setoran bisa diubah ke `TERHENTI` dengan `uang_terhenti`.
 - Setelah TERHENTI, target konsumen berubah memakai `uang_terhenti`.
 
 ### Keputusan Tambahan Untuk Konsumen Multi-Order
 
-Jika konsumen punya banyak order dan total setoran belum cukup melunasi semua order, admin memilih dulu paket-paket yang masih masuk dalam nilai setoran konsumen. Sisa uang yang tidak cukup untuk melunasi paket lain diarahkan ke satu paket `TERHENTI`.
+Jika konsumen punya banyak pesanan dan total setoran belum cukup melunasi semua pesanan, admin memilih dulu paket-paket yang masih masuk dalam nilai setoran konsumen. Sisa uang yang tidak cukup untuk melunasi paket lain diarahkan ke satu paket `TERHENTI`.
 
 Prinsip operasional:
 
 - Admin menentukan item pesanan mana yang tetap `AKTIF`.
 - Sisa setoran yang tidak cukup untuk paket penuh dipakai sebagai `uang_terhenti`.
 - Target konsumen setelah rekonsiliasi tidak boleh lebih kecil dari total bayar konsumen.
-- Order yang belum punya alokasi setoran dan belum dikirim boleh `BATAL` jika memang tidak dilanjutkan.
+- Pesanan yang belum punya alokasi setoran dan belum dikirim boleh `BATAL` jika memang tidak dilanjutkan.
 
 ---
 
@@ -82,7 +82,7 @@ Order yang sudah dikirim tidak dibatalkan.
 
 ### Dampak UI
 
-Tombol batal tidak boleh tersedia untuk order `SUDAH`.
+Tombol batal tidak boleh tersedia untuk pesanan `SUDAH`.
 
 ### Pesan User
 
@@ -90,8 +90,8 @@ Tombol batal tidak boleh tersedia untuk order `SUDAH`.
 
 ### Test Case Wajib
 
-- Gagal mengubah order `SUDAH` menjadi `BATAL`.
-- Order `SUDAH` tetap dihitung dalam nilai, komisi, poin/tabungan sesuai status item yang masih dihitung.
+- Gagal mengubah pesanan `SUDAH` menjadi `BATAL`.
+- Pesanan `SUDAH` tetap dihitung dalam nilai, komisi, poin/tabungan sesuai status item yang masih dihitung.
 
 ---
 
@@ -282,11 +282,11 @@ header pesanan. `detail_pesanan_konsumen` sudah dibuat sejak awal sebagai sumber
 
 - `pesanan_konsumen.status_pesanan = 'AKTIF'`.
 - `setoran_konsumen.pesanan_konsumen_id` wajib terisi.
-- `target_berjalan = snapshot total pilihan paket aktif program`.
+- `target_berjalan = snapshot total pilihan paket aktif Program Periode`.
 
 ### Test Case Wajib
 
-- Berhasil input setoran program tanpa order.
+- Berhasil input setoran Program Periode tanpa pesanan final.
 - Gagal setoran jika pesanan konsumen belum ada.
 - Gagal setoran jika nominal melebihi target tagihan pesanan.
 
@@ -296,13 +296,13 @@ header pesanan. `detail_pesanan_konsumen` sudah dibuat sejak awal sebagai sumber
 
 ### Keputusan
 
-Boleh. Sebelum program `DIKUNCI`, pilihan paket belum menjadi order final, tetapi pilihan paket
-aktif program harus tersimpan karena menjadi acuan target tabungan.
+Boleh. Sebelum Program Periode berstatus `Dikunci`, pilihan paket belum menjadi pesanan final, tetapi pilihan paket
+aktif Program Periode harus tersimpan karena menjadi acuan target tabungan.
 
 ### Dampak UI
 
-UI menampilkan status `Belum Dikunci` dan tidak menganggap pilihan paket aktif program sebagai
-stok/order final.
+UI menampilkan status `Belum Dikunci` dan tidak menganggap pilihan paket aktif Program Periode sebagai
+stok/pesanan final.
 
 ---
 
@@ -329,12 +329,12 @@ atau melakukan koreksi setoran jika memang ada salah input.
 ### Keputusan
 
 Boleh hanya sebagai aksi darurat admin. Harga periode secara bisnis dianggap tetap sejak awal periode,
-tetapi sistem tetap mendukung revisi karena kondisi ekonomi dapat berubah.
+tetapi sistem tetap mendukung penyesuaian karena kondisi ekonomi dapat berubah.
 
 ### Dampak Database
 
 - Tidak ada snapshot harga live di `detail_pesanan_konsumen`.
-- Revisi wajib masuk `audit_log`.
+- Penyesuaian wajib masuk `audit_log`.
 - Alasan wajib.
 - Target dan laporan berubah mengikuti `paket.nilai_paket` terbaru.
 
@@ -348,18 +348,18 @@ tetapi sistem tetap mendukung revisi karena kondisi ekonomi dapat berubah.
 
 ### Keputusan
 
-Sistem tidak otomatis menghentikan program. Sistem hanya memberi kandidat watchlist.
+Sistem tidak otomatis menghentikan Program Periode. Sistem hanya memberi kandidat watchlist.
 Admin/reseller menandai manual sebagai `PERLU_PERHATIAN` atau `TERHENTI`.
 
 ### Dampak Database
 
-- Status dapat diubah melalui RPC `tandai_program_perlu_perhatian` atau `tandai_program_terhenti`.
+- Status dapat diubah melalui RPC resmi untuk menandai perlu perhatian atau terhenti.
 - Alasan wajib saat menandai `TERHENTI`.
 
 ### Test Case Wajib
 
-- View watchlist menampilkan program lama tanpa setoran.
-- Program tidak berubah otomatis tanpa RPC.
+- View watchlist menampilkan Program Periode lama tanpa setoran.
+- Program Periode tidak berubah otomatis tanpa RPC.
 
 ---
 

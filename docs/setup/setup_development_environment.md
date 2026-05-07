@@ -237,7 +237,7 @@ Status repo saat dokumen ini ditulis:
 
 - `lint`, `build`, dan `typecheck` tersedia
 - `test` dan `e2e` belum tersedia
-- strategi penambahannya dijelaskan di `docs/testing_strategy.md`
+- strategi penambahannya dijelaskan di `docs/quality/testing_strategy.md`
 
 ---
 

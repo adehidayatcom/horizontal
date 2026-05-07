@@ -11,15 +11,15 @@ Dokumen ini memecah implementasi modul periode ke dua area yang terkoordinasi:
 Dokumen ini mengacu pada:
 
 - `docs/product/prd.md`
-- `docs/audit/product_truth_audit.md`
+- `docs/truth/01-decision_log.md`
 - `docs/contracts/business_contracts.md`
 - `docs/contracts/schema_mapping.md`
 - `docs/contracts/query_contracts.md`
 - `docs/truth/system_maps.md`
 - `docs/execution/task_kit_standard.md`
-- `docs/frontend_architecture.md`
-- `docs/frontend_component_contracts.md`
-- `docs/navigation_and_period_setup_ui.md`
+- `docs/frontend/frontend_architecture.md`
+- `docs/frontend/frontend_component_contracts.md`
+- `docs/frontend/navigation_and_period_setup_ui.md`
 - `docs/contracts/integration_contract_pack.md`
 - `docs/execution/frontend_plan.md`
 - `docs/execution/backend_plan.md`
@@ -717,12 +717,12 @@ Isi slice minimum:
 - admin dapat membuat periode `PERSIAPAN`
 - admin dapat membuka detail periode
 - admin dapat melihat checklist readiness minimum
-- backend memiliki boundary create/list/detail/checklist
+- admin dapat menjalankan wizard setup periode termasuk kloning paket/BOM dari periode sebelumnya
+- backend memiliki boundary create/list/detail/checklist/clone
 - backend menolak aktivasi bila readiness minimum belum terpenuhi
 
-Yang sengaja belum diwajibkan di slice pertama:
+Yang belum diwajibkan di slice pertama:
 
-- duplicasi setup dari periode sebelumnya
 - koreksi kompleks periode `SELESAI`
 - wizard setup penuh lintas semua master periodik
 
@@ -791,8 +791,8 @@ Definisi selesai slice pertama:
 - hanya satu periode aktif pada satu waktu
 - wizard setup tetap menjadi pengalaman admin utama sebelum aktivasi
 
-### Catatan dan Deferred Scope
+### Catatan Implementasi
 
 - perubahan pada periode `AKTIF` dibatasi ke aksi admin terkontrol dengan warning dampak, bukan edit bebas
-- duplikasi data dari periode sebelumnya tetap deferred sesuai `PQ-004`
+- kloning data dari periode sebelumnya sudah menjadi bagian setup periode dan mengikuti keputusan `DL-032`
 - frontend mockup awal boleh menghitung checklist dari dummy layer selama shape-nya tetap tunduk ke kontrak backend final

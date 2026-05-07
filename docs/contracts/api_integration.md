@@ -198,7 +198,7 @@ Nama RPC final harus mengikuti `docs/contracts/business_contracts.md` dan bluepr
 Referensi aktif:
 
 - `docs/contracts/rls_matrix.md`
-- `docs/implementation_guardrails.md`
+- `docs/quality/implementation_guardrails.md`
 
 ---
 

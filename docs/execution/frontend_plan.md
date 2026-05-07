@@ -62,7 +62,7 @@ Mockup frontend harus terasa seperti aplikasi nyata, tetapi sumber datanya tetap
 ### Aturan Komponen
 
 - Gunakan `Material-UI v7` dan wrapper internal.
-- Gunakan pola dari `docs/frontend_component_contracts.md`.
+- Gunakan pola dari `docs/frontend/frontend_component_contracts.md`.
 - Semua copy user-facing dalam Bahasa Indonesia.
 - Semua halaman data wajib punya loading, empty, error, dan success feedback yang masuk akal.
 

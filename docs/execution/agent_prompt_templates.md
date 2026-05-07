@@ -287,7 +287,7 @@ NEXT GATE      : <Codex review | Claude audit | Merge decision>
 | `DOING` | Gemini | template builder | implementasi packet |
 | `REVIEW` | Codex internal | review checklist internal | keputusan review |
 | `AUDIT` | Claude | template auditor | verdict audit |
-| `REWORK` | Gemini | template builder + bagian temuan audit | patch perbaikan |
+| `REWORK` | Gemini | template builder + bagian temuan audit | perbaikan |
 | `DONE` | Codex internal | summary closeout | packet ditutup |
 
 ---

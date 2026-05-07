@@ -15,6 +15,8 @@ konsumen memilih paket
 Nama file tetap `program_workflow.md` untuk menjaga kompatibilitas referensi dokumentasi lama.
 Isi dokumen ini sekarang menjadi source of truth untuk workflow `pesanan_konsumen`.
 
+Boundary yang mengubah periode atau `Program Periode` sendiri berada di dokumen periode dan hanya tersedia untuk admin pada fase awal. Dokumen ini fokus pada flow pesanan konsumen di periode aktif.
+
 ---
 
 ## 1. Prinsip Utama
@@ -42,7 +44,8 @@ Konsekuensi penting:
 - target tagihan konsumen berasal dari total `detail_pesanan_konsumen` yang masih dihitung.
 - jika budget berubah, detail pesanan boleh diubah sebelum penutupan periode sesuai aturan audit.
 - item yang tidak lagi masuk budget dapat ditandai `TERHENTI`.
-- finalisasi pesanan ditandai oleh `tanggal_final`, bukan status `DIKUNCI`.
+- finalisasi pesanan ditandai oleh `tanggal_final`, bukan status `Dikunci`.
+- aksi yang mengubah periode/Program Periode berada di boundary admin-only pada fase awal.
 
 ---
 
@@ -401,7 +404,7 @@ Koreksi wajib tersedia untuk:
 | `program_pilihan_paket` | dihapus |
 | `order_paket` | `detail_pesanan_konsumen` |
 | kunci paket program | finalisasi pesanan konsumen |
-| target program | target tagihan pesanan |
+| target program | target tagihan pesanan konsumen |
 
 Dokumen lain wajib mengikuti dokumen ini jika membahas:
 

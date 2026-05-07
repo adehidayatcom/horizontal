@@ -11,7 +11,7 @@ Dokumen ini memecah implementasi modul reseller ke dua area yang terkoordinasi:
 Dokumen ini mengacu pada:
 
 - `docs/product/prd.md`
-- `docs/audit/product_truth_audit.md`
+- `docs/truth/01-decision_log.md`
 - `docs/contracts/business_contracts.md`
 - `docs/contracts/schema_mapping.md`
 - `docs/contracts/query_contracts.md`

@@ -13,7 +13,7 @@ Sebuah pekerjaan dianggap selesai jika:
 
 - scope yang dikerjakan jelas
 - perubahan mengikuti dokumen kontrak yang relevan
-- tidak melanggar `docs/implementation_guardrails.md`
+- tidak melanggar `docs/quality/implementation_guardrails.md`
 - hasil akhirnya bisa dijelaskan dengan ringkas dan jujur
 - blocker, asumsi, dan risiko tersisa dilaporkan
 
@@ -35,9 +35,9 @@ Dokumen dianggap selesai jika:
 
 Pekerjaan frontend dianggap selesai jika:
 
-- mengikuti `docs/frontend_architecture.md`
-- mengikuti `docs/frontend_component_contracts.md`
-- mengikuti `docs/navigation_and_period_setup_ui.md` bila menyentuh route atau menu
+- mengikuti `docs/frontend/frontend_architecture.md`
+- mengikuti `docs/frontend/frontend_component_contracts.md`
+- mengikuti `docs/frontend/navigation_and_period_setup_ui.md` bila menyentuh route atau menu
 - state loading, empty, error, disabled, dan success diperhitungkan
 - tidak ada formula bisnis final yang dipindahkan ke browser
 - admin dan reseller dipisahkan dengan jelas jika fiturnya role-specific
@@ -115,7 +115,7 @@ Jika quality gate belum bisa dijalankan, alasannya harus dilaporkan.
 
 Strategi test yang dipakai harus mengikuti:
 
-- `docs/testing_strategy.md`
+- `docs/quality/testing_strategy.md`
 
 ---
 

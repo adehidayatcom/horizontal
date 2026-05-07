@@ -56,7 +56,7 @@ Codex buat task packet
 | Status | Arti | Owner Aktif | Output Wajib |
 |---|---|---|---|
 | `PLANNED` | sprint sudah didefinisikan, belum dimulai | Codex | scope, owner, gate |
-| `ACTIVE` | implementasi sedang berjalan | Gemini atau Codex | patch/diff kerja |
+| `ACTIVE` | implementasi sedang berjalan | Gemini atau Codex | perubahan kerja |
 | `IN_REVIEW` | hasil implementasi sedang dicek terhadap docs | Codex | review note |
 | `AUDIT` | modul sedang diaudit secara correctness | Claude | audit finding / approval |
 | `MERGE_READY` | siap digabung tanpa blocker | Codex | keputusan merge |
@@ -269,7 +269,7 @@ Setiap checkpoint git yang dianggap aman harus dicatat di board ini.
 | Kondisi | Aksi Minimum |
 |---|---|
 | packet selesai dan lolos review | stage perubahan packet dan siapkan commit checkpoint |
-| packet selesai lalu akan diaudit | boleh stage dulu; commit setelah audit lolos atau setelah rework kecil selesai |
+| packet selesai lalu akan diaudit | boleh stage dulu; commit setelah verifikasi akhir lolos atau setelah penyesuaian kecil selesai |
 | sprint selesai | evaluasi perubahan yang sudah stabil, lalu commit checkpoint sebelum pindah fokus |
 | pindah thread dari kontrol ke eksekusi | pastikan status git bersih atau ada checkpoint yang disengaja |
 
@@ -289,11 +289,11 @@ NEXT ACTION  : <stage | commit | hold>
 
 | Sprint | Dokumen Minimum |
 |---|---|
-| `S1` | `docs/frontend_architecture.md`, `docs/frontend_component_contracts.md`, `docs/execution/frontend_plan.md` |
+| `S1` | `docs/frontend/frontend_architecture.md`, `docs/frontend/frontend_component_contracts.md`, `docs/execution/frontend_plan.md` |
 | `S2` | `docs/product/prd.md`, `docs/product/program_workflow.md`, `docs/contracts/business_contracts.md`, `docs/contracts/schema_mapping.md`, `docs/contracts/query_contracts.md`, `docs/modules/program_order.md` |
 | `S3` | `docs/contracts/business_contracts.md`, `docs/contracts/query_contracts.md`, `docs/modules/setoran.md` |
 | `S4` | `docs/contracts/schema_mapping.md`, `docs/contracts/business_contracts.md`, `docs/modules/gudang.md` |
 | `S5` | `docs/contracts/schema_mapping.md`, `docs/contracts/business_contracts.md`, `docs/modules/keuangan.md` |
 | `S6` | `docs/contracts/query_contracts.md`, `docs/contracts/integration_read_model_matrix.md`, `docs/modules/dashboard_laporan.md` |
 | `S7` | semua dokumen modul aktif + `docs/truth/01-decision_log.md` |
-| `S8` | `docs/testing_strategy.md`, `docs/definition_of_done.md`, `docs/environment.md` |
+| `S8` | `docs/quality/testing_strategy.md`, `docs/quality/definition_of_done.md`, `docs/setup/environment.md` |

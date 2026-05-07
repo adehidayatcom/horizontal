@@ -11,7 +11,7 @@ Dokumen ini memecah implementasi modul dashboard dan laporan ke dua area yang te
 Dokumen ini mengacu pada:
 
 - `docs/product/prd.md`
-- `docs/audit/product_truth_audit.md`
+- `docs/truth/01-decision_log.md`
 - `docs/contracts/query_contracts.md`
 - `docs/contracts/integration_contract_pack.md`
 - `docs/contracts/integration_read_model_matrix.md`
@@ -430,14 +430,14 @@ Slice pertama modul dashboard_laporan harus memberi nilai operasional nyata tanp
    - paket perlu packing
 3. reseller beranda menampilkan KPI ringkas dari `get_dashboard_reseller`
 4. reseller beranda menampilkan daftar konsumen prioritas
-5. halaman laporan rekap reseller tampil dengan filter dasar dan pagination
+5. halaman laporan rekap reseller tampil dengan filter dasar, pagination, dan CTA ke halaman detail terpisah
 
 Yang belum wajib di slice pertama:
 
 - recent activity penuh
 - export/print final
 - audit feed yang kompleks
-- drill-down lintas banyak tabel dalam satu halaman
+- drill-down langsung ke detail konsumen dari tabel rekap
 - unified history feed reseller lintas semua modul
 - laporan P1 tambahan di luar laporan operasional inti
 
@@ -861,6 +861,6 @@ return ReportListEnvelope
 - laporan inti yang paling penting adalah rekap reseller, stok, pengiriman, dan audit
 - export/print boleh ditunda setelah layer baca inti stabil
 
-## Pertanyaan yang masih terbuka
+## Keputusan final
 
-- apakah laporan reseller versi admin butuh drill-down ke detail konsumen langsung dari tabel rekap (`UX-003`, status `deferred`)
+- laporan reseller versi admin memakai summary, filter dasar, pagination, dan CTA ke halaman detail terpisah; drill-down langsung ke detail konsumen dari tabel rekap tidak masuk first wave

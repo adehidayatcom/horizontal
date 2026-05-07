@@ -240,7 +240,7 @@ Aturan:
 - admin dan reseller harus dipisah jelas pada route level
 - route tidak boleh mengikuti nama demo template yang tidak relevan
 - layout shell harus reusable, tetapi menu dan akses harus role-aware
-- route final harus mengikuti `docs/navigation_and_period_setup_ui.md` bila ada konflik dengan dokumen lain
+- route final harus mengikuti `docs/frontend/navigation_and_period_setup_ui.md` bila ada konflik dengan dokumen lain
 - route audit admin first wave mengikuti `docs/truth/01-decision_log.md` dan memakai `/admin/laporan/audit`
 
 ---
@@ -451,13 +451,13 @@ Dokumen ini dipakai bersama:
 - `docs/contracts/query_contracts.md`
 - `docs/contracts/schema_mapping.md`
 - `docs/contracts/rls_matrix.md`
-- `docs/frontend_component_contracts.md`
-- `docs/component_patterns.md`
-- `docs/navigation_and_period_setup_ui.md`
+- `docs/frontend/frontend_component_contracts.md`
+- `docs/frontend/component_patterns.md`
+- `docs/frontend/navigation_and_period_setup_ui.md`
 - `docs/ui/admin_dashboard_uiux.md`
 - `docs/ui/reseller_uiux.md`
 - `docs/ui/modernize_shell_guide.md`
-- `docs/definition_of_done.md`
+- `docs/quality/definition_of_done.md`
 
 Jika ada konflik, urutan prioritasnya:
 

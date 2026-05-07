@@ -13,9 +13,9 @@ Paket Lebaran Mumpuni adalah sistem manajemen tabungan berjangka berbasis web un
 
 Masalah utama yang ingin diselesaikan:
 
-- pencatatan tabungan, order, dan setoran reseller sering terpecah dan sulit diaudit
+- pencatatan tabungan, Pesanan Konsumen, dan setoran reseller sering terpecah dan sulit diaudit
 - admin pusat sulit memantau progres operasional satu periode secara utuh
-- reseller membutuhkan alur mobile yang cepat untuk setoran, order, dan follow-up konsumen
+- reseller membutuhkan alur mobile yang cepat untuk setoran, Pesanan Konsumen, dan follow-up konsumen
 - perubahan status uang, stok, dan pelunasan harus tetap konsisten antar modul
 
 Inti bisnis:
@@ -40,7 +40,7 @@ Admin pusat mengelola:
 - periode
 - reseller
 - master paket dan barang
-- order
+- Pesanan Konsumen
 - gudang
 - keuangan
 - laporan
@@ -180,4 +180,4 @@ Dokumen ini dibaca bersama:
 - `../contracts/query_contracts.md`
 - `../contracts/rls_matrix.md`
 - `../frontend/frontend_architecture.md`
-- `../audit/product_truth_audit.md`
+- `../truth/01-decision_log.md`

@@ -35,7 +35,7 @@ Sistem manajemen tabungan berjangka berbasis web untuk mengelola paket Lebaran m
 ## 3. Workflow Utama (Alur Program)
 
 1.  **Inisiasi**: Admin menyiapkan periode, master paket, dan reseller.
-2.  **Order**: Reseller mendaftarkan konsumen dan membuat `pesanan_konsumen` berisi daftar `detail_pesanan_konsumen`.
+2.  **Pesanan Konsumen**: Reseller mendaftarkan konsumen dan membuat `pesanan_konsumen` berisi daftar `detail_pesanan_konsumen`.
 3.  **Tabungan**: Konsumen mencicil (`setoran_konsumen`) ke reseller. Reseller menyetorkan dana terkumpul ke pusat (`setoran`).
 4.  **Penyesuaian**: Detail pesanan dapat diubah (tambah/kurang/`TERHENTI`) sebelum periode ditutup jika budget konsumen berubah.
 5.  **Finalisasi**: Reseller/Admin memfinalkan pesanan (`tanggal_final`). Pesanan masuk ke antrean gudang.

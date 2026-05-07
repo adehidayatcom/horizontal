@@ -5,9 +5,9 @@ Dokumen ini menjelaskan cara memakai shell `Modernize` sebagai fondasi UI proyek
 
 Dokumen ini bukan kontrak arsitektur utama. Sumber kebenaran frontend tetap berada di:
 
-- `docs/frontend_architecture.md`
-- `docs/frontend_component_contracts.md`
-- `docs/navigation_and_period_setup_ui.md`
+- `docs/frontend/frontend_architecture.md`
+- `docs/frontend/frontend_component_contracts.md`
+- `docs/frontend/navigation_and_period_setup_ui.md`
 
 Peran dokumen ini adalah menjelaskan apa yang dipertahankan dari shell Modernize dan bagaimana shell itu dipakai oleh modul bisnis proyek.
 
@@ -162,7 +162,7 @@ Contoh kelompok menu admin:
 - reseller
 - paket
 - barang
-- order
+- Pesanan Konsumen
 - belanja
 - packing
 - pengiriman
@@ -171,8 +171,8 @@ Contoh kelompok menu admin:
 Contoh kelompok menu reseller:
 
 - dashboard
-- program
-- order
+- Program Periode
+- Pesanan Konsumen
 - setoran
 - profil
 

@@ -14,10 +14,10 @@ Dokumen ini mengacu pada:
 - `docs/contracts/schema_mapping.md`
 - `docs/contracts/rls_matrix.md`
 - `docs/contracts/integration_contract_pack.md`
-- `docs/frontend_architecture.md`
+- `docs/frontend/frontend_architecture.md`
 - `docs/execution/backend_plan.md`
-- `docs/implementation_guardrails.md`
-- `docs/navigation_and_period_setup_ui.md`
+- `docs/quality/implementation_guardrails.md`
+- `docs/frontend/navigation_and_period_setup_ui.md`
 
 ---
 
@@ -339,7 +339,7 @@ src/app/api/auth/
 
 - tujuan: memastikan auth cukup aman sebelum modul transaksi dibangun
 - file yang dibuat/diubah: dokumen test/checklist atau spec yang tersedia
-- lokasi file: mengikuti tool test yang dipilih di `docs/testing_strategy.md`
+- lokasi file: mengikuti tool test yang dipilih di `docs/quality/testing_strategy.md`
 - langkah kerja AI agent:
   - uji admin access
   - uji reseller access
