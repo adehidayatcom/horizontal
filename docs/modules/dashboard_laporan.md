@@ -167,10 +167,10 @@ VALIDATION_REQUIRED_FIELD
 ## 4.1 Frontend
 
 ```txt
-src/app/(DashboardLayout)/admin/dashboard/
+src/app/(Admin)/admin/dashboard/
   page.tsx
 
-src/app/(DashboardLayout)/admin/laporan/
+src/app/(Admin)/admin/laporan/
   rekap-reseller/
     page.tsx
   stok/
@@ -180,7 +180,7 @@ src/app/(DashboardLayout)/admin/laporan/
   audit/
     page.tsx
 
-src/app/(DashboardLayout)/reseller/
+src/app/(Reseller)/reseller/
   page.tsx
 
 src/app/components/admin/dashboard/

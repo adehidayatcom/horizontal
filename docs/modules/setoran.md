@@ -154,17 +154,17 @@ VALIDATION_REQUIRED_FIELD
 ## 4.1 Frontend
 
 ```txt
-src/app/(DashboardLayout)/reseller/setor/
+src/app/(Reseller)/reseller/setor/
   page.tsx
   pusat/
     page.tsx
   riwayat/
     page.tsx
 
-src/app/(DashboardLayout)/admin/setoran-konsumen/
+src/app/(Admin)/admin/setoran-konsumen/
   page.tsx
 
-src/app/(DashboardLayout)/admin/setoran-pusat/
+src/app/(Admin)/admin/setoran-pusat/
   page.tsx
 
 src/app/components/reseller/setor/
@@ -406,7 +406,7 @@ Tanggung jawab:
 **Nama task:** Build Reseller Setoran Konsumen Screen  
 **Tujuan:** Menyediakan flow 3 langkah setoran konsumen dari area reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/setor/page.tsx`
+- `src/app/(Reseller)/reseller/setor/page.tsx`
 - `src/app/components/reseller/setor/ResellerSetorScreen.tsx`
 - `src/app/components/reseller/setor/KonsumenSearchList.tsx`
 - `src/app/components/reseller/setor/SetoranFormMock.tsx`
@@ -428,7 +428,7 @@ Tanggung jawab:
 **Nama task:** Build Reseller Setor Pusat Screen  
 **Tujuan:** Menyediakan flow setor pusat untuk reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/setor/pusat/page.tsx`
+- `src/app/(Reseller)/reseller/setor/pusat/page.tsx`
 - `src/app/components/reseller/setor/SetoranPusatScreen.tsx`
 - `src/app/components/reseller/setor/SetoranPusatForm.tsx`
 **Lokasi file:** reseller setor pusat folders  
@@ -446,7 +446,7 @@ Tanggung jawab:
 **Nama task:** Build Riwayat Setoran Screen  
 **Tujuan:** Menyediakan riwayat setoran untuk reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/setor/riwayat/page.tsx`
+- `src/app/(Reseller)/reseller/setor/riwayat/page.tsx`
 - `src/app/components/reseller/setor/RiwayatSetoranScreen.tsx`
 **Lokasi file:** reseller riwayat folders  
 **Langkah kerja AI agent:**
@@ -464,8 +464,8 @@ Tanggung jawab:
 **Nama task:** Build Admin Setoran Monitoring Screens  
 **Tujuan:** Menyediakan monitoring admin untuk layer 1 dan layer 2.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/setoran-konsumen/page.tsx`
-- `src/app/(DashboardLayout)/admin/setoran-pusat/page.tsx`
+- `src/app/(Admin)/admin/setoran-konsumen/page.tsx`
+- `src/app/(Admin)/admin/setoran-pusat/page.tsx`
 - `src/app/components/admin/setoran/SetoranKonsumenAdminScreen.tsx`
 - `src/app/components/admin/setoran/SetoranPusatAdminScreen.tsx`
 - `src/app/components/admin/setoran/SetoranAuditPanel.tsx`

@@ -103,7 +103,7 @@ checklist master periodik minimal harus bisa membaca:
 ## 4.1 Frontend
 
 ```txt
-src/app/(DashboardLayout)/admin/master/
+src/app/(Admin)/admin/master/
   akun-kas/
     page.tsx
   barang/
@@ -115,7 +115,7 @@ src/app/(DashboardLayout)/admin/master/
   paket/
     page.tsx
 
-src/app/(DashboardLayout)/admin/reseller-periode/
+src/app/(Admin)/admin/reseller-periode/
   page.tsx
 
 src/app/components/admin/master/
@@ -281,7 +281,7 @@ src/app/api/admin/reseller-periode/
 
 - tujuan: memberi admin entry point untuk data lintas periode
 - file yang dibuat/diubah: `admin/master/akun-kas/page.tsx`, `admin/master/barang/page.tsx`, `AkunKasScreen.tsx`, `BarangScreen.tsx`, `useAkunKasMasterMock.ts`, `useBarangMasterMock.ts`
-- lokasi file: `src/app/(DashboardLayout)/admin/master/...`, `src/app/components/admin/master/...`, `src/hooks/admin/...`
+- lokasi file: `src/app/(Admin)/admin/master/...`, `src/app/components/admin/master/...`, `src/hooks/admin/...`
 - langkah kerja AI agent:
   - bangun screen akun kas dan barang dengan list/filter dasar
   - hubungkan screen ke hook mock masing-masing
@@ -296,7 +296,7 @@ src/app/api/admin/reseller-periode/
 
 - tujuan: memberi admin area setup periodik yang langsung dipakai wizard periode
 - file yang dibuat/diubah: `admin/master/barang-periode/page.tsx`, `admin/master/komisi/page.tsx`, `admin/reseller-periode/page.tsx`, `BarangPeriodeScreen.tsx`, `KomisiScreen.tsx`, `ResellerPeriodeScreen.tsx`, `useBarangPeriodeMock.ts`, `useKomisiMock.ts`, `useResellerPeriodeMock.ts`
-- lokasi file: `src/app/(DashboardLayout)/admin/...`, `src/app/components/admin/master/...`, `src/hooks/admin/...`
+- lokasi file: `src/app/(Admin)/admin/...`, `src/app/components/admin/master/...`, `src/hooks/admin/...`
 - langkah kerja AI agent:
   - bangun screen period-aware untuk barang periode, komisi, dan reseller periode
   - tampilkan state `no_periode` bila konteks periode belum siap
@@ -311,7 +311,7 @@ src/app/api/admin/reseller-periode/
 
 - tujuan: mengamankan fondasi paket sebelum program/order berjalan
 - file yang dibuat/diubah: `admin/master/paket/page.tsx`, `PaketScreen.tsx`, `PaketBomEditor.tsx`, `usePaketMasterMock.ts`
-- lokasi file: `src/app/(DashboardLayout)/admin/master/paket/page.tsx`, `src/app/components/admin/master/...`, `src/hooks/admin/...`
+- lokasi file: `src/app/(Admin)/admin/master/paket/page.tsx`, `src/app/components/admin/master/...`, `src/hooks/admin/...`
 - langkah kerja AI agent:
   - bangun screen paket periodik dan editor BOM
   - tampilkan perbedaan paket tunggal dan komposit secara jujur

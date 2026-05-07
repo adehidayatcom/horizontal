@@ -463,3 +463,16 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
 - rujukan:
   - ../modules/auth.md
   - ../frontend/navigation_and_period_setup_ui.md
+
+## DL-041 - Route Registrasi Publik
+
+- status: accepted
+- keputusan: jalur self-register reseller memakai route publik `/register`; halaman login tetap memakai `/login`
+- alasan: memisahkan surface login dan registrasi membuat onboarding lebih jelas tanpa mencampur autentikasi dan pendaftaran
+- implikasi:
+  - frontend plan dan auth module harus memakai `/register` sebagai entry self-register
+  - copy halaman login harus mengarahkan user yang ingin mendaftar ke `/register`
+- rujukan:
+  - ../modules/auth.md
+  - ../frontend/frontend_architecture.md
+  - ../execution/frontend_plan.md

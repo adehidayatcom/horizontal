@@ -201,14 +201,14 @@ VALIDATION_REQUIRED_FIELD
 ## 4.1 Frontend
 
 ```txt
-src/app/(DashboardLayout)/admin/pesanan/
+src/app/(Admin)/admin/pesanan/
   page.tsx
   perlu-perhatian/
     page.tsx
   [id]/
     page.tsx
 
-src/app/(DashboardLayout)/reseller/pesanan/
+src/app/(Reseller)/reseller/pesanan/
   page.tsx
   create/
     page.tsx
@@ -470,9 +470,9 @@ Tanggung jawab:
 **Nama task:** Build Reseller Pesanan Screens  
 **Tujuan:** Menyediakan daftar, create, dan detail pesanan berbasis paket untuk reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/pesanan/page.tsx`
-- `src/app/(DashboardLayout)/reseller/pesanan/create/page.tsx`
-- `src/app/(DashboardLayout)/reseller/pesanan/[id]/page.tsx`
+- `src/app/(Reseller)/reseller/pesanan/page.tsx`
+- `src/app/(Reseller)/reseller/pesanan/create/page.tsx`
+- `src/app/(Reseller)/reseller/pesanan/[id]/page.tsx`
 - `src/app/components/reseller/pesanan/ResellerPesananScreen.tsx`
 - `src/app/components/reseller/pesanan/PesananCard.tsx`
 - `src/app/components/reseller/pesanan/PesananForm.tsx`
@@ -493,9 +493,9 @@ Tanggung jawab:
 **Nama task:** Build Pesanan Watchlist and Admin Pesanan Screens  
 **Tujuan:** Menyediakan daftar pesanan admin dan watchlist perlu perhatian.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/pesanan/page.tsx`
-- `src/app/(DashboardLayout)/admin/pesanan/perlu-perhatian/page.tsx`
-- `src/app/(DashboardLayout)/admin/pesanan/[id]/page.tsx`
+- `src/app/(Admin)/admin/pesanan/page.tsx`
+- `src/app/(Admin)/admin/pesanan/perlu-perhatian/page.tsx`
+- `src/app/(Admin)/admin/pesanan/[id]/page.tsx`
 - `src/app/components/admin/pesanan/PesananListScreen.tsx`
 - `src/app/components/admin/pesanan/PesananWatchlistScreen.tsx`
 - `src/app/components/admin/pesanan/PesananDetailScreen.tsx`

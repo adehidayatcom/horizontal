@@ -82,7 +82,7 @@ Struktur target frontend mockup:
 ```txt
 src/
   app/
-    (DashboardLayout)/
+    (Admin)/
       admin/
         dashboard/
           page.tsx
@@ -92,12 +92,15 @@ src/
             page.tsx
           [id]/
             page.tsx
-          [id]/
             setup/
               page.tsx
             checklist/
               page.tsx
         reseller/
+          page.tsx
+        reseller-periode/
+          page.tsx
+        konsumen/
           page.tsx
         master/
           akun-kas/
@@ -147,6 +150,8 @@ src/
             page.tsx
           keuangan/
             page.tsx
+      layout.tsx
+    (Reseller)/
       reseller/
         page.tsx
         konsumen/
@@ -162,11 +167,15 @@ src/
         akun/
           page.tsx
       layout.tsx
-    auth/
+    (Auth)/
       login/
         page.tsx
       register/
         page.tsx
+      layout.tsx
+    (DashboardLayout)/
+      ...demo-bawaan-modernize/
+      layout.tsx
     layout.tsx
     loading.tsx
     not-found.tsx
@@ -230,9 +239,12 @@ src/
 | `src/app/layout.tsx` | Root layout, provider chain, global theme bootstrap |
 | `src/app/loading.tsx` | Loading global sederhana |
 | `src/app/not-found.tsx` | Halaman 404 |
-| `src/app/(DashboardLayout)/layout.tsx` | Shell utama admin dan reseller |
-| `src/app/auth/login/page.tsx` | Halaman login mock |
-| `src/app/auth/register/page.tsx` | Halaman registrasi mock |
+| `src/app/(Admin)/layout.tsx` | Shell route group admin |
+| `src/app/(Reseller)/layout.tsx` | Shell route group reseller |
+| `src/app/(Auth)/layout.tsx` | Shell route group auth publik |
+| `src/app/(DashboardLayout)/layout.tsx` | Shell demo bawaan Modernize |
+| `src/app/(Auth)/login/page.tsx` | Halaman login mock |
+| `src/app/(Auth)/register/page.tsx` | Halaman registrasi reseller mock |
 
 ## 4.2 Context Files
 
@@ -509,18 +521,21 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 - `src/app/layout.tsx`
 - `src/app/loading.tsx`
 - `src/app/not-found.tsx`
+- `src/app/(Admin)/layout.tsx`
+- `src/app/(Reseller)/layout.tsx`
+- `src/app/(Auth)/layout.tsx`
 - `src/app/(DashboardLayout)/layout.tsx`
 **Lokasi file:** `src/app/`  
 **Langkah kerja AI agent:**
 1. Review provider dan shell existing.
 2. Pastikan root layout memuat provider global.
 3. Buat loading global sederhana.
-4. Pastikan dashboard layout siap dipakai admin dan reseller.
+4. Pastikan route group `(Admin)`, `(Reseller)`, dan `(Auth)` punya layout yang jelas.
 **Dependency:** shell Modernize existing  
 **Output yang diharapkan:** fondasi route dan provider siap  
 **Acceptance criteria:**
 - root layout render tanpa error
-- dashboard layout bisa menjadi wadah admin dan reseller
+- route group bisnis dan auth siap dipakai tanpa bercampur dengan demo
 - loading dan not-found tersedia
 
 ## TASK F-02
@@ -671,7 +686,7 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Dashboard Mock Screen  
 **Tujuan:** Menampilkan dashboard admin berdasarkan data mock.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/dashboard/page.tsx`
+- `src/app/(Admin)/admin/dashboard/page.tsx`
 - `src/app/components/admin/dashboard/AdminDashboardScreen.tsx`
 - `src/app/components/admin/dashboard/KpiGrid.tsx`
 - `src/app/components/admin/dashboard/WatchlistPanel.tsx`
@@ -696,11 +711,11 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Periode Management Mock Module  
 **Tujuan:** Menyediakan list, detail, setup wizard, dan checklist periode.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/periode/page.tsx`
-- `src/app/(DashboardLayout)/admin/periode/create/page.tsx`
-- `src/app/(DashboardLayout)/admin/periode/[id]/page.tsx`
-- `src/app/(DashboardLayout)/admin/periode/[id]/setup/page.tsx`
-- `src/app/(DashboardLayout)/admin/periode/[id]/checklist/page.tsx`
+- `src/app/(Admin)/admin/periode/page.tsx`
+- `src/app/(Admin)/admin/periode/create/page.tsx`
+- `src/app/(Admin)/admin/periode/[id]/page.tsx`
+- `src/app/(Admin)/admin/periode/[id]/setup/page.tsx`
+- `src/app/(Admin)/admin/periode/[id]/checklist/page.tsx`
 - `src/app/components/admin/periode/*`
 **Lokasi file:** periode folders  
 **Langkah kerja AI agent:**
@@ -720,202 +735,7 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Reseller Daily Setor Flow Mock  
 **Tujuan:** Menyediakan flow utama harian reseller untuk input setoran.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/setor/page.tsx`
-**Tujuan:** Membuat auth, period, UI, dan mock API context untuk kebutuhan mockup.  
-**File yang dibuat/diubah:**  
-- `src/app/context/AuthContext.tsx`
-- `src/app/context/PeriodContext.tsx`
-- `src/app/context/UIContext.tsx`
-- `src/app/context/MockApiContext.tsx`
-**Lokasi file:** `src/app/context/`  
-**Langkah kerja AI agent:**
-1. Definisikan state auth mock.
-2. Definisikan active period mock.
-3. Definisikan snackbar/dialog helper.
-4. Definisikan latency/error scenario switch.
-**Dependency:** `src/types/ui.ts`, `src/types/models.ts`  
-**Output yang diharapkan:** state global mock siap  
-**Acceptance criteria:**
-- role admin/reseller dapat disimulasikan
-- periode aktif dapat diubah
-- error scenario dapat ditrigger
-
-## TASK F-03
-
-**Nama task:** Create Dummy Data Domain Packs  
-**Tujuan:** Menyediakan data dummy modular untuk semua modul inti.  
-**File yang dibuat/diubah:**  
-- `src/lib/dummy-data/periodes.ts`
-- `src/lib/dummy-data/resellers.ts`
-- `src/lib/dummy-data/konsumens.ts`
-- `src/lib/dummy-data/pesanans.ts`
-- `src/lib/dummy-data/detail-pesanans.ts`
-- `src/lib/dummy-data/setoran.ts`
-- `src/lib/dummy-data/gudang.ts`
-- `src/lib/dummy-data/keuangan.ts`
-- `src/lib/dummy-data/dashboard.ts`
-**Lokasi file:** `src/lib/dummy-data/`  
-**Langkah kerja AI agent:**
-1. Definisikan type mock lebih dulu.
-2. Susun dataset per domain.
-3. Pastikan ada state normal, empty, warning, dan overloaded.
-4. Pastikan naming antar file konsisten.
-**Dependency:** `src/types/models.ts`  
-**Output yang diharapkan:** dataset mock reusable  
-**Acceptance criteria:**
-- semua domain inti punya data mock
-- tidak ada field naming yang saling bertabrakan
-- state UI utama bisa didemokan
-
-## TASK F-04
-
-**Nama task:** Build Placeholder API Layer  
-**Tujuan:** Menyediakan placeholder API untuk SWR dan interaksi mock.  
-**File yang dibuat/diubah:**  
-- `src/lib/dummy-api/endpoints.ts`
-- `src/lib/dummy-api/handlers.ts`
-- `src/lib/dummy-api/fetcher.ts`
-- `src/types/api.ts`
-**Lokasi file:** `src/lib/dummy-api/`, `src/types/`  
-**Langkah kerja AI agent:**
-1. Buat daftar endpoint mock.
-2. Buat handler per endpoint.
-3. Tambahkan latency simulator.
-4. Tambahkan error simulator.
-**Dependency:** dummy data domain packs  
-**Output yang diharapkan:** request mock konsisten  
-**Acceptance criteria:**
-- mock fetcher bisa return success
-- mock fetcher bisa return error
-- response shape konsisten lintas endpoint
-
-## TASK F-05
-
-**Nama task:** Build Shared Component Library  
-**Tujuan:** Menyediakan shared components minimum untuk semua screen.  
-**File yang dibuat/diubah:**  
-- `src/app/components/shared/StatusBadge.tsx`
-- `src/app/components/shared/SummaryCard.tsx`
-- `src/app/components/shared/EmptyState.tsx`
-- `src/app/components/shared/ErrorState.tsx`
-- `src/app/components/shared/LoadingState.tsx`
-- `src/app/components/shared/ConfirmDialog.tsx`
-- `src/app/components/shared/RupiahInput.tsx`
-- `src/app/components/shared/PeriodeSelector.tsx`
-- `src/app/components/shared/PageSection.tsx`
-- `src/app/components/shared/PageHeader.tsx`
-**Lokasi file:** `src/app/components/shared/`  
-**Langkah kerja AI agent:**
-1. Implement status badge mapping.
-2. Implement KPI card.
-3. Implement state components.
-4. Implement rupiah input UI-only.
-**Dependency:** theme + types + MUI  
-**Output yang diharapkan:** shared building blocks siap  
-**Acceptance criteria:**
-- komponen shared dapat dipakai di admin dan reseller
-- dark mode tidak merusak tampilan
-- semua komponen mengikuti kontrak frontend component
-
-## TASK F-06
-
-**Nama task:** Build Admin Shell Components  
-**Tujuan:** Membentuk shell admin yang siap memuat halaman bisnis.  
-**File yang dibuat/diubah:**  
-- `src/app/components/layout/AdminShell.tsx`
-- `src/app/components/layout/AdminSidebar.tsx`
-- `src/app/components/layout/AdminHorizontalNav.tsx`
-- `src/app/components/layout/AdminHeader.tsx`
-- `src/app/components/layout/BreadcrumbsBar.tsx`
-**Lokasi file:** `src/app/components/layout/`  
-**Langkah kerja AI agent:**
-1. Buat struktur shell admin.
-2. Hubungkan ke customizer mode.
-3. Render menu bisnis admin.
-4. Tambahkan periode selector di header.
-**Dependency:** context auth + period + shell existing  
-**Output yang diharapkan:** admin shell stabil  
-**Acceptance criteria:**
-- sidebar/horizontal mode bisa ditampilkan
-- route admin terlihat terstruktur
-- header menampilkan periode aktif/laporan
-
-## TASK F-07
-
-**Nama task:** Build Reseller Shell Components  
-**Tujuan:** Membentuk shell reseller mobile-first.  
-**File yang dibuat/diubah:**  
-- `src/app/components/layout/ResellerShell.tsx`
-- `src/app/components/layout/ResellerHeader.tsx`
-- `src/app/components/layout/ResellerBottomNav.tsx`
-**Lokasi file:** `src/app/components/layout/`  
-**Langkah kerja AI agent:**
-1. Buat shell ringan reseller.
-2. Tambahkan bottom nav 5 tab.
-3. Tampilkan status sinkronisasi mock.
-4. Pastikan aman pada viewport mobile.
-**Dependency:** auth context + period context  
-**Output yang diharapkan:** shell reseller mobile siap  
-**Acceptance criteria:**
-- bottom nav berfungsi
-- halaman tidak menimbulkan horizontal scroll
-- header reseller ringkas dan jelas
-
-## TASK F-08
-
-**Nama task:** Build Admin Dashboard Mock Screen  
-**Tujuan:** Menampilkan dashboard admin berdasarkan data mock.  
-**File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/dashboard/page.tsx`
-- `src/app/components/admin/dashboard/AdminDashboardScreen.tsx`
-- `src/app/components/admin/dashboard/KpiGrid.tsx`
-- `src/app/components/admin/dashboard/WatchlistPanel.tsx`
-- `src/app/components/admin/dashboard/ResellerProgressPanel.tsx`
-- `src/app/components/admin/dashboard/WarehousePanel.tsx`
-- `src/app/components/admin/dashboard/CashPanel.tsx`
-**Lokasi file:** admin dashboard folders  
-**Langkah kerja AI agent:**
-1. Bentuk page shell.
-2. Pecah dashboard menjadi section reusable.
-3. Hubungkan ke hook mock dashboard.
-4. Siapkan loading/error/empty scenario.
-**Dependency:** shared components + dummy dashboard data  
-**Output yang diharapkan:** dashboard admin mock interaktif  
-**Acceptance criteria:**
-- KPI muncul
-- watchlist tampil
-- state kosong dan error bisa ditrigger
-
-## TASK F-09
-
-**Nama task:** Build Periode Management Mock Module  
-**Tujuan:** Menyediakan list, detail, setup wizard, dan checklist periode.  
-**File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/periode/page.tsx`
-- `src/app/(DashboardLayout)/admin/periode/create/page.tsx`
-- `src/app/(DashboardLayout)/admin/periode/[id]/page.tsx`
-- `src/app/(DashboardLayout)/admin/periode/[id]/setup/page.tsx`
-- `src/app/(DashboardLayout)/admin/periode/[id]/checklist/page.tsx`
-- `src/app/components/admin/periode/*`
-**Lokasi file:** periode folders  
-**Langkah kerja AI agent:**
-1. Buat table list periode.
-2. Buat form create/edit mock.
-3. Buat wizard setup (Wajib menerapkan konsep **Kloning Masal Paket**).
-4. Buat checklist activation mock.
-**Dependency:** periode dummy data + shared components  
-**Output yang diharapkan:** flow periode bisa didemokan  
-**Acceptance criteria:**
-- create/edit mock berjalan
-- checklist dan setup state jelas
-- transisi visual status periode bisa disimulasikan
-
-## TASK F-10
-
-**Nama task:** Build Reseller Daily Setor Flow Mock  
-**Tujuan:** Menyediakan flow utama harian reseller untuk input setoran.  
-**File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/setor/page.tsx`
+- `src/app/(Reseller)/reseller/setor/page.tsx`
 - `src/app/components/reseller/setor/ResellerSetorScreen.tsx`
 - `src/app/components/reseller/setor/KonsumenSearchList.tsx`
 - `src/app/components/reseller/setor/SetoranFormMock.tsx`
@@ -938,7 +758,7 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Akun Kas Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `master/akun-kas`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/master/akun-kas/page.tsx`
+- `src/app/(Admin)/admin/master/akun-kas/page.tsx`
 - komponen admin akun kas terkait
 **Lokasi file:** admin master akun-kas folders  
 **Langkah kerja AI agent:**
@@ -958,7 +778,7 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Barang Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `master/barang`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/master/barang/page.tsx`
+- `src/app/(Admin)/admin/master/barang/page.tsx`
 - komponen admin barang terkait
 **Lokasi file:** admin master barang folders  
 **Langkah kerja AI agent:**
@@ -978,7 +798,7 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Barang Periode Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `master/barang-periode`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/master/barang-periode/page.tsx`
+- `src/app/(Admin)/admin/master/barang-periode/page.tsx`
 - komponen admin barang periode terkait
 **Lokasi file:** admin master barang-periode folders  
 **Langkah kerja AI agent:**
@@ -998,7 +818,7 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Katalog Paket & BOM Skeleton (Spreadsheet Mode)  
 **Tujuan:** Menyediakan antarmuka pengelolaan 500+ paket dengan gaya *Enterprise Spreadsheet*.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/master/paket/page.tsx`
+- `src/app/(Admin)/admin/master/paket/page.tsx`
 - komponen admin paket terkait (`SpreadsheetDataGrid`, `TreeCategorySidebar`)
 **Lokasi file:** admin master paket folders  
 **Langkah kerja AI agent:**
@@ -1014,12 +834,12 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 - *sidebar tree-view* bisa diklik dan merespons filter tabel
 - fitur *inline-editing* bisa didemokan
 
-## TASK F-11A4
+## TASK F-11A5
 
 **Nama task:** Build Admin Komisi Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `master/komisi`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/master/komisi/page.tsx`
+- `src/app/(Admin)/admin/master/komisi/page.tsx`
 - komponen admin komisi terkait
 **Lokasi file:** admin master komisi folders  
 **Langkah kerja AI agent:**
@@ -1034,32 +854,12 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 - halaman komisi tidak dead end
 - state dasar komisi terlihat jelas
 
-## TASK F-11A5
-
-**Nama task:** Build Admin Paket Skeleton  
-**Tujuan:** Menyediakan skeleton untuk modul admin `master/paket`.  
-**File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/master/paket/page.tsx`
-- komponen admin paket terkait
-**Lokasi file:** admin master paket folders  
-**Langkah kerja AI agent:**
-1. Buat header, filter dasar, dan content panel untuk master paket.
-2. Gunakan presentasi yang membantu membedakan paket tunggal dan komposit.
-3. Hubungkan ke hook mock paket.
-4. Pastikan badge/status paket terbaca konsisten dengan kontrak UI.
-**Dependency:** shared components + dummy pack paket  
-**Output yang diharapkan:** modul paket dapat dinavigasi  
-**Acceptance criteria:**
-- route `admin/master/paket` tersedia
-- halaman paket tidak dead end
-- status/badge paket terbaca jelas
-
 ## TASK F-11A6
 
 **Nama task:** Build Admin Reseller Periode Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `reseller-periode`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/reseller-periode/page.tsx`
+- `src/app/(Admin)/admin/reseller-periode/page.tsx`
 - komponen admin reseller-periode terkait
 **Lokasi file:** admin reseller-periode folders  
 **Langkah kerja AI agent:**
@@ -1078,8 +878,8 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Relasi Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `reseller` dan `konsumen`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/reseller/page.tsx`
-- `src/app/(DashboardLayout)/admin/konsumen/page.tsx`
+- `src/app/(Admin)/admin/reseller/page.tsx`
+- `src/app/(Admin)/admin/konsumen/page.tsx`
 - komponen admin relasi terkait
 **Lokasi file:** admin relation folders  
 **Langkah kerja AI agent:**
@@ -1099,9 +899,9 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Pesanan Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `pesanan` dan daftar detail item pesanan.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/pesanan/page.tsx`
-- `src/app/(DashboardLayout)/admin/pesanan/perlu-perhatian/page.tsx`
-- `src/app/(DashboardLayout)/admin/pesanan/[id]/page.tsx`
+- `src/app/(Admin)/admin/pesanan/page.tsx`
+- `src/app/(Admin)/admin/pesanan/perlu-perhatian/page.tsx`
+- `src/app/(Admin)/admin/pesanan/[id]/page.tsx`
 - komponen admin pesanan terkait
 **Lokasi file:** admin pesanan folders  
 **Langkah kerja AI agent:**
@@ -1121,8 +921,8 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Setoran Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `setoran-konsumen` dan `setoran-pusat`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/setoran-konsumen/page.tsx`
-- `src/app/(DashboardLayout)/admin/setoran-pusat/page.tsx`
+- `src/app/(Admin)/admin/setoran-konsumen/page.tsx`
+- `src/app/(Admin)/admin/setoran-pusat/page.tsx`
 - komponen admin setoran terkait
 **Lokasi file:** admin setoran folders  
 **Langkah kerja AI agent:**
@@ -1142,10 +942,10 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Gudang Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `gudang`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/gudang/belanja/page.tsx`
-- `src/app/(DashboardLayout)/admin/gudang/packing/page.tsx`
-- `src/app/(DashboardLayout)/admin/gudang/pembagian/page.tsx`
-- `src/app/(DashboardLayout)/admin/gudang/pengiriman/page.tsx`
+- `src/app/(Admin)/admin/gudang/belanja/page.tsx`
+- `src/app/(Admin)/admin/gudang/packing/page.tsx`
+- `src/app/(Admin)/admin/gudang/pembagian/page.tsx`
+- `src/app/(Admin)/admin/gudang/pengiriman/page.tsx`
 - komponen admin gudang terkait
 **Lokasi file:** admin gudang folders  
 **Langkah kerja AI agent:**
@@ -1165,9 +965,9 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Keuangan Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `keuangan`.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/keuangan/kas-masuk/page.tsx`
-- `src/app/(DashboardLayout)/admin/keuangan/mutasi-kas/page.tsx`
-- `src/app/(DashboardLayout)/admin/keuangan/pencairan/page.tsx`
+- `src/app/(Admin)/admin/keuangan/kas-masuk/page.tsx`
+- `src/app/(Admin)/admin/keuangan/mutasi-kas/page.tsx`
+- `src/app/(Admin)/admin/keuangan/pencairan/page.tsx`
 - komponen admin keuangan terkait
 **Lokasi file:** admin keuangan folders  
 **Langkah kerja AI agent:**
@@ -1187,11 +987,11 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Admin Laporan dan Audit Skeleton  
 **Tujuan:** Menyediakan skeleton untuk modul admin `laporan` dan audit.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/laporan/rekap-reseller/page.tsx`
-- `src/app/(DashboardLayout)/admin/laporan/stok/page.tsx`
-- `src/app/(DashboardLayout)/admin/laporan/audit/page.tsx`
-- `src/app/(DashboardLayout)/admin/laporan/pembagian/page.tsx`
-- `src/app/(DashboardLayout)/admin/laporan/keuangan/page.tsx`
+- `src/app/(Admin)/admin/laporan/rekap-reseller/page.tsx`
+- `src/app/(Admin)/admin/laporan/stok/page.tsx`
+- `src/app/(Admin)/admin/laporan/audit/page.tsx`
+- `src/app/(Admin)/admin/laporan/pembagian/page.tsx`
+- `src/app/(Admin)/admin/laporan/keuangan/page.tsx`
 - komponen admin laporan/audit terkait
 **Lokasi file:** admin laporan folders  
 **Langkah kerja AI agent:**
@@ -1211,8 +1011,8 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Reseller Dashboard & Akun Skeleton  
 **Tujuan:** Menyediakan halaman utama (dashboard) dan pengaturan (akun) untuk reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/page.tsx`
-- `src/app/(DashboardLayout)/reseller/akun/page.tsx`
+- `src/app/(Reseller)/reseller/page.tsx`
+- `src/app/(Reseller)/reseller/akun/page.tsx`
 - komponen screen terkait
 **Lokasi file:** reseller route folders  
 **Langkah kerja AI agent:**
@@ -1230,10 +1030,10 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Reseller Konsumen & Pesanan Skeleton  
 **Tujuan:** Menyediakan halaman manajemen konsumen dan pesanan untuk reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/konsumen/page.tsx`
-- `src/app/(DashboardLayout)/reseller/pesanan/page.tsx`
-- `src/app/(DashboardLayout)/reseller/pesanan/create/page.tsx`
-- `src/app/(DashboardLayout)/reseller/pesanan/[id]/page.tsx`
+- `src/app/(Reseller)/reseller/konsumen/page.tsx`
+- `src/app/(Reseller)/reseller/pesanan/page.tsx`
+- `src/app/(Reseller)/reseller/pesanan/create/page.tsx`
+- `src/app/(Reseller)/reseller/pesanan/[id]/page.tsx`
 - komponen screen terkait
 **Lokasi file:** reseller route folders  
 **Langkah kerja AI agent:**
@@ -1253,7 +1053,7 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Build Reseller Riwayat Modular Skeleton  
 **Tujuan:** Menyediakan area riwayat modular untuk reseller tanpa unified history feed.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/akun/page.tsx`
+- `src/app/(Reseller)/reseller/akun/page.tsx`
 - komponen screen terkait
 **Lokasi file:** reseller route folders  
 **Langkah kerja AI agent:**
@@ -1364,7 +1164,7 @@ Di bawah ini adalah task blueprint yang bisa langsung dipakai AI coding agent.
 **Nama task:** Frontend Reseller Mobile Hardening  
 **Tujuan:** Memastikan area reseller aman dipakai di viewport mobile utama.  
 **File yang dibuat/diubah:** screen reseller yang masih rawan overflow atau layout rusak  
-**Lokasi file:** `src/app/(DashboardLayout)/reseller/`, komponen reseller terkait  
+**Lokasi file:** `src/app/(Reseller)/reseller/`, komponen reseller terkait  
 **Langkah kerja AI agent:**
 1. Audit overflow, wrapping, dan tap target pada screen reseller.
 2. Rapikan list, form, dan action area agar tetap usable di mobile.

@@ -156,14 +156,14 @@ ACCESS_FORBIDDEN
 ## 4.1 Frontend
 
 ```txt
-src/app/(DashboardLayout)/admin/reseller/
+src/app/(Admin)/admin/reseller/
   page.tsx
   [no_reseller]/
     page.tsx
   create/
     page.tsx
 
-src/app/(DashboardLayout)/reseller/
+src/app/(Reseller)/reseller/
   page.tsx
   konsumen/
     page.tsx
@@ -444,7 +444,7 @@ Tanggung jawab:
 **Nama task:** Build Admin Reseller List Screen  
 **Tujuan:** Menyediakan daftar reseller untuk admin.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/reseller/page.tsx`
+- `src/app/(Admin)/admin/reseller/page.tsx`
 - `src/app/components/admin/reseller/ResellerListScreen.tsx`
 - `src/app/components/admin/reseller/ResellerTable.tsx`
 **Lokasi file:** route + admin reseller components  
@@ -463,8 +463,8 @@ Tanggung jawab:
 **Nama task:** Build Admin Reseller Form and Detail  
 **Tujuan:** Menyediakan create/edit/detail reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/reseller/create/page.tsx`
-- `src/app/(DashboardLayout)/admin/reseller/[no_reseller]/page.tsx`
+- `src/app/(Admin)/admin/reseller/create/page.tsx`
+- `src/app/(Admin)/admin/reseller/[no_reseller]/page.tsx`
 - `src/app/components/admin/reseller/ResellerForm.tsx`
 - `src/app/components/admin/reseller/ResellerDetailScreen.tsx`
 - `src/app/components/admin/reseller/ResellerStatusActions.tsx`
@@ -485,7 +485,7 @@ Tanggung jawab:
 **Nama task:** Build Reseller Pending and Active Shell States  
 **Tujuan:** Menyediakan perilaku area reseller untuk status pending dan aktif.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/page.tsx`
+- `src/app/(Reseller)/reseller/page.tsx`
 - `src/app/components/reseller/konsumen/ResellerPendingState.tsx`
 - `src/hooks/reseller/useResellerDashboardMock.ts`
 **Lokasi file:** reseller route + components + hooks  
@@ -504,7 +504,7 @@ Tanggung jawab:
 **Nama task:** Build Reseller Konsumen List and Search  
 **Tujuan:** Menyediakan daftar konsumen mobile-first untuk reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/konsumen/page.tsx`
+- `src/app/(Reseller)/reseller/konsumen/page.tsx`
 - `src/app/components/reseller/konsumen/ResellerKonsumenScreen.tsx`
 - `src/app/components/reseller/konsumen/KonsumenCard.tsx`
 - `src/app/components/reseller/konsumen/KonsumenSearchList.tsx`
@@ -525,8 +525,8 @@ Tanggung jawab:
 **Nama task:** Build Konsumen Create/Edit/Detail Mock  
 **Tujuan:** Menyediakan CRUD ringan konsumen milik reseller.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/reseller/konsumen/create/page.tsx`
-- `src/app/(DashboardLayout)/reseller/konsumen/[id]/page.tsx`
+- `src/app/(Reseller)/reseller/konsumen/create/page.tsx`
+- `src/app/(Reseller)/reseller/konsumen/[id]/page.tsx`
 - `src/app/components/reseller/konsumen/KonsumenForm.tsx`
 - `src/app/components/reseller/konsumen/KonsumenDetailScreen.tsx`
 - `src/hooks/reseller/useKonsumenDetailMock.ts`

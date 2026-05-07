@@ -173,8 +173,8 @@ Catatan pembagian packet:
 | Packet ID | Nama | Scope | Builder | Audit | Write Scope | Exit Criteria |
 |---|---|---|---|---|---|---|
 | `S1.5-T01` | Periode Backend & Mock | API, RPC kloning, mock list periode | Gemini | Claude | `src/app/api/admin/periode/**`, `src/lib/server/**` | RPC kloning masal siap dipanggil UI |
-| `S1.5-T02` | Wizard Setup Periode | UI create & wizard kloning periode | Gemini | Claude | `src/app/(DashboardLayout)/admin/periode/**` | flow wizard kloning paket bisa didemokan |
-| `S1.5-T03` | Katalog Paket (Spreadsheet) | UI data grid massal, mass replace, tree-view | Gemini | Claude selective | `src/app/(DashboardLayout)/admin/master/paket/**` | inline-editing ratusan baris stabil tanpa lag |
+| `S1.5-T02` | Wizard Setup Periode | UI create & wizard kloning periode | Gemini | Claude | `src/app/(Admin)/admin/periode/**` | flow wizard kloning paket bisa didemokan |
+| `S1.5-T03` | Katalog Paket (Spreadsheet) | UI data grid massal, mass replace, tree-view | Gemini | Claude selective | `src/app/(Admin)/admin/master/paket/**` | inline-editing ratusan baris stabil tanpa lag |
 
 ### `S2` Pesanan Core
 
@@ -182,8 +182,8 @@ Catatan pembagian packet:
 |---|---|---|---|---|---|---|
 | `S2-T01` | Pesanan schema/read model | migration dan read model pesanan | Gemini | Claude | `supabase/migrations/001*`, `004*`, `007*` | schema + views valid |
 | `S2-T02` | Pesanan backend layer | validation, workflow, service, route | Gemini | Claude | `src/lib/server/**`, `src/app/api/**` | contract backend konsisten |
-| `S2-T03` | Reseller pesanan UI | list, create, detail, finalisasi | Gemini | Codex -> Claude | `src/app/(DashboardLayout)/reseller/pesanan/**`, components/hooks terkait | flow reseller jalan |
-| `S2-T04` | Admin pesanan UI | list, watchlist, detail pesanan | Gemini | Codex -> Claude | `src/app/(DashboardLayout)/admin/pesanan/**`, components/hooks terkait | flow admin jalan |
+| `S2-T03` | Reseller pesanan UI | list, create, detail, finalisasi | Gemini | Codex -> Claude | `src/app/(Reseller)/reseller/pesanan/**`, components/hooks terkait | flow reseller jalan |
+| `S2-T04` | Admin pesanan UI | list, watchlist, detail pesanan | Gemini | Codex -> Claude | `src/app/(Admin)/admin/pesanan/**`, components/hooks terkait | flow admin jalan |
 
 ### `S3` Setoran Core
 
@@ -191,30 +191,30 @@ Catatan pembagian packet:
 |---|---|---|---|---|---|---|
 | `S3-T01` | Setoran schema/boundary | SQL setoran, monitoring views | Gemini | Claude | `supabase/migrations/008*`, `004*` | boundary setoran valid |
 | `S3-T02` | Setoran backend layer | validation, workflow, service, route | Gemini | Claude | `src/lib/server/**`, `src/app/api/**` | status lunas konsisten |
-| `S3-T03` | Reseller setor UI | setor konsumen dan setor pusat | Gemini | Codex -> Claude | `src/app/(DashboardLayout)/reseller/setor/**`, components/hooks terkait | alur 3 langkah siap |
-| `S3-T04` | Admin monitoring setoran | layar monitoring layer 1 dan 2 | Gemini | Codex | `src/app/(DashboardLayout)/admin/setoran-*/**` | monitoring admin jelas |
+| `S3-T03` | Reseller setor UI | setor konsumen dan setor pusat | Gemini | Codex -> Claude | `src/app/(Reseller)/reseller/setor/**`, components/hooks terkait | alur 3 langkah siap |
+| `S3-T04` | Admin monitoring setoran | layar monitoring layer 1 dan 2 | Gemini | Codex | `src/app/(Admin)/admin/setoran-*/**` | monitoring admin jelas |
 
 ### `S4` Gudang
 
 | Packet ID | Nama | Scope | Builder | Audit | Write Scope | Exit Criteria |
 |---|---|---|---|---|---|---|
 | `S4-T01` | Gudang backend | belanja, packing, kirim, pembagian | Gemini | Claude | `supabase/migrations/009*`, `src/lib/server/**`, `src/app/api/admin/gudang/**` | eligibility dan stok valid |
-| `S4-T02` | Gudang UI | screen gudang admin | Gemini | Codex -> Claude | `src/app/(DashboardLayout)/admin/gudang/**`, components/hooks terkait | UI gudang lengkap |
+| `S4-T02` | Gudang UI | screen gudang admin | Gemini | Codex -> Claude | `src/app/(Admin)/admin/gudang/**`, components/hooks terkait | UI gudang lengkap |
 
 ### `S5` Keuangan
 
 | Packet ID | Nama | Scope | Builder | Audit | Write Scope | Exit Criteria |
 |---|---|---|---|---|---|---|
 | `S5-T01` | Keuangan backend | kas masuk, mutasi, pencairan | Gemini | Claude | `supabase/migrations/010*`, `src/lib/server/**`, `src/app/api/admin/keuangan/**` | saldo dan audit valid |
-| `S5-T02` | Keuangan UI | screen keuangan admin | Gemini | Codex -> Claude | `src/app/(DashboardLayout)/admin/keuangan/**`, components/hooks terkait | UI keuangan lengkap |
+| `S5-T02` | Keuangan UI | screen keuangan admin | Gemini | Codex -> Claude | `src/app/(Admin)/admin/keuangan/**`, components/hooks terkait | UI keuangan lengkap |
 
 ### `S6` Dashboard dan Laporan
 
 | Packet ID | Nama | Scope | Builder | Audit | Write Scope | Exit Criteria |
 |---|---|---|---|---|---|---|
 | `S6-T01` | Dashboard/report backend | read route, payload, filter | Gemini | Claude selective | `supabase/migrations/011*`, `src/lib/server/**`, `src/app/api/admin/laporan/**`, `src/app/api/reseller/dashboard/**` | payload read stabil |
-| `S6-T02` | Admin dashboard/laporan UI | KPI, watchlist, report screens | Gemini | Codex | `src/app/(DashboardLayout)/admin/dashboard/**`, `admin/laporan/**` | dashboard admin siap |
-| `S6-T03` | Reseller dashboard UI | KPI, priority list, shortcut setor | Gemini | Codex | `src/app/(DashboardLayout)/reseller/**`, components/hooks terkait | dashboard reseller siap |
+| `S6-T02` | Admin dashboard/laporan UI | KPI, watchlist, report screens | Gemini | Codex | `src/app/(Admin)/admin/dashboard/**`, `src/app/(Admin)/admin/laporan/**` | dashboard admin siap |
+| `S6-T03` | Reseller dashboard UI | KPI, priority list, shortcut setor | Gemini | Codex | `src/app/(Reseller)/reseller/**`, components/hooks terkait | dashboard reseller siap |
 
 ### `S7` Integration Hardening
 

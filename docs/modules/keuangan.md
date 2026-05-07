@@ -209,7 +209,7 @@ VALIDATION_REQUIRED_FIELD
 ## 4.1 Frontend
 
 ```txt
-src/app/(DashboardLayout)/admin/keuangan/
+src/app/(Admin)/admin/keuangan/
   akun-kas/
     page.tsx
   kas-masuk/

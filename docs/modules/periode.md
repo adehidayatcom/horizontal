@@ -133,7 +133,7 @@ VALIDATION_REQUIRED_FIELD
 ## 4.1 Frontend
 
 ```txt
-src/app/(DashboardLayout)/admin/periode/
+src/app/(Admin)/admin/periode/
   page.tsx
   create/
     page.tsx
@@ -410,7 +410,7 @@ Functions:
 **Nama task:** Build Periode List Route and Screen  
 **Tujuan:** Menampilkan daftar periode admin.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/periode/page.tsx`
+- `src/app/(Admin)/admin/periode/page.tsx`
 - `src/app/components/admin/periode/PeriodeListScreen.tsx`
 - `src/app/components/admin/periode/PeriodeTable.tsx`
 - `src/app/components/admin/periode/PeriodeEmptyState.tsx`
@@ -432,7 +432,7 @@ Functions:
 **Nama task:** Build Periode Form Create/Edit  
 **Tujuan:** Menyediakan form create/edit periode mock.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/periode/create/page.tsx`
+- `src/app/(Admin)/admin/periode/create/page.tsx`
 - `src/app/components/admin/periode/PeriodeForm.tsx`
 **Lokasi file:** route + component  
 **Langkah kerja AI agent:**
@@ -451,7 +451,7 @@ Functions:
 **Nama task:** Build Periode Detail Screen  
 **Tujuan:** Menampilkan detail periode dan ringkasannya.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/periode/[id]/page.tsx`
+- `src/app/(Admin)/admin/periode/[id]/page.tsx`
 - `src/app/components/admin/periode/PeriodeDetailScreen.tsx`
 - `src/app/components/admin/periode/PeriodeSummaryCards.tsx`
 - `src/app/components/admin/periode/PeriodeStatusActions.tsx`
@@ -472,7 +472,7 @@ Functions:
 **Nama task:** Build Periode Setup Wizard Mock  
 **Tujuan:** Menyediakan wizard persiapan periode.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/periode/[id]/setup/page.tsx`
+- `src/app/(Admin)/admin/periode/[id]/setup/page.tsx`
 - `src/app/components/admin/periode/PeriodeSetupWizard.tsx`
 **Lokasi file:** route + component  
 **Langkah kerja AI agent:**
@@ -491,7 +491,7 @@ Functions:
 **Nama task:** Build Periode Activation Checklist Mock  
 **Tujuan:** Menyediakan checklist readiness aktivasi.  
 **File yang dibuat/diubah:**  
-- `src/app/(DashboardLayout)/admin/periode/[id]/checklist/page.tsx`
+- `src/app/(Admin)/admin/periode/[id]/checklist/page.tsx`
 - `src/app/components/admin/periode/PeriodeChecklist.tsx`
 **Lokasi file:** route + component  
 **Langkah kerja AI agent:**

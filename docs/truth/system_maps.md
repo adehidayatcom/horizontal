@@ -293,7 +293,8 @@ Dokumen ini menetapkan:
 - `./system_maps.md` menjadi index visual utama untuk hubungan antar dokumen, modul, dan entitas
 - `../product/data_flow.md` tetap fokus ke alur operasional bisnis
 - semua blueprint modul berikutnya sebaiknya menaut ke dokumen ini agar agent baru cepat orientasi
-- tidak ada register pertanyaan terpisah pada release state; gap yang masih dibahas dicatat di `../truth/01-decision_log.md`
+- jalur registrasi publik sudah diputuskan sebagai `/register` dan tidak lagi menjadi pertanyaan terpisah pada release state
+- route bisnis frontend resmi memakai route group `(Admin)`, `(Reseller)`, dan `(Auth)`; `(DashboardLayout)` dipertahankan hanya untuk demo bawaan Modernize
 
 ---
 

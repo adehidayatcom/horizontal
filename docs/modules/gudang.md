@@ -272,31 +272,31 @@ VALIDATION_REQUIRED_FIELD
 ## 4.1 Frontend
 
 ```txt
-src/app/(DashboardLayout)/admin/gudang/belanja/
+src/app/(Admin)/admin/gudang/belanja/
   page.tsx
   create/
     page.tsx
   [id]/
     page.tsx
 
-src/app/(DashboardLayout)/admin/gudang/packing/
+src/app/(Admin)/admin/gudang/packing/
   page.tsx
   create/
     page.tsx
 
-src/app/(DashboardLayout)/admin/gudang/pengiriman/
+src/app/(Admin)/admin/gudang/pengiriman/
   page.tsx
   [id]/
     page.tsx
 
-src/app/(DashboardLayout)/admin/gudang/pembagian/
+src/app/(Admin)/admin/gudang/pembagian/
   page.tsx
   create/
     page.tsx
   [id]/
     page.tsx
 
-src/app/(DashboardLayout)/admin/laporan/stok/
+src/app/(Admin)/admin/laporan/stok/
   barang/
     page.tsx
   paket-jadi/

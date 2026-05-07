@@ -76,6 +76,7 @@ type AuthSessionSummary = {
 /admin/*    -> ADMIN only
 /reseller/* -> RESELLER only
 /login      -> public
+/register   -> public
 ```
 
 ## 3.3 Error Codes Relevan
@@ -96,13 +97,17 @@ ACCESS_FORBIDDEN
 ## 4.1 Frontend
 
 ```txt
-src/app/
+src/app/(Auth)/
   login/
+    page.tsx
+  register/
     page.tsx
 
 src/app/components/auth/
   LoginScreen.tsx
   LoginForm.tsx
+  RegisterScreen.tsx
+  RegisterForm.tsx
   PendingApprovalState.tsx
   SessionExpiredState.tsx
   UnauthorizedState.tsx
@@ -169,6 +174,7 @@ src/app/api/auth/
 ## 6. Hubungan Antar File
 
 - `LoginForm.tsx` mengirim kredensial ke Supabase Auth client lalu menyerahkan hasil session ke `AuthContext.tsx`
+- `RegisterForm.tsx` mengirim payload self-register reseller ke Supabase Auth client lalu menunggu hasil approval state sebelum masuk area operasional
 - `AuthContext.tsx` dan `useAuthSession.ts` membaca `session/route.ts` untuk mendapatkan `AuthSessionSummary`
 - `auth-session.ts` menjadi helper server tunggal untuk membaca session dan `profile`
 - `auth-guards.ts` memakai output `auth-session.ts` untuk memproteksi area admin dan reseller
@@ -184,6 +190,8 @@ src/app/api/auth/
 |---|---|
 | `LoginScreen.tsx` | shell halaman login |
 | `LoginForm.tsx` | form email/password, error UI, submit state |
+| `RegisterScreen.tsx` | shell halaman registrasi reseller |
+| `RegisterForm.tsx` | form self-register reseller, error UI, submit state |
 | `PendingApprovalState.tsx` | state reseller `PENDING` |
 | `SessionExpiredState.tsx` | state session habis dan CTA login ulang |
 | `UnauthorizedState.tsx` | state akses ditolak |
@@ -305,20 +313,23 @@ src/app/api/auth/
   - session expired tidak meninggalkan UI rusak
   - logout frontend memakai route internal yang sudah tersedia
 
-## MAU-07 - Finalkan halaman login
+## MAU-07 - Finalkan halaman login dan registrasi reseller
 
-- tujuan: menyiapkan layar masuk yang sesuai role model proyek
-- file yang dibuat/diubah: `src/app/login/page.tsx`, `LoginScreen.tsx`, `LoginForm.tsx`
-- lokasi file: `src/app/login/page.tsx`, `src/app/components/auth/...`
+- tujuan: menyiapkan layar masuk dan self-register yang sesuai role model proyek
+- file yang dibuat/diubah: `src/app/(Auth)/login/page.tsx`, `src/app/(Auth)/register/page.tsx`, `LoginScreen.tsx`, `LoginForm.tsx`, `RegisterScreen.tsx`, `RegisterForm.tsx`
+- lokasi file: `src/app/(Auth)/login/page.tsx`, `src/app/(Auth)/register/page.tsx`, `src/app/components/auth/...`
 - langkah kerja AI agent:
   - siapkan input email/password
+  - siapkan form self-register reseller
   - tampilkan error Bahasa Indonesia
   - redirect sesudah login berdasarkan role
+  - arahkan self-register ke status `PENDING`
 - dependency: MAU-04
-- output yang diharapkan: login UI siap
+- output yang diharapkan: login dan registrasi UI siap
 - acceptance criteria:
   - login tidak mencampur logic transaksi
   - role redirect jelas
+  - self-register menghasilkan status `PENDING`
 
 ## MAU-08 - Finalkan AuthContext dan hook session
 
@@ -452,5 +463,5 @@ Slice ini cukup untuk membuka modul role-aware berikutnya tanpa menunggu semua p
 
 ## Catatan Keputusan Terkunci
 
-- registrasi reseller fase awal memakai dua jalur: form publik `self-register` ke status `PENDING`, dan create oleh admin sesuai `DL-023` / `docs/truth/01-decision_log.md`
+- registrasi reseller fase awal memakai dua jalur: form publik `/register` ke status `PENDING`, dan create oleh admin sesuai `DL-023` / `DL-041` / `docs/truth/01-decision_log.md`
 - halaman login dipakai bersama untuk admin dan reseller; pembedaan akses dilakukan setelah autentikasi melalui role dan redirect sesuai `DL-040` / `docs/truth/01-decision_log.md`

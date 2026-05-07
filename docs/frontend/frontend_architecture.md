@@ -87,7 +87,7 @@ Struktur berikut adalah target resmi untuk frontend proyek:
 ```txt
 src/
   app/
-    (DashboardLayout)/
+    (Admin)/
       admin/
         dashboard/page.tsx
         periode/page.tsx
@@ -124,6 +124,8 @@ src/
           pembagian/page.tsx
           keuangan/page.tsx
         koreksi/page.tsx
+      layout.tsx
+    (Reseller)/
       reseller/
         page.tsx
         konsumen/page.tsx
@@ -135,6 +137,13 @@ src/
             page.tsx
         setor/page.tsx
         akun/page.tsx
+      layout.tsx
+    (Auth)/
+      login/page.tsx
+      register/page.tsx
+      layout.tsx
+    (DashboardLayout)/
+      ...demo-bawaan-modernize/
       layout.tsx
     api/
     layout.tsx
@@ -192,6 +201,7 @@ Catatan:
 - folder domain bisnis baru ditambahkan secara bertahap dan terstruktur
 - nama folder bisnis harus mencerminkan domain proyek, bukan demo template
 - alias folder frontend `program/` dan `order/` tidak dipakai pada target final; semua route dan target file resmi memakai `pesanan/`
+- route group `(Admin)`, `(Reseller)`, dan `(Auth)` adalah lokasi resmi route bisnis; `(DashboardLayout)` hanya dipakai untuk halaman demo bawaan Modernize
 
 ---
 
@@ -204,6 +214,7 @@ Pola route utama:
 ```txt
 /                              -> landing/redirect
 /login                         -> autentikasi
+/register                      -> registrasi reseller
 /admin                         -> redirect ke dashboard admin
 /admin/dashboard               -> dashboard admin
 /admin/periode                 -> kelola periode
@@ -256,15 +267,29 @@ Aturan:
 - provider global
 - top loader jika dipakai
 
-### Dashboard Layout
+### Route Group Layouts
 
-`src/app/(DashboardLayout)/layout.tsx` bertanggung jawab untuk:
+`src/app/(Admin)/layout.tsx` bertanggung jawab untuk:
 
-- header
-- sidebar atau horizontal navigation
-- container content
-- breadcrumb
-- slot halaman admin dan reseller
+- header admin
+- sidebar atau horizontal navigation admin
+- container content admin
+- breadcrumb admin
+
+`src/app/(Reseller)/layout.tsx` bertanggung jawab untuk:
+
+- header reseller
+- bottom navigation reseller
+- container content reseller
+- penyesuaian mobile-first untuk area reseller
+
+`src/app/(Auth)/layout.tsx` bertanggung jawab untuk:
+
+- wrapper halaman login dan registrasi
+- copy dan state auth publik
+- pemisahan jelas antara surface auth dan shell operasional
+
+`src/app/(DashboardLayout)/layout.tsx` dipertahankan hanya untuk halaman demo bawaan Modernize.
 
 ### Shell Behavior
 
@@ -280,6 +305,7 @@ Aturan shell:
 
 - perubahan shell harus dilakukan sebagai capability global, bukan hardcode per halaman
 - halaman bisnis harus mengikuti shell, bukan membuat shell alternatif baru tanpa alasan kuat
+- route bisnis tidak boleh diletakkan di `(DashboardLayout)` karena route group itu bukan lokasi resmi area operasional
 
 ---
 
