@@ -83,6 +83,7 @@ Codex buat prompt packet ringkas
 | Stable SQL Error Code Rule | validasi SQL/RPC yang bersifat bisnis harus mengembalikan error code stabil agar service layer dan UI tidak menebak pesan error |
 | Concurrency Safety Rule | transaksi kritis harus divalidasi dan dieksekusi secara atomic di boundary yang sama; dilarang memisahkan validasi sensitif dan write akhir ke dua langkah yang rawan race condition |
 | Git Checkpoint Rule | setiap menemukan titik aman packet atau sprint, perubahan harus di-stage dan di-commit sebelum lanjut ke packet besar berikutnya atau sebelum pindah thread eksekusi |
+| Local Quality Gate Rule | setiap packet harus menyebut `Quality Gate Lokal` yang relevan; jika gate belum tersedia atau gagal, statusnya wajib dilaporkan jujur dan tidak boleh disembunyikan |
 
 ---
 
@@ -154,7 +155,7 @@ Catatan pembagian packet:
 
 | Packet ID | Nama | Scope | Builder | Audit | Write Scope | Exit Criteria |
 |---|---|---|---|---|---|---|
-| `S0-T01` | Lock source of truth | cek docs aktif dan dependency | Codex | - | `docs/` | source of truth final tercatat |
+| `S0-T01` | Lock source of truth | cek docs aktif, dependency, dan baseline quality gate lokal | Codex | - | `docs/` | source of truth final dan baseline quality gate lokal tercatat |
 | `S0-T02` | Define packet workflow | format packet, status, owner, gate | Codex | - | `docs/execution/` | workflow agen terdokumentasi |
 | `S0-T03` | Lock sprint board | buat dan tautkan board sprint | Codex | - | `docs/execution/` | board aktif dipakai |
 
@@ -240,11 +241,11 @@ Gunakan blok ini setiap kali status sprint diperbarui:
 
 ```txt
 CURRENT SPRINT : S0 Foundation Lock
-SPRINT STATUS  : PLANNED
-ACTIVE PACKET  : -
+SPRINT STATUS  : ACTIVE
+ACTIVE PACKET  : S0-T01
 BUILDER        : Codex
 AUDITOR        : -
-NEXT GATE      : siapkan packet `S0-T01`
+NEXT GATE      : review hasil `S0-T01` lalu checkpoint docs
 ```
 
 Jika sprint aktif pindah, blok ini wajib diperbarui.
@@ -255,7 +256,7 @@ Jika sprint aktif pindah, blok ini wajib diperbarui.
 
 | Sprint ID | Nama | Status | Active Packet | Builder | Auditor | Last Decision | Next Gate |
 |---|---|---|---|---|---|---|---|
-| `S0` | Foundation Lock | `PLANNED` | - | Codex | - | reset mulai dari awal | siapkan packet `S0-T01` |
+| `S0` | Foundation Lock | `ACTIVE` | `S0-T01` | Codex | - | baseline repo Modernize dan gate lokal sedang dikunci | review `S0-T01` lalu checkpoint docs |
 | `S1` | Frontend Shell Foundation | `PLANNED` | - | Gemini | Codex | belum mulai | bekukan packet `S1-T01` lalu buka thread eksekusi |
 | `S1.5` | Periode & Katalog Paket | `PLANNED` | - | Gemini | Claude selective | belum mulai | tunggu S1 selesai |
 | `S2` | Pesanan Core | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S1.5 stabil |
@@ -274,7 +275,7 @@ Gunakan tabel ini untuk mencatat packet yang sedang dikerjakan.
 
 | Packet ID | Sprint | Scope | Status | Builder | Auditor | Write Scope | Acceptance Gate | Notes |
 |---|---|---|---|---|---|---|---|---|
-| `S0-T01` | `S0` | lock source of truth | `TODO` | Codex | `-` | `docs/` | source of truth final tercatat | mulai dari awal |
+| `S0-T01` | `S0` | lock source of truth + gate lokal | `REVIEW` | Codex | `-` | `docs/` | source of truth final dan baseline quality gate lokal tercatat | `build` lolos; `lint` gagal; `typecheck` belum tersedia |
 | `S0-T02` | `S0` | define packet workflow | `TODO` | Codex | `-` | `docs/execution/` | workflow agen terdokumentasi | mulai dari awal |
 | `S0-T03` | `S0` | lock sprint board | `TODO` | Codex | `-` | `docs/execution/` | board, template prompt, dan guardrail dipakai | mulai dari awal |
 | `S1-T01` | `S1` | admin shell | `TODO` | Gemini | Codex | `src/app/components/layout/**` | shell admin stabil | packet belum dibekukan |
@@ -288,6 +289,14 @@ Setiap checkpoint git yang dianggap aman harus dicatat di board ini.
 | Checkpoint | Sprint/Packet | Commit | Tanggal | Scope | Catatan |
 |---|---|---|---|---|---|
 | `CP-001` | `-` | `-` | `-` | mulai dari awal | belum ada checkpoint |
+
+### Baseline Quality Gate Lokal
+
+| Gate | Status | Hasil Saat `S0-T01` |
+|---|---|---|
+| `pnpm run lint` | `FAIL` | script masih memakai `next lint` legacy dan gagal pada Next.js 16 baseline |
+| `pnpm run typecheck` | `MISSING` | script `typecheck` belum ada di `package.json` |
+| `pnpm run build` | `PASS` | build Next.js berhasil, tetapi masih ada warning tracing `next.config.mjs` dan peringatan `LoadingButton` MUI |
 
 ---
 
@@ -306,6 +315,7 @@ Setiap checkpoint git yang dianggap aman harus dicatat di board ini.
 11. Packet yang sudah lolos gate aman harus masuk checkpoint git sebelum packet besar berikutnya dibuka.
 12. Sprint yang berpindah dari `ACTIVE` ke `DONE` harus punya keputusan apakah perlu commit checkpoint saat itu juga.
 13. Jika review sprint lolos dan sprint berikutnya akan diprompt, checkpoint commit harus diselesaikan lebih dulu.
+14. Setiap prompt packet wajib menyebut `Quality Gate Lokal` yang harus dicek atau status gate yang sedang menjadi blocker.
 
 ### Aturan Checkpoint Git
 

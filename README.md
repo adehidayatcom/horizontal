@@ -1,15 +1,6 @@
 # Paket Lebaran Mumpuni
 
-Repo ini adalah fondasi aplikasi operasional Paket Lebaran Mumpuni yang dibangun di atas:
-
-- `Next.js 16` App Router
-- shell `Modernize`
-- `Material-UI v7`
-- `SWR`
-- `Formik + Yup`
-- `Supabase + RPC + RLS`
-
-Saat ini repo sudah melewati fase **document readiness** dan masuk ke fase **final docs polish**. Sumber kebenaran utama proyek ada di folder `docs/`, sementara source code masih membawa banyak artefak demo dari template `Modernize`.
+Repo ini adalah fondasi aplikasi operasional Paket Lebaran Mumpuni
 
 ## Status Saat Ini
 
@@ -18,14 +9,15 @@ Yang sudah siap di level dokumen:
 - product truth dan kontrak bisnis inti
 - kontrak frontend, backend, dan integrasi lintas layer
 - blueprint modul prioritas dari `auth` sampai `dashboard_laporan`
-- decision log, open questions register, dan testing strategy
+- decision log dan testing strategy
 
 Yang masih berupa target baseline repo:
 
 - bootstrap `supabase/`
 - generated type `src/types/database.ts`
-- script `test` dan `e2e`
+- script `typecheck`, `test`, dan `e2e`
 - pembersihan modul demo template di source code
+- normalisasi script lint bawaan Modernize ke gate lokal yang stabil di Next.js 16
 
 ## Entry Docs
 
@@ -34,7 +26,6 @@ Mulai dari dokumen ini:
 - index docs: [docs/README.md](docs/README.md)
 - arah produk: [docs/product/prd.md](docs/product/prd.md)
 - keputusan penting: [docs/truth/01-decision_log.md](docs/truth/01-decision_log.md)
-- pertanyaan terbuka: [docs/truth/03-open_questions_register.md](docs/truth/03-open_questions_register.md)
 - peta sistem: [docs/truth/system_maps.md](docs/truth/system_maps.md)
 
 ## Setup Dasar
@@ -51,19 +42,24 @@ Jalankan development server:
 pnpm run dev
 ```
 
-Quality gate yang saat ini tersedia:
+Quality gate lokal baseline repo saat ini:
 
 ```bash
 pnpm run lint
-pnpm run typecheck
 pnpm run build
 ```
 
+Status saat ini:
+
+- `pnpm run build` lolos
+- `pnpm run lint` gagal karena script masih memakai `next lint` legacy
+- `pnpm run typecheck` belum tersedia di `package.json`
+
 Catatan:
 
-- setup Supabase lokal/cloud dijelaskan di [docs/setup/setup_development_environment.md](/D:/WEBAPP/horizontal/docs/setup/setup_development_environment.md:1)
-- standar environment dijelaskan di [docs/setup/environment.md](/D:/WEBAPP/horizontal/docs/setup/environment.md:1)
-- strategi testing dijelaskan di [docs/quality/testing_strategy.md](/D:/WEBAPP/horizontal/docs/quality/testing_strategy.md:1)
+- setup Supabase lokal/cloud dijelaskan di [docs/setup/setup_development_environment.md](docs/setup/setup_development_environment.md)
+- standar environment dijelaskan di [docs/setup/environment.md](docs/setup/environment.md)
+- strategi testing dijelaskan di [docs/quality/testing_strategy.md](docs/quality/testing_strategy.md)
 
 ## Struktur Dokumen yang Penting
 

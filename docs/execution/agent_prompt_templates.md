@@ -78,6 +78,7 @@ Setiap packet cukup membawa field berikut:
 - `Objective`
 - `Write Scope`
 - `Read Scope`
+- `Quality Gate Lokal`
 - `Hard Constraints`
 - `Acceptance Criteria`
 - `Output Format`
@@ -116,10 +117,15 @@ READ SCOPE:
 WRITE SCOPE:
 - <file/folder yang boleh disentuh>
 
+QUALITY GATE LOKAL:
+- <command atau status gate yang relevan, misalnya `pnpm run lint`, `pnpm run build`, `pnpm run typecheck`>
+- <jika gate belum tersedia atau sedang gagal, tulis blocker literalnya>
+
 CHECK:
 - apakah scope kecil dan jelas
 - apakah ada blocker atau konflik dokumen
 - apakah packet bisa selesai oleh satu builder utama
+- apakah `Quality Gate Lokal` untuk packet ini sudah jelas
 
 OUTPUT:
 - return satu block kode saja
@@ -169,6 +175,11 @@ READ SCOPE:
 - docs/truth/01-decision_log.md
 - <dokumen modul/contract yang relevan>
 
+QUALITY GATE LOKAL:
+- jalankan gate yang relevan dan tersedia
+- jika command belum tersedia atau gagal, laporkan statusnya secara literal
+- jangan mengklaim packet aman jika gate lokal yang diwajibkan belum hijau atau belum dijelaskan
+
 RULES:
 - kerjakan hanya scope ini
 - jangan menambah fitur, field, route, atau state baru
@@ -184,7 +195,7 @@ TASKS:
 
 OUTPUT:
 - return satu block kode saja
-- isi block: summary, files changed, blockers, notes for Codex review
+- isi block: summary, files changed, quality gate lokal, blockers, notes for Codex review
 - jika belum lolos, sertakan revision hints yang singkat dan literal
 - jangan menulis prose di luar block
 ```
@@ -225,6 +236,10 @@ READ SCOPE:
 - docs/truth/01-decision_log.md
 - <dokumen modul/contract yang relevan>
 
+QUALITY GATE LOKAL:
+- cek apakah gate lokal yang diwajibkan oleh packet sudah dijalankan
+- jika ada gate merah atau gate hilang, nilai dampaknya terhadap merge
+
 RULES:
 - jangan rewrite besar
 - nilai terhadap dokumen aktif, bukan preferensi pribadi
@@ -234,7 +249,7 @@ RULES:
 
 OUTPUT:
 - return satu block kode saja
-- isi block: verdict, blocking findings, non-blocking findings, files reviewed, merge recommendation
+- isi block: verdict, blocking findings, non-blocking findings, quality gate lokal, files reviewed, merge recommendation
 - jika perlu revisi, sertakan fix hints singkat dan literal
 - jangan menulis prose di luar block
 

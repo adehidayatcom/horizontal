@@ -146,8 +146,9 @@ Jika sebagian script belum ada, itu berarti repo belum mencapai baseline siap-ke
 
 Status repo saat dokumen ini ditulis:
 
-- tersedia: `dev`, `build`, `start`, `lint`, `typecheck`
-- belum tersedia: `test`, `test:watch`, `e2e`
+- tersedia: `dev`, `build`, `start`, `lint`
+- belum tersedia: `typecheck`, `test`, `test:watch`, `e2e`
+- script `lint` masih memakai `next lint` legacy dan gagal pada baseline Next.js 16 yang sekarang terpasang
 
 Tool test yang dikunci:
 
@@ -165,6 +166,12 @@ pnpm run lint
 pnpm run typecheck
 pnpm run build
 ```
+
+Status baseline repo saat dokumen ini diperbarui:
+
+- `pnpm run build` lolos
+- `pnpm run lint` gagal karena `next lint` tidak lagi cocok untuk baseline Next.js 16 saat ini
+- `pnpm run typecheck` belum tersedia di `package.json`
 
 Untuk unit/integration test:
 
@@ -238,6 +245,6 @@ Aturan:
 
 Dokumen terkait:
 
-- `docs/setup_development_environment.md`
+- `docs/setup/setup_development_environment.md`
 - `docs/quality/testing_strategy.md`
-- `docs/support/checklist.md`
+- `docs/quality/checklist.md`
