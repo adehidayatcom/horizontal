@@ -133,7 +133,7 @@ Script minimum yang diharapkan:
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -146,9 +146,9 @@ Jika sebagian script belum ada, itu berarti repo belum mencapai baseline siap-ke
 
 Status repo saat dokumen ini ditulis:
 
-- tersedia: `dev`, `build`, `start`, `lint`
-- belum tersedia: `typecheck`, `test`, `test:watch`, `e2e`
-- script `lint` masih memakai `next lint` legacy dan gagal pada baseline Next.js 16 yang sekarang terpasang
+- tersedia: `dev`, `build`, `start`, `lint`, `typecheck`
+- belum tersedia: `test`, `test:watch`, `e2e`
+- script `lint` sudah dinormalisasi ke `eslint src` yang kompatibel dengan baseline Next.js 16 saat ini
 
 Tool test yang dikunci:
 
@@ -169,9 +169,9 @@ pnpm run build
 
 Status baseline repo saat dokumen ini diperbarui:
 
-- `pnpm run build` lolos
-- `pnpm run lint` gagal karena `next lint` tidak lagi cocok untuk baseline Next.js 16 saat ini
-- `pnpm run typecheck` belum tersedia di `package.json`
+- `pnpm run lint` lolos
+- `pnpm run typecheck` lolos
+- `pnpm run build` lolos dengan warning non-blocking dari route demo dan MUI legacy component
 
 Untuk unit/integration test:
 

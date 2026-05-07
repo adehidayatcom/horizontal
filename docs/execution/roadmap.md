@@ -39,6 +39,8 @@ Untuk peta hubungan visual lintas dokumen dan modul, lihat:
 
 ### Fase 1: Shell dan Struktur
 
+- pisahkan shell inti dari artefak demo `Modernize`
+- bersihkan demo `Modernize` secara bertahap setelah dependency inti dipindahkan
 - rapikan shell `Modernize`
 - tetapkan navigation admin dan reseller
 - tetapkan struktur folder target

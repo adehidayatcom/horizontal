@@ -15,9 +15,8 @@ Yang masih berupa target baseline repo:
 
 - bootstrap `supabase/`
 - generated type `src/types/database.ts`
-- script `typecheck`, `test`, dan `e2e`
+- script `test` dan `e2e`
 - pembersihan modul demo template di source code
-- normalisasi script lint bawaan Modernize ke gate lokal yang stabil di Next.js 16
 
 ## Entry Docs
 
@@ -46,14 +45,15 @@ Quality gate lokal baseline repo saat ini:
 
 ```bash
 pnpm run lint
+pnpm run typecheck
 pnpm run build
 ```
 
 Status saat ini:
 
 - `pnpm run build` lolos
-- `pnpm run lint` gagal karena script masih memakai `next lint` legacy
-- `pnpm run typecheck` belum tersedia di `package.json`
+- `pnpm run lint` lolos
+- `pnpm run typecheck` lolos
 
 Catatan:
 

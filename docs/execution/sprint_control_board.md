@@ -82,6 +82,7 @@ Codex buat prompt packet ringkas
 | Mock-to-Real Contract Rule | dummy data, mock context, placeholder API, dan transformer harus memakai shape contract resmi; dilarang membuat shape inline yang menyimpang dari kontrak akhir |
 | Stable SQL Error Code Rule | validasi SQL/RPC yang bersifat bisnis harus mengembalikan error code stabil agar service layer dan UI tidak menebak pesan error |
 | Concurrency Safety Rule | transaksi kritis harus divalidasi dan dieksekusi secara atomic di boundary yang sama; dilarang memisahkan validasi sensitif dan write akhir ke dua langkah yang rawan race condition |
+| Demo Cleanup Rule | route dan source demo Modernize dihapus bertahap; dependency shell inti, theme, customizer, logo, breadcrumb, dan helper aktif harus dipindahkan atau dinormalisasi dulu sebelum delete besar |
 | Git Checkpoint Rule | setiap menemukan titik aman packet atau sprint, perubahan harus di-stage dan di-commit sebelum lanjut ke packet besar berikutnya atau sebelum pindah thread eksekusi |
 | Local Quality Gate Rule | setiap packet harus menyebut `Quality Gate Lokal` yang relevan; jika gate belum tersedia atau gagal, statusnya wajib dilaporkan jujur dan tidak boleh disembunyikan |
 
@@ -130,7 +131,7 @@ Codex buat prompt packet ringkas
 | Sprint ID | Nama Sprint | Tujuan | Owner Builder | Auditor | Status Awal | Gate Keluar |
 |---|---|---|---|---|---|---|
 | `S0` | Foundation Lock | kunci docs, task packet, workflow agen, branch discipline | Codex | - | `PLANNED` | semua aturan eksekusi terkunci |
-| `S1` | Frontend Shell Foundation | shell admin/reseller, shared UI, context mock, dummy API skeleton | Gemini | Codex review only | `PLANNED` | shell dan shared layer stabil |
+| `S1` | Frontend Shell Foundation | ekstraksi shell inti, cleanup demo bertahap, shell admin/reseller, shared UI, context mock, dummy API skeleton | Gemini | Codex review only | `PLANNED` | shell inti stabil dan dependency demo aktif terisolasi |
 | `S1.5` | Periode & Katalog Paket | setup periode, wizard kloning, master paket (Spreadsheet Mode) | Gemini | Claude selective | `PLANNED` | kloning dan data grid ratusan paket berjalan |
 | `S2` | Pesanan Core | `konsumen`, `pesanan_konsumen`, `detail_pesanan_konsumen`, finalisasi pesanan | Gemini | Claude | `PLANNED` | flow pesanan valid end-to-end |
 | `S3` | Setoran Core | `setoran_konsumen`, `setoran`, monitoring setoran | Gemini | Claude | `PLANNED` | status lunas dan saldo konsisten |
@@ -163,11 +164,12 @@ Catatan pembagian packet:
 
 | Packet ID | Nama | Scope | Builder | Audit | Write Scope | Exit Criteria |
 |---|---|---|---|---|---|---|
-| `S1-T01` | Admin shell | admin layout, nav, header | Gemini | Codex | `src/app/components/layout/**` | shell admin stabil |
-| `S1-T02` | Reseller shell | reseller mobile shell, bottom nav | Gemini | Codex | `src/app/components/layout/**` | shell reseller stabil |
-| `S1-T03` | Shared UI primitives | badge, state, header, input rupiah | Gemini | Codex | `src/app/components/shared/**` | shared UI reusable |
-| `S1-T04` | Mock contexts | auth, period, UI, mock API context | Gemini | Codex | `src/app/context/**` | context mock siap |
-| `S1-T05` | Dummy API skeleton | fetcher, handlers, endpoints | Gemini | Codex | `src/lib/dummy-api/**` | placeholder API konsisten |
+| `S1-T01` | Shell core extraction | petakan dependency shell inti, normalkan import aktif, dan isolasi area demo yang aman dibersihkan bertahap | Gemini | Codex | `src/app/(DashboardLayout)/layout/**`, `src/app/components/**`, `src/app/app.tsx`, `src/utils/theme/**` | shell inti terpisah, dependency aktif jelas, dan target delete demo tahap berikutnya terdokumentasi |
+| `S1-T02` | Admin shell | admin layout, nav, header | Gemini | Codex | `src/app/(Admin)/**`, `src/app/components/layout/**` | shell admin stabil |
+| `S1-T03` | Reseller shell | reseller mobile shell, bottom nav | Gemini | Codex | `src/app/(Reseller)/**`, `src/app/components/layout/**` | shell reseller stabil |
+| `S1-T04` | Shared UI primitives | badge, state, header, input rupiah | Gemini | Codex | `src/app/components/shared/**` | shared UI reusable |
+| `S1-T05` | Mock contexts | auth, period, UI, mock API context | Gemini | Codex | `src/app/context/**` | context mock siap |
+| `S1-T06` | Dummy API skeleton | fetcher, handlers, endpoints | Gemini | Codex | `src/lib/dummy-api/**` | placeholder API konsisten |
 
 ### `S1.5` Periode & Katalog Paket
 
@@ -241,11 +243,11 @@ Gunakan blok ini setiap kali status sprint diperbarui:
 
 ```txt
 CURRENT SPRINT : S0 Foundation Lock
-SPRINT STATUS  : ACTIVE
-ACTIVE PACKET  : S0-T01
+SPRINT STATUS  : DONE
+ACTIVE PACKET  : -
 BUILDER        : Codex
 AUDITOR        : -
-NEXT GATE      : review hasil `S0-T01` lalu checkpoint docs
+NEXT GATE      : checkpoint `S0` selesai; lanjut buka `S1-T01`
 ```
 
 Jika sprint aktif pindah, blok ini wajib diperbarui.
@@ -256,8 +258,8 @@ Jika sprint aktif pindah, blok ini wajib diperbarui.
 
 | Sprint ID | Nama | Status | Active Packet | Builder | Auditor | Last Decision | Next Gate |
 |---|---|---|---|---|---|---|---|
-| `S0` | Foundation Lock | `ACTIVE` | `S0-T01` | Codex | - | baseline repo Modernize dan gate lokal sedang dikunci | review `S0-T01` lalu checkpoint docs |
-| `S1` | Frontend Shell Foundation | `PLANNED` | - | Gemini | Codex | belum mulai | bekukan packet `S1-T01` lalu buka thread eksekusi |
+| `S0` | Foundation Lock | `DONE` | - | Codex | - | source of truth, workflow packet, board sprint, dan gate lokal sudah terkunci | buka `S1-T01` |
+| `S1` | Frontend Shell Foundation | `ACTIVE` | `S1-T01` | Gemini | Codex | cleanup demo dilakukan bertahap mulai dari ekstraksi shell inti | kirim prompt `S1-T01` ke Gemini |
 | `S1.5` | Periode & Katalog Paket | `PLANNED` | - | Gemini | Claude selective | belum mulai | tunggu S1 selesai |
 | `S2` | Pesanan Core | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S1.5 stabil |
 | `S3` | Setoran Core | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S2 stabil |
@@ -275,10 +277,11 @@ Gunakan tabel ini untuk mencatat packet yang sedang dikerjakan.
 
 | Packet ID | Sprint | Scope | Status | Builder | Auditor | Write Scope | Acceptance Gate | Notes |
 |---|---|---|---|---|---|---|---|---|
-| `S0-T01` | `S0` | lock source of truth + gate lokal | `REVIEW` | Codex | `-` | `docs/` | source of truth final dan baseline quality gate lokal tercatat | `build` lolos; `lint` gagal; `typecheck` belum tersedia |
-| `S0-T02` | `S0` | define packet workflow | `TODO` | Codex | `-` | `docs/execution/` | workflow agen terdokumentasi | mulai dari awal |
-| `S0-T03` | `S0` | lock sprint board | `TODO` | Codex | `-` | `docs/execution/` | board, template prompt, dan guardrail dipakai | mulai dari awal |
-| `S1-T01` | `S1` | admin shell | `TODO` | Gemini | Codex | `src/app/components/layout/**` | shell admin stabil | packet belum dibekukan |
+| `S0-T01` | `S0` | lock source of truth + gate lokal | `DONE` | Codex | `-` | `docs/` | source of truth final dan baseline quality gate lokal tercatat | `lint`, `typecheck`, dan `build` lolos; `build` masih punya warning non-blocking |
+| `S0-T02` | `S0` | define packet workflow | `DONE` | Codex | `-` | `docs/execution/` | workflow agen terdokumentasi | flow prompt, review, dan checkpoint sudah terkunci |
+| `S0-T03` | `S0` | lock sprint board | `DONE` | Codex | `-` | `docs/execution/` | board, template prompt, dan guardrail dipakai | `S0` ditutup |
+| `S1-T01` | `S1` | shell core extraction | `DOING` | Gemini | Codex | `src/app/(DashboardLayout)/layout/**`, `src/app/components/**`, `src/app/app.tsx`, `src/utils/theme/**` | shell inti terpisah dan target delete demo tahap berikutnya jelas | prompt pertama untuk Gemini |
+| `S1-T02` | `S1` | admin shell | `TODO` | Gemini | Codex | `src/app/(Admin)/**`, `src/app/components/layout/**` | shell admin stabil | tunggu `S1-T01` |
 
 ---
 
@@ -288,15 +291,16 @@ Setiap checkpoint git yang dianggap aman harus dicatat di board ini.
 
 | Checkpoint | Sprint/Packet | Commit | Tanggal | Scope | Catatan |
 |---|---|---|---|---|---|
-| `CP-001` | `-` | `-` | `-` | mulai dari awal | belum ada checkpoint |
+| `CP-001` | `S0-T01` | `df068bc` | `2026-05-07` | lock docs dan baseline gate lokal awal | checkpoint docs awal |
+| `CP-002` | `S0` | `<pending>` | `2026-05-07` | update gate lokal repo + penutupan `S0` | isi setelah commit checkpoint repo |
 
 ### Baseline Quality Gate Lokal
 
 | Gate | Status | Hasil Saat `S0-T01` |
 |---|---|---|
-| `pnpm run lint` | `FAIL` | script masih memakai `next lint` legacy dan gagal pada Next.js 16 baseline |
-| `pnpm run typecheck` | `MISSING` | script `typecheck` belum ada di `package.json` |
-| `pnpm run build` | `PASS` | build Next.js berhasil, tetapi masih ada warning tracing `next.config.mjs` dan peringatan `LoadingButton` MUI |
+| `pnpm run lint` | `PASS` | lint exit code hijau; repo masih memiliki warning legacy dari modul demo Modernize |
+| `pnpm run typecheck` | `PASS` | `tsc --noEmit` lolos |
+| `pnpm run build` | `PASS` | build Next.js lolos; warning tracing `next.config.mjs` dan `LoadingButton` MUI masih non-blocking |
 
 ---
 
@@ -316,6 +320,7 @@ Setiap checkpoint git yang dianggap aman harus dicatat di board ini.
 12. Sprint yang berpindah dari `ACTIVE` ke `DONE` harus punya keputusan apakah perlu commit checkpoint saat itu juga.
 13. Jika review sprint lolos dan sprint berikutnya akan diprompt, checkpoint commit harus diselesaikan lebih dulu.
 14. Setiap prompt packet wajib menyebut `Quality Gate Lokal` yang harus dicek atau status gate yang sedang menjadi blocker.
+15. Cleanup demo tidak boleh langsung menghapus shell inti; packet pertama cleanup wajib memastikan dependency aktif dipindahkan atau dinormalisasi lebih dulu.
 
 ### Aturan Checkpoint Git
 

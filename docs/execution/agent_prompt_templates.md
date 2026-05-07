@@ -54,6 +54,7 @@ Format keluar:
 | Mock-to-Real Contract Rule | dummy data, mock context, placeholder API, dan transformer harus memakai shape contract resmi |
 | Stable SQL Error Code Rule | validasi SQL/RPC bisnis harus mengembalikan error code stabil |
 | Concurrency Safety Rule | transaksi sensitif tidak boleh memisahkan validasi sensitif dan write akhir |
+| Demo Cleanup Rule | untuk cleanup demo Modernize, pindahkan dependency shell inti dan normalkan import aktif dulu; jangan hapus route/source demo besar sekaligus |
 | Git Checkpoint Rule | packet aman harus siap masuk checkpoint git sebelum packet besar berikutnya dibuka |
 
 ---
@@ -187,6 +188,7 @@ RULES:
 - jika contract tidak jelas, stop dan return blocker
 - jika packet menyentuh dummy layer, pakai shape contract resmi
 - jika packet menyentuh transaksi sensitif, jaga atomicity dan boundary
+- jika packet adalah cleanup demo, pindahkan dependency shell inti dan normalkan import aktif sebelum delete route/source demo
 
 TASKS:
 1. <langkah kerja 1>

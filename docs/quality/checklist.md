@@ -92,4 +92,5 @@ Ringkasan status saat checklist ini diperbarui:
 - strategi testing sekarang sudah punya dokumen khusus
 - keputusan penting sudah terpusat di `truth/01-decision_log.md`
 - final docs polish untuk Priority 1 dan Priority 2 sudah selesai: terminology konsisten, boundary frontend/backend jelas, artefak teks dibersihkan
-- bootstrap Supabase, generated types, dan script test masih belum tersedia di repo fisik saat ini (pekerjaan fase coding)
+- bootstrap Supabase, generated types, dan script test otomatis masih belum tersedia di repo fisik saat ini (pekerjaan fase coding)
+- quality gate lokal `lint`, `typecheck`, dan `build` sudah tersedia dan bisa dijalankan
