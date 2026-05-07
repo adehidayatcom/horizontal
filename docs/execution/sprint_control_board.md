@@ -15,10 +15,36 @@ Dokumen ini tidak mengubah scope produk. Dokumen ini hanya mengatur:
 - gate review dan audit
 - packet eksekusi kecil per sprint
 
+## 0. Mode Operasi Ringkas
+
+Mode ini dipakai supaya kerja tetap rapi, cepat, dan hemat token.
+
+Aturan intinya:
+
+- satu packet hanya membahas satu objective utama
+- satu packet hanya punya satu builder utama
+- Claude hanya dipakai untuk audit packet kritis, bukan untuk packet rutin
+- Codex hanya menulis packet, memutuskan blocker, dan mengambil keputusan merge
+- jika prompt mulai butuh banyak dokumen atau banyak tujuan, packet harus dipecah dulu
+
+Jalur kerja default:
+
+1. packet control dan cross-doc alignment -> Codex
+2. packet UI, shell, mock, scaffold, dan CRUD ringan -> Codex packet -> Gemini build -> Codex merge
+3. packet data sensitif, auth/permission, SQL/RLS, uang, stok, atau status transisi -> Codex packet -> Gemini build -> Claude audit -> Codex merge
+4. packet integrasi lintas modul atau release hardening -> Codex only
+
+Prompt budget:
+
+- `Read Scope` idealnya 2-3 dokumen inti
+- `Tasks` idealnya 1-3 langkah
+- `Acceptance Criteria` idealnya 3-5 butir
+- kalau melebihi itu, packet terlalu besar dan harus dipecah
+
 Pola kerja yang dikunci:
 
 ```txt
-Codex buat task packet
+Codex buat task packet ringkas
 -> Gemini implement
 -> Codex cek hasil vs docs
 -> Claude audit modul kritis
@@ -35,6 +61,8 @@ Codex buat task packet
 | Orchestrator | Codex |
 | Builder default | Gemini |
 | Auditor modul kritis | Claude |
+| Prompt budget | satu packet harus muat dalam satu prompt builder; jika tidak, pecah packet |
+| Review path | packet non-kritis cukup Codex -> Gemini -> Codex; packet kritis tambah Claude audit |
 | Source of truth | `docs/product/prd.md`, `docs/contracts/business_contracts.md`, `docs/contracts/schema_mapping.md`, `docs/contracts/query_contracts.md`, `docs/truth/01-decision_log.md` |
 | Larangan utama | dua agen menulis file yang sama dalam packet aktif |
 | Jalur keputusan merge | hanya Codex |
@@ -83,9 +111,9 @@ Codex buat task packet
 
 | Agen | Peran Utama | Pekerjaan Paling Cocok | Larangan Utama |
 |---|---|---|---|
-| Codex | control tower, prompter, integrator | task packet, review, merge decision, cross-doc consistency, final integration | jangan membiarkan dua agen overlap file |
-| Gemini | builder utama | frontend screens, hooks, dummy layer, route/service scaffolding, repetitive implementation | jangan menebak contract atau memperluas scope |
-| Claude | auditor modul kritis | SQL/RLS/business rule audit, edge case review, refactor risky logic, final correctness check | jangan dipakai untuk bulk scaffolding (kecuali ditunjuk khusus sebagai Builder komponen UI kompleks tinggi seperti Spreadsheet DataGrid, Kloning, POS Cart, Ledger Grid, FinTech UI, Split-Pane, dan Kanban) |
+| Codex | control tower, packet composer, final gate | task packet ringkas, blocker resolution, cross-doc consistency, merge decision | jangan mengambil alih implementasi packet rutin |
+| Gemini | builder utama | frontend screens, hooks, dummy layer, route/service scaffolding, repetitive implementation, CRUD ringan | jangan menebak contract atau memperluas scope |
+| Claude | auditor tajam | SQL/RLS/business rule audit, edge case review, final correctness check | jangan dipakai untuk bulk scaffolding; builder hanya jika packet memang ditandai `CLAUDE_BUILD_REQUIRED` |
 
 ---
 
@@ -95,7 +123,7 @@ Codex buat task packet
 |---|---|---|---|---|---|---|
 | `S0` | Foundation Lock | kunci docs, task packet, workflow agen, branch discipline | Codex | - | `PLANNED` | semua aturan eksekusi terkunci |
 | `S1` | Frontend Shell Foundation | shell admin/reseller, shared UI, context mock, dummy API skeleton | Gemini | Codex review only | `PLANNED` | shell dan shared layer stabil |
-| `S1.5` | Periode & Katalog Paket | setup periode, wizard kloning, master paket (Spreadsheet Mode) | Claude / Gemini | Codex / Claude | `PLANNED` | kloning dan data grid ratusan paket berjalan |
+| `S1.5` | Periode & Katalog Paket | setup periode, wizard kloning, master paket (Spreadsheet Mode) | Gemini | Claude selective | `PLANNED` | kloning dan data grid ratusan paket berjalan |
 | `S2` | Pesanan Core | `konsumen`, `pesanan_konsumen`, `detail_pesanan_konsumen`, finalisasi pesanan | Gemini | Claude | `PLANNED` | flow pesanan valid end-to-end |
 | `S3` | Setoran Core | `setoran_konsumen`, `setoran`, monitoring setoran | Gemini | Claude | `PLANNED` | status lunas dan saldo konsisten |
 | `S4` | Gudang | belanja, packing, pengiriman, pembagian | Gemini | Claude | `PLANNED` | flow gudang valid dan dapat diaudit |
@@ -103,6 +131,13 @@ Codex buat task packet
 | `S6` | Dashboard dan Laporan | dashboard admin/reseller, laporan inti, audit screen | Gemini | Claude selective | `PLANNED` | semua read model dipakai konsisten |
 | `S7` | Integration Hardening | sinkronisasi route, type, response, dead path cleanup | Codex | Claude selective | `PLANNED` | tidak ada mismatch lintas modul |
 | `S8` | Testing dan Release Readiness | baseline test, smoke flow, readiness akhir | Codex | Claude final pass | `PLANNED` | verifikasi minimum lolos |
+
+Catatan pembagian packet:
+
+- packet UI, shell, mock, dashboard, dan scaffolding default dibangun oleh Gemini
+- packet yang menyentuh SQL, RLS, auth, permission, uang, stok, atau status transisi default diaudit oleh Claude
+- packet control, cross-doc, merge, dan hardening default dipegang Codex
+- jika sebuah packet perlu Claude sebagai builder, packet itu harus diberi label eksplisit `CLAUDE_BUILD_REQUIRED`
 
 ---
 
@@ -132,7 +167,7 @@ Codex buat task packet
 |---|---|---|---|---|---|---|
 | `S1.5-T01` | Periode Backend & Mock | API, RPC kloning, mock list periode | Gemini | Claude | `src/app/api/admin/periode/**`, `src/lib/server/**` | RPC kloning masal siap dipanggil UI |
 | `S1.5-T02` | Wizard Setup Periode | UI create & wizard kloning periode | Gemini | Claude | `src/app/(DashboardLayout)/admin/periode/**` | flow wizard kloning paket bisa didemokan |
-| `S1.5-T03` | Katalog Paket (Spreadsheet) | UI data grid massal, mass replace, tree-view | Claude | Codex | `src/app/(DashboardLayout)/admin/master/paket/**` | inline-editing ratusan baris stabil tanpa lag |
+| `S1.5-T03` | Katalog Paket (Spreadsheet) | UI data grid massal, mass replace, tree-view | Gemini | Claude selective | `src/app/(DashboardLayout)/admin/master/paket/**` | inline-editing ratusan baris stabil tanpa lag |
 
 ### `S2` Pesanan Core
 
@@ -186,8 +221,8 @@ Codex buat task packet
 
 | Packet ID | Nama | Scope | Builder | Audit | Write Scope | Exit Criteria |
 |---|---|---|---|---|---|---|
-| `S8-T01` | Unit/integration baseline | validation, service, route tests | Codex + Gemini | Claude | `tests/**`, config terkait | baseline test hijau |
-| `S8-T02` | E2E smoke flow | login, periode, reseller, pesanan, setoran | Codex + Gemini | Claude | `e2e/**` | smoke flow lolos |
+| `S8-T01` | Unit/integration baseline | validation, service, route tests | Codex | Claude | `tests/**`, config terkait | baseline test hijau |
+| `S8-T02` | E2E smoke flow | login, periode, reseller, pesanan, setoran | Codex | Claude | `e2e/**` | smoke flow lolos |
 | `S8-T03` | Final readiness pass | bug triage dan merge gate akhir | Codex | Claude | lintas repo | siap masuk release |
 
 ---
