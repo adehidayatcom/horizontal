@@ -438,7 +438,7 @@ Slice ini cukup untuk membuka modul role-aware berikutnya tanpa menunggu semua p
 
 ---
 
-## 13. Risiko, Asumsi, dan Pertanyaan Konfirmasi
+## 13. Risiko, Asumsi, dan Keputusan Terkunci
 
 ## Risiko
 
@@ -452,5 +452,5 @@ Slice ini cukup untuk membuka modul role-aware berikutnya tanpa menunggu semua p
 
 ## Catatan Keputusan Terkunci
 
-- registrasi reseller fase awal memakai dua jalur: form publik `self-register` ke status `PENDING`, dan create oleh admin sesuai `PQ-006` / `docs/truth/01-decision_log.md`
-- apakah admin dan reseller memakai halaman login yang sama
+- registrasi reseller fase awal memakai dua jalur: form publik `self-register` ke status `PENDING`, dan create oleh admin sesuai `DL-023` / `docs/truth/01-decision_log.md`
+- halaman login dipakai bersama untuk admin dan reseller; pembedaan akses dilakukan setelah autentikasi melalui role dan redirect sesuai `DL-040` / `docs/truth/01-decision_log.md`

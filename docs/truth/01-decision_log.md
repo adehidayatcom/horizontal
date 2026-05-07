@@ -450,3 +450,16 @@ Jika ada konflik antar dokumen, keputusan di sini menjadi pegangan cepat sampai 
   - ../product/program_workflow.md
   - ../product/edge_cases.md
   - ../truth/04-glossary.md
+
+## DL-040 - Login Digabung untuk Admin dan Reseller
+
+- status: accepted
+- keputusan: halaman login dipakai bersama untuk admin dan reseller; pembedaan akses dilakukan setelah autentikasi melalui role dan redirect, bukan lewat halaman masuk terpisah
+- alasan: satu surface login lebih sederhana untuk user, lebih konsisten untuk mobile, dan mengurangi friksi sebelum role diketahui
+- implikasi:
+  - copy login harus netral dan tidak memaksa user memilih role sebelum masuk
+  - redirect sesudah login harus mengikuti `ADMIN` atau `RESELLER`
+  - state `PENDING`, `session expired`, dan `unauthorized` tetap ditangani setelah autentikasi
+- rujukan:
+  - ../modules/auth.md
+  - ../frontend/navigation_and_period_setup_ui.md
