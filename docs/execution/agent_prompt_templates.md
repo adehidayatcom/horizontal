@@ -16,6 +16,26 @@ Dokumen ini tidak menetapkan scope baru. Dokumen ini hanya menstandarkan cara Co
 
 ---
 
+## 0. Flow Contract
+
+Alur kerja wajib:
+
+1. Codex membuat prompt packet dalam block kode yang siap kirim.
+2. Gemini atau Claude menjalankan tugas dan mengembalikan hasil sebagai block kode laporan.
+3. Codex mereview hasil dan mengeluarkan block kode prompt lanjutan.
+4. Jika lolos, Codex membuat prompt langkah berikutnya.
+5. Jika perlu revisi, Codex membuat prompt revisi untuk dikirim balik ke Gemini atau Claude.
+6. Setiap akhir fase menghasilkan prompt review lalu audit review fase; fase tidak ditutup sebelum dua blok itu selesai.
+7. Jika review sprint lolos dan sprint berikutnya akan diprompt, commit checkpoint harus selesai dulu.
+
+Format keluar:
+
+- tidak ada prose di luar block kode
+- hasil builder dan audit harus siap salin-tempel ke Codex
+- prompt lanjutan Codex harus langsung bisa dikirim tanpa edit besar
+
+---
+
 ## 1. Prinsip Pemakaian Ringkas
 
 | Prinsip | Aturan |
@@ -102,10 +122,10 @@ CHECK:
 - apakah packet bisa selesai oleh satu builder utama
 
 OUTPUT:
-- Packet brief
-- Missing info
-- Decision
-- Next action
+- return satu block kode saja
+- isi block: packet brief, missing info, decision, next action, dan bila perlu next prompt block
+- jika review lolos, sertakan next prompt block
+- jika revisi, sertakan revision prompt block
 
 RULES:
 - jangan menulis implementasi
@@ -163,10 +183,10 @@ TASKS:
 3. <langkah kerja 3>
 
 OUTPUT:
-- Summary
-- Files changed
-- Blockers
-- Notes for Codex review
+- return satu block kode saja
+- isi block: summary, files changed, blockers, notes for Codex review
+- jika belum lolos, sertakan revision hints yang singkat dan literal
+- jangan menulis prose di luar block
 ```
 
 ### Karakter Gemini
@@ -213,11 +233,10 @@ RULES:
 - jika data integrity berisiko, tandai blocking
 
 OUTPUT:
-- Verdict
-- Blocking findings
-- Non-blocking findings
-- Files reviewed
-- Merge recommendation
+- return satu block kode saja
+- isi block: verdict, blocking findings, non-blocking findings, files reviewed, merge recommendation
+- jika perlu revisi, sertakan fix hints singkat dan literal
+- jangan menulis prose di luar block
 
 STOP RULE:
 - jika docs bertentangan, kembalikan conflict note ke Codex

@@ -33,6 +33,9 @@ Jalur kerja default:
 2. packet UI, shell, mock, scaffold, dan CRUD ringan -> Codex packet -> Gemini build -> Codex merge
 3. packet data sensitif, auth/permission, SQL/RLS, uang, stok, atau status transisi -> Codex packet -> Gemini build -> Claude audit -> Codex merge
 4. packet integrasi lintas modul atau release hardening -> Codex only
+5. hasil kerja builder dan auditor dikirim kembali sebagai block laporan siap salin ke Codex
+6. Codex selalu mengirim prompt review sebelum fase ditutup
+7. jika review lolos dan prompt sprint berikutnya akan dibuat, commit checkpoint harus dilakukan dulu
 
 Prompt budget:
 
@@ -44,12 +47,13 @@ Prompt budget:
 Pola kerja yang dikunci:
 
 ```txt
-Codex buat task packet ringkas
--> Gemini implement
--> Codex cek hasil vs docs
--> Claude audit modul kritis
--> Codex putuskan merge / rework
--> lanjut ke task berikutnya
+Codex buat prompt packet ringkas
+-> Gemini/Claude kerjakan
+-> hasil kembali sebagai block laporan
+-> Codex review
+-> jika lolos, Codex buat prompt langkah berikutnya
+-> jika revisi, Codex buat prompt revisi
+-> sebelum prompt sprint berikutnya, commit dulu
 ```
 
 ---
@@ -63,6 +67,9 @@ Codex buat task packet ringkas
 | Auditor modul kritis | Claude |
 | Prompt budget | satu packet harus muat dalam satu prompt builder; jika tidak, pecah packet |
 | Review path | packet non-kritis cukup Codex -> Gemini -> Codex; packet kritis tambah Claude audit |
+| Return format | hasil Gemini / Claude harus kembali sebagai block laporan siap salin |
+| Phase closeout | Codex mengirim prompt review dulu sebelum fase ditutup; audit review fase menyusul sebelum closeout |
+| Next sprint gate | sebelum prompt sprint berikutnya dibuat, checkpoint commit harus sudah dilakukan |
 | Source of truth | `docs/product/prd.md`, `docs/contracts/business_contracts.md`, `docs/contracts/schema_mapping.md`, `docs/contracts/query_contracts.md`, `docs/truth/01-decision_log.md` |
 | Larangan utama | dua agen menulis file yang sama dalam packet aktif |
 | Jalur keputusan merge | hanya Codex |
@@ -233,11 +240,11 @@ Gunakan blok ini setiap kali status sprint diperbarui:
 
 ```txt
 CURRENT SPRINT : S0 Foundation Lock
-SPRINT STATUS  : DONE
+SPRINT STATUS  : PLANNED
 ACTIVE PACKET  : -
 BUILDER        : Codex
 AUDITOR        : -
-NEXT GATE      : Prepare S1-T01 packet for Gemini
+NEXT GATE      : siapkan packet `S0-T01`
 ```
 
 Jika sprint aktif pindah, blok ini wajib diperbarui.
@@ -248,16 +255,16 @@ Jika sprint aktif pindah, blok ini wajib diperbarui.
 
 | Sprint ID | Nama | Status | Active Packet | Builder | Auditor | Last Decision | Next Gate |
 |---|---|---|---|---|---|---|---|
-| `S0` | Foundation Lock | `DONE` | - | Codex | - | source of truth, board sprint, prompt template, dan guardrail eksekusi sudah terkunci | siapkan packet `S1-T01` |
+| `S0` | Foundation Lock | `PLANNED` | - | Codex | - | reset mulai dari awal | siapkan packet `S0-T01` |
 | `S1` | Frontend Shell Foundation | `PLANNED` | - | Gemini | Codex | belum mulai | bekukan packet `S1-T01` lalu buka thread eksekusi |
-| `S1.5` | Periode & Katalog Paket | `PLANNED` | - | Claude / Gemini | Codex / Claude | belum mulai | tunggu S1 selesai |
+| `S1.5` | Periode & Katalog Paket | `PLANNED` | - | Gemini | Claude selective | belum mulai | tunggu S1 selesai |
 | `S2` | Pesanan Core | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S1.5 stabil |
 | `S3` | Setoran Core | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S2 stabil |
 | `S4` | Gudang | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S3 stabil |
 | `S5` | Keuangan | `PLANNED` | - | Gemini | Claude | belum mulai | tunggu S4 dependency siap |
 | `S6` | Dashboard dan Laporan | `PLANNED` | - | Gemini | Claude selective | belum mulai | tunggu read model inti siap |
 | `S7` | Integration Hardening | `PLANNED` | - | Codex | Claude selective | belum mulai | tunggu S1-S6 baseline selesai |
-| `S8` | Testing dan Release Readiness | `PLANNED` | - | Codex + Gemini | Claude | belum mulai | tunggu integrasi selesai |
+| `S8` | Testing dan Release Readiness | `PLANNED` | - | Codex | Claude final pass | belum mulai | tunggu integrasi selesai |
 
 ---
 
@@ -267,9 +274,9 @@ Gunakan tabel ini untuk mencatat packet yang sedang dikerjakan.
 
 | Packet ID | Sprint | Scope | Status | Builder | Auditor | Write Scope | Acceptance Gate | Notes |
 |---|---|---|---|---|---|---|---|---|
-| `S0-T01` | `S0` | lock source of truth | `DONE` | Codex | `-` | `docs/` | source of truth final tercatat | selesai |
-| `S0-T02` | `S0` | define packet workflow | `DONE` | Codex | `-` | `docs/execution/` | workflow agen terdokumentasi | selesai |
-| `S0-T03` | `S0` | lock sprint board | `DONE` | Codex | `-` | `docs/execution/` | board, template prompt, dan guardrail dipakai | checkpoint resmi: `f7a425f` |
+| `S0-T01` | `S0` | lock source of truth | `TODO` | Codex | `-` | `docs/` | source of truth final tercatat | mulai dari awal |
+| `S0-T02` | `S0` | define packet workflow | `TODO` | Codex | `-` | `docs/execution/` | workflow agen terdokumentasi | mulai dari awal |
+| `S0-T03` | `S0` | lock sprint board | `TODO` | Codex | `-` | `docs/execution/` | board, template prompt, dan guardrail dipakai | mulai dari awal |
 | `S1-T01` | `S1` | admin shell | `TODO` | Gemini | Codex | `src/app/components/layout/**` | shell admin stabil | packet belum dibekukan |
 
 ---
@@ -280,7 +287,7 @@ Setiap checkpoint git yang dianggap aman harus dicatat di board ini.
 
 | Checkpoint | Sprint/Packet | Commit | Tanggal | Scope | Catatan |
 |---|---|---|---|---|---|
-| `CP-001` | `S0-T03` | `f7a425f` | `2026-05-06 02:38:19 +0700` | docs foundation lock | source of truth, board sprint, dan workflow agen terkunci |
+| `CP-001` | `-` | `-` | `-` | mulai dari awal | belum ada checkpoint |
 
 ---
 
@@ -298,6 +305,7 @@ Setiap checkpoint git yang dianggap aman harus dicatat di board ini.
 10. Packet transaksi kritis harus menyebut strategi `atomic write` atau `locking boundary` pada acceptance gate.
 11. Packet yang sudah lolos gate aman harus masuk checkpoint git sebelum packet besar berikutnya dibuka.
 12. Sprint yang berpindah dari `ACTIVE` ke `DONE` harus punya keputusan apakah perlu commit checkpoint saat itu juga.
+13. Jika review sprint lolos dan sprint berikutnya akan diprompt, checkpoint commit harus diselesaikan lebih dulu.
 
 ### Aturan Checkpoint Git
 
